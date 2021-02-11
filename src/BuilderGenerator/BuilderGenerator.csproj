@@ -6,10 +6,16 @@
     <Authors>Mel Grubb</Authors>
     <Description>Generates builder classes for testing and/or seed data.</Description>
     <Copyright>© 2021, Mel Grubb</Copyright>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>0.1.0</Version>
+    <PackageReleaseNotes>This version generates a usable Builder, but there is work left to do. It's a coding pattern I've used for years, but its handling of collections is still naive, and assumes they can all be completely overwritten. A future release will clear and repopulate collections where possible.
+
+v0.1.1
+- Preview/Alpha release
+
+v0.1.0
+- Initial Release</PackageReleaseNotes>
+    <AssemblyVersion>0.1.1.0</AssemblyVersion>
+    <FileVersion>0.1.1.0</FileVersion>
+    <Version>0.1.1</Version>
     <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
     <NeutralLanguage />
   </PropertyGroup>
