@@ -1,4 +1,5 @@
-﻿using BuilderGenerator.Common.Attributes;
+using System.Collections.Generic;
+using BuilderGenerator.Common.Attributes;
 
 namespace Demo.Domain.Entities
 {
@@ -8,5 +9,6 @@ namespace Demo.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Abbreviation { get; set; }
+        public List<Bar> Bars { get; set; } = new();
     }
 }

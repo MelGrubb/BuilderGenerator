@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -27,6 +27,24 @@ namespace BuilderGenerator.Extensions
             items.ForEach(i => { sb.Append(i).Append("+"); });
             sb.Append(source.Identifier.Text);
             var result = sb.ToString();
+
+            return result;
+        }
+
+        public static string Namespace(this TypeDeclarationSyntax source)
+        {
+            var items = new List<string>();
+            var parent = source.Parent;
+
+            while (parent.IsKind(SyntaxKind.ClassDeclaration))
+            {
+                var parentClass = (TypeDeclarationSyntax) parent;
+                items.Add(parentClass.Identifier.Text);
+
+                parent = parent.Parent;
+            }
+
+            var result = ((NamespaceDeclarationSyntax) parent)!.Name.ToString();
 
             return result;
         }

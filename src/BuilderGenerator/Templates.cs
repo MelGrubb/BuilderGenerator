@@ -1,23 +1,22 @@
-﻿namespace BuilderGenerator
+namespace BuilderGenerator
 {
     internal class Templates
     {
         public const string GeneratedAttribute = "[GeneratedCode(\"BuilderGenerator\", \"1.0\")]";
 
-        public const string PropertyTemplate =
-            @"        public Lazy<{PropertyType}> {PropertyName} = new Lazy<{PropertyType}>(() => default({PropertyType}));";
+        public const string PropertyTemplate = @"        public Lazy<{{PropertyType}}> {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));";
 
         public const string BuildMethodTemplate = @"
-        {GeneratedAttribute}
-        public override {ClassFullName} Build()
+        {{GeneratedAttribute}}
+        public override {{ClassFullName}} Build()
         {
             if (Object?.IsValueCreated != true)
             {
-                Object = new Lazy<{ClassFullName}>(() => 
+                Object = new Lazy<{{ClassFullName}}>(() => 
                 {
-                    var result = new {ClassFullName} 
+                    var result = new {{ClassFullName}} 
                     {
-{Setters}
+{{Setters}}
                     };
 
                     return result;
@@ -32,18 +31,19 @@
             return Object.Value;
         }";
 
+        public const string BuildMethodSetterTemplate = "                        {{PropertyName}} = {{PropertyName}}.Value,";
 
         public const string WithPostProcessActionTemplate = @"
-        {GeneratedAttribute}
-        public {BuilderName} WithPostProcessAction(Action<{ClassFullName}> action)
+        {{GeneratedAttribute}}
+        public {{BuilderName}} WithPostProcessAction(Action<{{ClassFullName}}> action)
         {
             PostProcessAction = action;
 
             return this;
         }
 
-        {GeneratedAttribute}
-        public T WithPostProcessAction<T>(Action<{ClassFullName}> action) where T : {BuilderName}
+        {{GeneratedAttribute}}
+        public T WithPostProcessAction<T>(Action<{{ClassFullName}}> action) where T : {{BuilderName}}
         {
             PostProcessAction = action;
 
@@ -51,16 +51,23 @@
         }";
 
         public const string WithMethodTemplate = @"
-        {GeneratedAttribute}
-        public {BuilderName} With{PropertyName}({PropertyType} value)
+        {{GeneratedAttribute}}
+        public {{BuilderName}} With{{PropertyName}}({{PropertyType}} value)
         {
-            return With{PropertyName}(() => value);
+            return With{{PropertyName}}(() => value);
         }
 
-        {GeneratedAttribute}
-        public {BuilderName} With{PropertyName}(Func<{PropertyType}> func)
+        {{GeneratedAttribute}}
+        public {{BuilderName}} With{{PropertyName}}(Func<{{PropertyType}}> func)
         {
-            {PropertyName} = new Lazy<{PropertyType}>(func);
+            {{PropertyName}} = new Lazy<{{PropertyType}}>(func);
+            return this;
+        }
+
+        {{GeneratedAttribute}}
+        public {{BuilderName}} Without{{PropertyName}}()
+        {                    
+            {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));
             return this;
         }";
 
@@ -74,21 +81,20 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-
 using System;
 using System.CodeDom.Compiler;
 using BuilderGenerator.Common;
-{UsingBlock}
+{{UsingBlock}}
 
-namespace {Namespace}
+namespace {{Namespace}}
 {
-    {GeneratedAttribute}
-    public partial class {BuilderName} : Builder<{ClassFullName}>
+    {{GeneratedAttribute}}
+    public partial class {{BuilderName}} : Builder<{{ClassFullName}}>
     {
-        public Action<{ClassFullName}> PostProcessAction { get; set; }
-{Properties}
-{BuildMethod}
-{WithMethods}
+        public Action<{{ClassFullName}}> PostProcessAction { get; set; }
+{{Properties}}
+{{BuildMethod}}
+{{WithMethods}}
     }
 }";
     }
