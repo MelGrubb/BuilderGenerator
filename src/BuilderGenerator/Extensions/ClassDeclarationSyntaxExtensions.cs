@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -15,13 +16,13 @@ namespace BuilderGenerator.Extensions
 
             while (parent.IsKind(SyntaxKind.ClassDeclaration))
             {
-                var parentClass = (ClassDeclarationSyntax) parent;
+                var parentClass = (ClassDeclarationSyntax)parent;
                 items.Add(parentClass.Identifier.Text);
 
                 parent = parent.Parent;
             }
 
-            var nameSpace = (NamespaceDeclarationSyntax) parent;
+            var nameSpace = (NamespaceDeclarationSyntax)parent;
             var sb = new StringBuilder().Append(nameSpace.Name).Append(".");
             items.Reverse();
             items.ForEach(i => { sb.Append(i).Append("+"); });
@@ -30,5 +31,7 @@ namespace BuilderGenerator.Extensions
 
             return result;
         }
+
+        public static bool HasDefaultConstructor(this ClassDeclarationSyntax @class) => @class.DescendantNodes().OfType<ConstructorDeclarationSyntax>().Any(x => !x.ParameterList.Parameters.Any());
     }
 }

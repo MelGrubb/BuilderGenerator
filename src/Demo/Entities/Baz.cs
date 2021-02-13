@@ -1,6 +1,6 @@
 ﻿using BuilderGenerator.Common.Attributes;
 
-namespace Demo.Domain.Entities
+namespace Demo.Entities
 {
     [GenerateBuilder]
     public class Baz

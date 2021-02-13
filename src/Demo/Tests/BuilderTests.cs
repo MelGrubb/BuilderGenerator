@@ -1,4 +1,4 @@
-﻿using Demo.Domain.Entities.Builders;
+using Demo.Entities.Builders;
 using NUnit.Framework;
 
 namespace Demo.Tests

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -66,29 +67,33 @@ namespace BuilderGenerator
             return result;
         }
 
-        private string BuildBuildMethod(TemplateParser templateParser, IEnumerable<PropertyDeclarationSyntax> propertyInfos)
+        private string BuildBuildMethod(TemplateParser templateParser, IEnumerable<PropertyDeclarationSyntax> properties)
         {
-            var setters = string.Join(
-                Environment.NewLine,
-                propertyInfos.Select(
-                    x =>
-                    {
-                        templateParser.SetTag("PropertyName", x.Identifier);
+            var builder = new StringBuilder();
 
-                        return templateParser.ParseString(Templates.BuildMethodSetterTemplate);
-                    }));
+            foreach (var property in properties)
+            {
+                if (property.HasSetter())
+                {
+                    templateParser.SetTag("PropertyName", property.Identifier);
+                    builder.AppendLine(templateParser.ParseString(Templates.BuildMethodSetterTemplate));
+                }
+                else if (property.ImplementsInterface<ICollection>())
+                {
+                }
+            }
 
-            templateParser.SetTag("Setters", setters);
+            templateParser.SetTag("Setters", builder.ToString());
             var result = templateParser.ParseString(Templates.BuildMethodTemplate);
 
             return result;
         }
 
-        private static string BuildProperties(TemplateParser templateParser, IEnumerable<PropertyDeclarationSyntax> propertyInfos)
+        private static string BuildProperties(TemplateParser templateParser, IEnumerable<PropertyDeclarationSyntax> properties)
         {
             var result = string.Join(
                 Environment.NewLine,
-                propertyInfos.Select(
+                properties.Select(
                     x =>
                     {
                         templateParser.SetTag("PropertyName", x.Identifier.ToString());
