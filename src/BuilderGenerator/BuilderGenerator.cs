@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,21 +68,17 @@ namespace BuilderGenerator
 
         private string BuildBuildMethod(TemplateParser templateParser, IEnumerable<PropertyDeclarationSyntax> properties)
         {
-            var builder = new StringBuilder();
+            var setters = string.Join(
+                Environment.NewLine,
+                properties.Where(x => x.HasSetter()).Select(
+                    x =>
+                    {
+                        templateParser.SetTag("PropertyName", x.Identifier);
 
-            foreach (var property in properties)
-            {
-                if (property.HasSetter())
-                {
-                    templateParser.SetTag("PropertyName", property.Identifier);
-                    builder.AppendLine(templateParser.ParseString(Templates.BuildMethodSetterTemplate));
-                }
-                else if (property.ImplementsInterface<ICollection>())
-                {
-                }
-            }
+                        return templateParser.ParseString(Templates.BuildMethodSetterTemplate);
+                    }));
 
-            templateParser.SetTag("Setters", builder.ToString());
+            templateParser.SetTag("Setters", setters);
             var result = templateParser.ParseString(Templates.BuildMethodTemplate);
 
             return result;
@@ -93,14 +88,16 @@ namespace BuilderGenerator
         {
             var result = string.Join(
                 Environment.NewLine,
-                properties.Select(
-                    x =>
-                    {
-                        templateParser.SetTag("PropertyName", x.Identifier.ToString());
-                        templateParser.SetTag("PropertyType", x.Type.ToString());
+                properties
+                    .Where(x => x.HasSetter())
+                    .Select(
+                        x =>
+                        {
+                            templateParser.SetTag("PropertyName", x.Identifier.ToString());
+                            templateParser.SetTag("PropertyType", x.Type.ToString());
 
-                        return templateParser.ParseString(Templates.PropertyTemplate);
-                    }));
+                            return templateParser.ParseString(Templates.PropertyTemplate);
+                        }));
 
             return result;
         }
