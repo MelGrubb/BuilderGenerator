@@ -19,12 +19,10 @@ namespace Demo.Tests
             var actual = new FooBuilder()
                 .WithId(1)
                 .WithName("FooBuilderTest")
-                .WithAbbreviation("FBT")
                 .Build();
 
             Assert.AreEqual(1, actual.Id);
             Assert.AreEqual("FooBuilderTest", actual.Name);
-            Assert.AreEqual("FBT", actual.Abbreviation);
         }
 
         [Test]

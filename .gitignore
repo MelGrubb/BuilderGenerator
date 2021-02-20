@@ -349,3 +349,5 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /src/Publish.ps1
+/src/Publish-Local.ps1
+/src/Publish-Nuget.ps1

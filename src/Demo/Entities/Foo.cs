@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using BuilderGenerator.Common.Attributes;
+using BuilderGenerator.Attributes;
 
 namespace Demo.Entities
 {
@@ -8,7 +8,6 @@ namespace Demo.Entities
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public string? Abbreviation { get; set; }
         public Bar Bar { get; set; }
 
         public string[] ReadWriteArray { get; set; } = new string[0];

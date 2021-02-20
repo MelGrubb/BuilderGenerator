@@ -1,4 +1,4 @@
-﻿using BuilderGenerator.Common.Attributes;
+using BuilderGenerator.Attributes;
 
 namespace Demo.Entities
 {
