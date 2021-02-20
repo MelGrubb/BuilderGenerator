@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BuilderGenerator.Common;
+using BuilderGenerator.Common.Attributes;
 using BuilderGenerator.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -16,49 +18,47 @@ namespace BuilderGenerator
 
         public void Execute(GeneratorExecutionContext context)
         {
-            var receiver = (BuilderGeneratorSyntaxReceiver)context.SyntaxReceiver;
-            var types = receiver?.Classes ?? Enumerable.Empty<TypeDeclarationSyntax>();
+            var receiver = (BuilderGeneratorSyntaxReceiver)context.SyntaxReceiver!;
             var templateParser = new TemplateParser();
 
-            foreach (var type in types)
+            foreach (var @class in receiver.Classes.Where(x => x != null))
             {
-                if (type is null)
-                {
-                    return;
-                }
+                // TODO: Extract the templates from the attribute
+                var attribute = @class.AttributeLists.SelectMany(x => x.Attributes).Single(x => x.Name + "Attribute" == nameof(GenerateBuilderAttribute));
+                var templates = new Templates();
 
-                var propertyInfos = type.DescendantNodes().OfType<PropertyDeclarationSyntax>()
-                    .Where(x => x.Modifiers.All(m => m.ToString() != "static"))
+                var properties = @class.DescendantNodes().OfType<PropertyDeclarationSyntax>()
+                    .Where(x => x.Modifiers.All(m => m.ToString() != "static") && x.HasSetter())
                     .ToArray();
 
-                templateParser.SetTag("UsingBlock", ((CompilationUnitSyntax)type.SyntaxTree.GetRoot()).Usings.ToString());
-                templateParser.SetTag("Namespace", type.Namespace() + ".Builders");
-                templateParser.SetTag("GeneratedAttribute", Templates.GeneratedAttribute);
-                templateParser.SetTag("BuilderName", $"{type.Identifier.Text}Builder");
-                templateParser.SetTag("ClassName", type.Identifier.Text);
-                templateParser.SetTag("ClassFullName", type.FullName());
-                templateParser.SetTag("Properties", BuildProperties(templateParser, propertyInfos));
-                templateParser.SetTag("BuildMethod", BuildBuildMethod(templateParser, propertyInfos));
-                templateParser.SetTag("WithMethods", BuildWithMethods(templateParser, propertyInfos));
+                templateParser.SetTag("UsingBlock", ((CompilationUnitSyntax)@class.SyntaxTree.GetRoot()).Usings.ToString());
+                templateParser.SetTag("Namespace", @class.Namespace() + ".Builders");
+                templateParser.SetTag("GeneratedAttribute", templates.GeneratedAttribute);
+                templateParser.SetTag("BuilderName", $"{@class.Identifier.Text}Builder");
+                templateParser.SetTag("ClassName", @class.Identifier.Text);
+                templateParser.SetTag("ClassFullName", @class.FullName());
+                templateParser.SetTag("Properties", BuildProperties(templateParser, templates, properties));
+                templateParser.SetTag("BuildMethod", BuildBuildMethod(templateParser, templates, properties));
+                templateParser.SetTag("WithMethods", BuildWithMethods(templateParser, templates, properties));
 
-                var source = templateParser.ParseString(Templates.BuilderClassTemplate);
-                context.AddSource($"{type.Identifier.Text}Builder.generated.cs", SourceText.From(source, Encoding.UTF8));
+                var source = templateParser.ParseString(templates.BuilderClassTemplate);
+                context.AddSource($"{@class.Identifier.Text}Builder.generated.cs", SourceText.From(source, Encoding.UTF8));
             }
         }
 
-        private string BuildWithMethods(TemplateParser templateParser, IEnumerable<PropertyDeclarationSyntax> propertyInfos)
+        private string BuildWithMethods(TemplateParser templateParser, Templates templates, IEnumerable<PropertyDeclarationSyntax> properties)
         {
-            var withPostProcessAction = templateParser.ParseString(Templates.WithPostProcessActionTemplate);
+            var withPostProcessAction = templateParser.ParseString(templates.WithPostProcessActionTemplate);
 
             var withMethods = string.Join(
                 Environment.NewLine,
-                propertyInfos.Select(
+                properties.Select(
                     x =>
                     {
                         templateParser.SetTag("PropertyName", x.Identifier.ToString());
                         templateParser.SetTag("PropertyType", x.Type.ToString());
 
-                        return templateParser.ParseString(Templates.WithMethodTemplate);
+                        return templateParser.ParseString(templates.WithMethodTemplate);
                     }));
 
             var result = withMethods + Environment.NewLine + withPostProcessAction;
@@ -66,38 +66,36 @@ namespace BuilderGenerator
             return result;
         }
 
-        private string BuildBuildMethod(TemplateParser templateParser, IEnumerable<PropertyDeclarationSyntax> properties)
+        private string BuildBuildMethod(TemplateParser templateParser, Templates templates, IEnumerable<PropertyDeclarationSyntax> properties)
         {
             var setters = string.Join(
                 Environment.NewLine,
-                properties.Where(x => x.HasSetter()).Select(
+                properties.Select(
                     x =>
                     {
                         templateParser.SetTag("PropertyName", x.Identifier);
 
-                        return templateParser.ParseString(Templates.BuildMethodSetterTemplate);
+                        return templateParser.ParseString(templates.BuildMethodSetterTemplate);
                     }));
 
             templateParser.SetTag("Setters", setters);
-            var result = templateParser.ParseString(Templates.BuildMethodTemplate);
+            var result = templateParser.ParseString(templates.BuildMethodTemplate);
 
             return result;
         }
 
-        private static string BuildProperties(TemplateParser templateParser, IEnumerable<PropertyDeclarationSyntax> properties)
+        private static string BuildProperties(TemplateParser templateParser, Templates templates, IEnumerable<PropertyDeclarationSyntax> properties)
         {
             var result = string.Join(
                 Environment.NewLine,
-                properties
-                    .Where(x => x.HasSetter())
-                    .Select(
-                        x =>
-                        {
-                            templateParser.SetTag("PropertyName", x.Identifier.ToString());
-                            templateParser.SetTag("PropertyType", x.Type.ToString());
+                properties.Select(
+                    x =>
+                    {
+                        templateParser.SetTag("PropertyName", x.Identifier.ToString());
+                        templateParser.SetTag("PropertyType", x.Type.ToString());
 
-                            return templateParser.ParseString(Templates.PropertyTemplate);
-                        }));
+                        return templateParser.ParseString(templates.PropertyTemplate);
+                    }));
 
             return result;
         }

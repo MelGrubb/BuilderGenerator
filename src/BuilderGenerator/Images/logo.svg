@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="128"
+   height="128"
+   viewBox="0 0 33.866666 33.866668"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="C:\Projects\BuilderGenerator\src\BuilderGenerator\Images\logo.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2">
+    <rect
+       x="1.5838606"
+       y="6.5683632"
+       width="30.512609"
+       height="18.400734"
+       id="rect12" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.99999999"
+     inkscape:cx="341.33989"
+     inkscape:cy="158.86139"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Border">
+    <rect
+       style="fill:#9955ff;fill-rule:evenodd;stroke:#000000;stroke-width:0.262531"
+       id="rect15"
+       width="33.604134"
+       height="33.604134"
+       x="-33.735397"
+       y="0.13126598"
+       transform="scale(-1,1)" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       id="text10"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:Consolas;white-space:pre;shape-inside:url(#rect12);fill:#000000;fill-opacity:1;stroke:none;"
+       transform="matrix(2.1116926,0,0,2.1451987,-4.8481199,-11.12301)"><tspan
+         x="1.5839844"
+         y="15.751232"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Consolas;-inkscape-font-specification:Consolas">{ }</tspan></tspan></text>
+    <rect
+       x="12.429629"
+       y="13.454425"
+       width="9.317174"
+       height="10.333592"
+       id="rect3063"
+       style="fill:none;stroke-width:0.0338806" />
+    <switch
+       id="switch23"
+       transform="matrix(0.19843762,0,0,0.19843762,7.2572851,8.5553502)">
+      <foreignObject
+         requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/"
+         x="0"
+         y="0"
+         width="1"
+         height="1" />
+      <g
+         i:extraneous="self"
+         id="g21">
+        <g
+           id="g19">
+          <path
+             d="m 78.952,66.572 c 3.225,3.225 3.225,8.385 -0.13,11.739 -3.225,3.225 -8.514,3.225 -11.867,0 l -20.641,-22.06 -19.35,23.35 c -1.806,1.935 -5.16,2.063 -6.966,0 L 15.096,74.57 C 13.032,72.634 13.032,69.41 14.967,67.474 L 37.284,46.705 26.577,36.515 C 22.965,33.161 20.901,32.129 18.063,33.032 15.225,34.064 11.226,34.064 7.485,31.613 -0.384,26.582 0.003,16.778 0.003,16.778 l 0.645,-1.032 8.127,5.289 c 0,0 5.031,3.096 8.901,-2.838 C 22.062,11.231 17.16,8.393 17.16,8.393 L 9.033,3.233 9.807,2.2 c 0,0 7.482,-4.773 16.254,0.258 5.418,3.225 8.127,9.546 6.708,15.738 -0.774,3.741 0,5.031 2.967,8.256 L 46.572,37.159 59.215,24.13 68.761,33.676 56.118,46.189 Z M 91.98,26.969 c 1.549,-1.548 4.129,-1.29 5.548,0.129 l 1.419,1.419 c 1.548,1.548 1.29,3.87 -0.129,5.289 l -7.74,7.74 c -1.548,1.548 -3.87,1.677 -5.418,0.129 l -1.419,-1.419 c -1.549,-1.548 -1.549,-3.999 0,-5.547 0.258,-0.903 -0.517,-2.58 -2.064,-4.129 -3.225,-3.225 -6.966,-3.354 -8.772,-1.677 l -2.58,2.709 -9.417,-9.675 2.709,-2.58 C 67.085,16.261 63.73,13.036 63.73,13.036 55.474,4.78 43.863,5.038 43.863,5.038 L 43.734,1.942 C 67.342,-4.25 76.243,6.07 79.468,9.166 l 6.837,6.837 c 1.677,1.806 -0.129,6.708 2.322,9.288 1.032,1.161 2.322,1.549 3.353,1.678 z M 73.018,76.763 c 2.451,0 4.386,-1.935 4.386,-4.386 0,-2.451 -1.935,-4.386 -4.386,-4.386 -2.451,0 -4.386,1.935 -4.386,4.386 0,2.451 1.934,4.386 4.386,4.386 z"
+             id="path17" />
+        </g>
+      </g>
+    </switch>
+  </g>
+</svg>

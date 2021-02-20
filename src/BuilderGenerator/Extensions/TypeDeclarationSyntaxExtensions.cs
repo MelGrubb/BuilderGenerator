@@ -1,3 +1,9 @@
+//using System.Collections.Generic;
+//using System.Text;
+//using Microsoft.CodeAnalysis;
+//using Microsoft.CodeAnalysis.CSharp;
+//using Microsoft.CodeAnalysis.CSharp.Syntax;
+
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -15,14 +21,13 @@ namespace BuilderGenerator.Extensions
 
             while (parent.IsKind(SyntaxKind.ClassDeclaration))
             {
-                var parentClass = (TypeDeclarationSyntax) parent;
+                var parentClass = (TypeDeclarationSyntax)parent;
                 items.Add(parentClass.Identifier.Text);
-
                 parent = parent.Parent;
             }
 
-            var nameSpace = (NamespaceDeclarationSyntax) parent;
-            var sb = new StringBuilder().Append(nameSpace.Name).Append(".");
+            var nameSpace = parent as NamespaceDeclarationSyntax;
+            var sb = new StringBuilder().Append(nameSpace!.Name).Append(".");
             items.Reverse();
             items.ForEach(i => { sb.Append(i).Append("+"); });
             sb.Append(source.Identifier.Text);
@@ -38,13 +43,13 @@ namespace BuilderGenerator.Extensions
 
             while (parent.IsKind(SyntaxKind.ClassDeclaration))
             {
-                var parentClass = (TypeDeclarationSyntax) parent;
+                var parentClass = (TypeDeclarationSyntax)parent;
                 items.Add(parentClass.Identifier.Text);
 
                 parent = parent.Parent;
             }
 
-            var result = ((NamespaceDeclarationSyntax) parent)!.Name.ToString();
+            var result = (parent as NamespaceDeclarationSyntax)?.Name.ToString();
 
             return result;
         }

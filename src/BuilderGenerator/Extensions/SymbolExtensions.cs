@@ -1,214 +1,215 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using Microsoft.CodeAnalysis;
+//using Microsoft.CodeAnalysis.CSharp;
+//using Microsoft.CodeAnalysis.CSharp.Syntax;
+//using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-#nullable disable
+//#nullable disable
 
-namespace BuilderGenerator.Extensions
-{
-	internal static class SyntaxExtensions
-    {
-        internal static bool ContainsAttributeType(this SyntaxList<AttributeListSyntax> attributes, SemanticModel semanticModel, INamedTypeSymbol attributeType, bool exactMatch = false)
-			=> attributes.Any(list => list.Attributes.Any(attribute => attributeType.IsAssignableFrom(ModelExtensions.GetTypeInfo(semanticModel, attribute).Type, exactMatch)));
+//namespace BuilderGenerator.Extensions
+//{
+//	internal static class SyntaxExtensions
+//    {
+//        internal static bool ContainsAttributeType(this SyntaxList<AttributeListSyntax> attributes, SemanticModel semanticModel, INamedTypeSymbol attributeType, bool exactMatch = false)
+//			=> attributes.Any(list => list.Attributes.Any(attribute => attributeType.IsAssignableFrom(ModelExtensions.GetTypeInfo(semanticModel, attribute).Type, exactMatch)));
 
-        public static bool HasAttribute(this SyntaxList<AttributeListSyntax> attributes, string name)
-        {
-            string fullname, shortname;
-            var attrLen = "Attribute".Length;
-            if (name.EndsWith("Attribute"))
-            {
-                fullname = name;
-                shortname = name.Remove(name.Length - attrLen, attrLen);
-            }
-            else
-            {
-                fullname = name + "Attribute";
-                shortname = name;
-            }
+//        public static bool HasAttribute(this SyntaxList<AttributeListSyntax> attributes, string name)
+//        {
+//            string fullname, shortname;
+//            var attrLen = "Attribute".Length;
+//            if (name.EndsWith("Attribute"))
+//            {
+//                fullname = name;
+//                shortname = name.Remove(name.Length - attrLen, attrLen);
+//            }
+//            else
+//            {
+//                fullname = name + "Attribute";
+//                shortname = name;
+//            }
 
-            return attributes.Any(al => al.Attributes.Any(a => a.Name.ToString() == shortname || a.Name.ToString() == fullname));
-        }
-        
-        internal static SyntaxToken[] GetModifiers(this Accessibility accessibility)
-        {
-			var list = new List<SyntaxToken>(2);
+//            return attributes.Any(al => al.Attributes.Any(a => a.Name.ToString() == shortname || a.Name.ToString() == fullname));
+//        }
 
-			switch (accessibility) {
-                case Accessibility.Internal:
-                    list.Add(Token(SyntaxKind.InternalKeyword));
-                    break;
-                case Accessibility.Public:
-                    list.Add(Token(SyntaxKind.PublicKeyword));
-                    break;
-                case Accessibility.Private:
-                    list.Add(Token(SyntaxKind.PrivateKeyword));
-                    break;
-                case Accessibility.Protected:
-                    list.Add(Token(SyntaxKind.ProtectedKeyword));
-                    break;
-                case Accessibility.ProtectedOrInternal:
-                    list.Add(Token(SyntaxKind.InternalKeyword));
-                    list.Add(Token(SyntaxKind.ProtectedKeyword));
-                    break;
-                case Accessibility.ProtectedAndInternal:
-                    list.Add(Token(SyntaxKind.PrivateKeyword));
-                    list.Add(Token(SyntaxKind.ProtectedKeyword));
-                    break;
-                case Accessibility.NotApplicable:
-                    break;
-			}
+//        internal static SyntaxToken[] GetModifiers(this Accessibility accessibility)
+//        {
+//			var list = new List<SyntaxToken>(2);
 
-			return list.ToArray();
-		}
-	}
+//			switch (accessibility) {
+//                case Accessibility.Internal:
+//                    list.Add(Token(SyntaxKind.InternalKeyword));
+//                    break;
+//                case Accessibility.Public:
+//                    list.Add(Token(SyntaxKind.PublicKeyword));
+//                    break;
+//                case Accessibility.Private:
+//                    list.Add(Token(SyntaxKind.PrivateKeyword));
+//                    break;
+//                case Accessibility.Protected:
+//                    list.Add(Token(SyntaxKind.ProtectedKeyword));
+//                    break;
+//                case Accessibility.ProtectedOrInternal:
+//                    list.Add(Token(SyntaxKind.InternalKeyword));
+//                    list.Add(Token(SyntaxKind.ProtectedKeyword));
+//                    break;
+//                case Accessibility.ProtectedAndInternal:
+//                    list.Add(Token(SyntaxKind.PrivateKeyword));
+//                    list.Add(Token(SyntaxKind.ProtectedKeyword));
+//                    break;
+//                case Accessibility.NotApplicable:
+//                    break;
+//			}
 
-	internal static class SymbolExtensions
-	{
-		public static bool IsNullable(this ITypeSymbol type)
-		{
-			return ((type as INamedTypeSymbol)?.IsGenericType ?? false)
-				&& type.OriginalDefinition.ToDisplayString().Equals("System.Nullable<T>", StringComparison.OrdinalIgnoreCase);
-		}
+//			return list.ToArray();
+//		}
+//	}
 
-		public static bool IsNullable(this ITypeSymbol type, out ITypeSymbol nullableType)
-		{
-			if (type.IsNullable())
-			{
-				nullableType = ((INamedTypeSymbol)type).TypeArguments.First();
-				return true;
-			}
-			else
-			{
-				nullableType = null;
-				return false;
-			}
-		}
+//	internal static class SymbolExtensions
+//	{
+//		public static bool IsNullable(this ITypeSymbol type)
+//		{
+//			return ((type as INamedTypeSymbol)?.IsGenericType ?? false)
+//				&& type.OriginalDefinition.ToDisplayString().Equals("System.Nullable<T>", StringComparison.OrdinalIgnoreCase);
+//		}
 
-        private static readonly Dictionary<string, string> builtinTypeMapping = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-		{
-			{"string",     typeof(string).ToString()},
-			{"long",       typeof(long).ToString()},
-			{"int",        typeof(int).ToString()},
-			{"short",      typeof(short).ToString()},
-			{"ulong",      typeof(ulong).ToString()},
-			{"uint",       typeof(uint).ToString()},
-			{"ushort",     typeof(ushort).ToString()},
-			{"byte",       typeof(byte).ToString()},
-			{"double",     typeof(double).ToString()},
-			{"float",      typeof(float).ToString()},
-			{"decimal",    typeof(decimal).ToString()},
-			{"bool",       typeof(bool).ToString()},
-		};
+//		public static bool IsNullable(this ITypeSymbol type, out ITypeSymbol nullableType)
+//		{
+//			if (type.IsNullable())
+//			{
+//				nullableType = ((INamedTypeSymbol)type).TypeArguments.First();
+//				return true;
+//			}
+//			else
+//			{
+//				nullableType = null;
+//				return false;
+//			}
+//		}
 
-		public static string GetFullName(this INamespaceOrTypeSymbol type)
-		{
-            if (type is IArrayTypeSymbol arrayType)
-            {
-                return $"{arrayType.ElementType.GetFullName()}[]";
-            }
+//        private static readonly Dictionary<string, string> builtinTypeMapping = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+//		{
+//			{"string",     typeof(string).ToString()},
+//			{"long",       typeof(long).ToString()},
+//			{"int",        typeof(int).ToString()},
+//			{"short",      typeof(short).ToString()},
+//			{"ulong",      typeof(ulong).ToString()},
+//			{"uint",       typeof(uint).ToString()},
+//			{"ushort",     typeof(ushort).ToString()},
+//			{"byte",       typeof(byte).ToString()},
+//			{"double",     typeof(double).ToString()},
+//			{"float",      typeof(float).ToString()},
+//			{"decimal",    typeof(decimal).ToString()},
+//			{"bool",       typeof(bool).ToString()},
+//		};
 
-            if ((type as ITypeSymbol).IsNullable(out ITypeSymbol t))
-            {
-                return $"System.Nullable`1[{t.GetFullName()}]";
-            }
+//		public static string GetFullName(this INamespaceOrTypeSymbol type)
+//		{
+//            if (type is IArrayTypeSymbol arrayType)
+//            {
+//                return $"{arrayType.ElementType.GetFullName()}[]";
+//            }
 
-            var name = type.ToDisplayString();
+//            if ((type as ITypeSymbol).IsNullable(out ITypeSymbol t))
+//            {
+//                return $"System.Nullable`1[{t.GetFullName()}]";
+//            }
 
-            if (!builtinTypeMapping.TryGetValue(name, out string output))
-            {
-                output = name;
-            }
+//            var name = type.ToDisplayString();
 
-            return output;
-		}
+//            if (!builtinTypeMapping.TryGetValue(name, out string output))
+//            {
+//                output = name;
+//            }
 
-		public static string GetFullMetadataName(this INamespaceOrTypeSymbol symbol)
-		{
-			ISymbol currentSymbol = symbol;
-			var sb = new StringBuilder(currentSymbol.MetadataName);
+//            return output;
+//		}
 
-			var last = currentSymbol;
-			currentSymbol = currentSymbol.ContainingSymbol;
+//		public static string GetFullMetadataName(this INamespaceOrTypeSymbol symbol)
+//		{
+//			ISymbol currentSymbol = symbol;
+//			var sb = new StringBuilder(currentSymbol.MetadataName);
 
-			if (currentSymbol == null)
-			{
-				return symbol.GetFullName();
-			}
+//			var last = currentSymbol;
+//			currentSymbol = currentSymbol.ContainingSymbol;
 
-			while (currentSymbol is object && !IsRootNamespace(currentSymbol))
-			{
-				if (currentSymbol is ITypeSymbol && last is ITypeSymbol)
-				{
-					sb.Insert(0, '+');
-				}
-				else
-				{
-					sb.Insert(0, '.');
-				}
-				sb.Insert(0, currentSymbol.MetadataName);
+//			if (currentSymbol == null)
+//			{
+//				return symbol.GetFullName();
+//			}
 
-				currentSymbol = currentSymbol.ContainingSymbol;
-			}
+//			while (currentSymbol is object && !IsRootNamespace(currentSymbol))
+//			{
+//				if (currentSymbol is ITypeSymbol && last is ITypeSymbol)
+//				{
+//					sb.Insert(0, '+');
+//				}
+//				else
+//				{
+//					sb.Insert(0, '.');
+//				}
+//				sb.Insert(0, currentSymbol.MetadataName);
 
-			var namedType = symbol as INamedTypeSymbol;
+//				currentSymbol = currentSymbol.ContainingSymbol;
+//			}
 
-			if (namedType?.TypeArguments.Any() ?? false)
-			{
-				var genericArgs = string.Join(",", namedType.TypeArguments.Select(GetFullMetadataName));
-				sb.Append($"[{ genericArgs }]");
-			}
+//			var namedType = symbol as INamedTypeSymbol;
 
-			return sb.ToString();
-		}
+//			if (namedType?.TypeArguments.Any() ?? false)
+//			{
+//				var genericArgs = string.Join(",", namedType.TypeArguments.Select(GetFullMetadataName));
+//				sb.Append($"[{ genericArgs }]");
+//			}
 
-		private static bool IsRootNamespace(ISymbol s)
-		{
-			return s is object && s is INamespaceSymbol ns && ns.IsGlobalNamespace;
-		}
+//			return sb.ToString();
+//		}
 
-		internal static bool IsAssignableFrom(this ITypeSymbol targetType, ITypeSymbol sourceType, bool exactMatch = false)
-		{
-            if (targetType is null)
-            {
-				return false;
-            }
+//		private static bool IsRootNamespace(ISymbol s)
+//		{
+//			return s is object && s is INamespaceSymbol ns && ns.IsGlobalNamespace;
+//		}
 
-            if (exactMatch)
-            {
-				return SymbolEqualityComparer.Default.Equals(sourceType, targetType);
-			}
+//		internal static bool IsAssignableFrom(this ITypeSymbol targetType, ITypeSymbol sourceType, bool exactMatch = false)
+//		{
+//            if (targetType is null)
+//            {
+//				return false;
+//            }
 
-			while (sourceType != null)
-			{
-				if (SymbolEqualityComparer.Default.Equals(sourceType, targetType))
-                {
-                    return true;
-                }
+//            if (exactMatch)
+//            {
+//				return SymbolEqualityComparer.Default.Equals(sourceType, targetType);
+//			}
 
-                if (targetType.TypeKind == TypeKind.Interface)
-                {
-                    return sourceType.AllInterfaces.Any(i => SymbolEqualityComparer.Default.Equals(i, targetType));
-                }
+//			while (sourceType != null)
+//			{
+//				if (SymbolEqualityComparer.Default.Equals(sourceType, targetType))
+//                {
+//                    return true;
+//                }
 
-                sourceType = sourceType.BaseType;
-			}
+//                if (targetType.TypeKind == TypeKind.Interface)
+//                {
+//                    return sourceType.AllInterfaces.Any(i => SymbolEqualityComparer.Default.Equals(i, targetType));
+//                }
 
-			return false;
-		}
+//                sourceType = sourceType.BaseType;
+//			}
 
-		internal static IEnumerable<ITypeSymbol> GetBaseTypes(this ITypeSymbol typeSymbol)
-        {
-			var currentSymbol = typeSymbol;
-			while (currentSymbol.BaseType != null && currentSymbol.BaseType.GetFullMetadataName() != "System.Object")
-            {
-				currentSymbol = currentSymbol.BaseType;
-				yield return currentSymbol;
-            }
-        }
-	}
-}
+//			return false;
+//		}
+
+//		internal static IEnumerable<ITypeSymbol> GetBaseTypes(this ITypeSymbol typeSymbol)
+//        {
+//			var currentSymbol = typeSymbol;
+//			while (currentSymbol.BaseType != null && currentSymbol.BaseType.GetFullMetadataName() != "System.Object")
+//            {
+//				currentSymbol = currentSymbol.BaseType;
+//				yield return currentSymbol;
+//            }
+//        }
+//	}
+//}
+

@@ -14,9 +14,5 @@ namespace BuilderGenerator.Extensions
         ///     <c>true</c> if the specified property has setter; otherwise, <c>false</c>.
         /// </returns>
         public static bool HasSetter(this PropertyDeclarationSyntax property) => property.AccessorList?.Accessors.Any(x => x.Kind() == SyntaxKind.SetAccessorDeclaration) == true;
-
-        public static bool ImplementsInterface<T>(this PropertyDeclarationSyntax property) =>
-            // TODO: Fill in the blanks.
-            true;
     }
 }
