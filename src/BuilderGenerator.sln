@@ -23,6 +23,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{16BA5C10-6
 		..\docs\index.md = ..\docs\index.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{81886066-F662-4D04-B37E-E9C3F4C71E85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{14E9EF90-504C-473D-933A-DF3C26CB6083}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\assets\css\style.scss = ..\docs\assets\css\style.scss
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +50,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{16BA5C10-6F7A-4CDA-A88E-A4247FFEFC80} = {FBF0BDED-E356-445D-9E23-FEE97810416A}
+		{81886066-F662-4D04-B37E-E9C3F4C71E85} = {16BA5C10-6F7A-4CDA-A88E-A4247FFEFC80}
+		{14E9EF90-504C-473D-933A-DF3C26CB6083} = {81886066-F662-4D04-B37E-E9C3F4C71E85}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F843C644-4251-476E-812E-7FCEE2F68794}
