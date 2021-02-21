@@ -19,6 +19,8 @@ a {
     text-decoration: none;
 }
 
-@media screen and (min-width: 64em) .page-header {
-    padding: 0rem 0rem;
+@media screen and (min-width: 64em) {
+    .page-header {
+        padding: 5rem 6rem;
+    }
 }
