@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using BuilderGenerator.Attributes;
@@ -7,9 +8,6 @@ using BuilderGenerator.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-#if DEBUG
-using System.Diagnostics;
-#endif
 
 namespace BuilderGenerator
 {
@@ -74,8 +72,6 @@ namespace BuilderGenerator
             var model = context.Compilation.GetSemanticModel(@class.SyntaxTree);
             var classSymbol = model.GetDeclaredSymbol(@class) as INamedTypeSymbol;
             var attributeData = classSymbol?.GetAttributes().FirstOrDefault(x => $"{x.AttributeClass?.Name}Attribute" == nameof(GenerateBuilderAttribute));
-            var constructorArguments = attributeData?.ConstructorArguments.ToList();
-            var namedArguments = attributeData?.NamedArguments.ToList();
 
             var symbolResults = new Dictionary<string, string?>
             {
@@ -93,11 +89,10 @@ namespace BuilderGenerator
 
         private string? GetAttributeValue(AttributeData? attribute, string name)
         {
-            var arguments = attribute.ConstructorArguments;
+            var constructorArguments = attribute?.ConstructorArguments.ToList();
+            var namedArguments = attribute?.NamedArguments.ToList();
 
             return null;
-
-            var argument = arguments.FirstOrDefault();
         }
 
         private string? GetAttributeValue(AttributeSyntax attribute, string name)
