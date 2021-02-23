@@ -1,3 +1,5 @@
+[![Gitter](https://badges.gitter.im/BuilderGenerator/community.svg)](https://gitter.im/BuilderGenerator/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 # Work In Progress #
 
 This project and NuGet package are a work in progress. It is not finished yet. You are welcome to play with the bits while work continues.
