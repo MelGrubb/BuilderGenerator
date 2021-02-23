@@ -12,6 +12,14 @@ This is a .Net Source Generator designed to add "Builders" to your projects. [Bu
 
 Like other .Net Source Generators, BuilderGenerator operates as an analyzer. It is easiest to install it from its NuGet package.
 
+## Roadmap ##
+
+- v1.0 - First major release
+  - Working Nuget package
+  - Automated build pipeline
+  - Customizable templates
+  - Completed documentation
+
 ## Attributions ##
 
 The BuilderGenerator logo includes [tools](https://thenounproject.com/term/tools/11192) by John Caserta from the Noun Project.

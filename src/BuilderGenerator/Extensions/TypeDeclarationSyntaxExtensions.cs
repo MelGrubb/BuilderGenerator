@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BuilderGenerator.Extensions
 {
-    public static class TypeDeclarationSyntaxExtensions
+    internal static class TypeDeclarationSyntaxExtensions
     {
         public static string FullName(this TypeDeclarationSyntax source)
         {

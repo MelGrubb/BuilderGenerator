@@ -30,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{14E9EF90-504
 		..\docs\assets\css\style.scss = ..\docs\assets\css\style.scss
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{1B8615A3-83B4-4CA0-8557-9D18C5D4AE99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{9F518751-A90A-45B3-831F-1FA988F79071}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F518751-A90A-45B3-831F-1FA988F79071}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F518751-A90A-45B3-831F-1FA988F79071}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B8615A3-83B4-4CA0-8557-9D18C5D4AE99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B8615A3-83B4-4CA0-8557-9D18C5D4AE99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B8615A3-83B4-4CA0-8557-9D18C5D4AE99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B8615A3-83B4-4CA0-8557-9D18C5D4AE99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

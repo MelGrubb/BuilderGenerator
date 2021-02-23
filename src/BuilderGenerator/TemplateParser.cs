@@ -10,7 +10,7 @@ namespace BuilderGenerator
     ///     Replaces ASP-style template tags in the form "{{tag}}" with their values from the TagValues dictionary.
     ///     This accomplishes the same thing as a series of chained calls to .Replace, but only makes a single pass over the source template.
     /// </remarks>
-    public class TemplateParser
+    internal class TemplateParser
     {
         private const string TagPattern = @"{{\s*(?<1>.*?)\s*}}";
 

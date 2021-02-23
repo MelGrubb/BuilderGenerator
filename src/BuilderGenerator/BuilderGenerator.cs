@@ -7,13 +7,26 @@ using BuilderGenerator.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+#if DEBUG
+using System.Diagnostics;
+#endif
 
 namespace BuilderGenerator
 {
     [Generator]
-    public class BuilderGenerator : ISourceGenerator
+    internal class BuilderGenerator : ISourceGenerator
     {
-        public void Initialize(GeneratorInitializationContext context) => context.RegisterForSyntaxNotifications(() => new BuilderGeneratorSyntaxReceiver());
+        public void Initialize(GeneratorInitializationContext context)
+        {
+#if DEBUG
+            if (!Debugger.IsAttached)
+            {
+                Debugger.Launch();
+            }
+#endif
+
+            context.RegisterForSyntaxNotifications(() => new BuilderGeneratorSyntaxReceiver());
+        }
 
         public void Execute(GeneratorExecutionContext context)
         {
@@ -22,9 +35,7 @@ namespace BuilderGenerator
 
             foreach (var @class in receiver.Classes.Where(x => x != null))
             {
-                // TODO: Extract the templates from the attribute
-                var attribute = @class.AttributeLists.SelectMany(x => x.Attributes).Single(x => x.Name + "Attribute" == nameof(GenerateBuilderAttribute));
-                var templates = new Templates();
+                var templates = GetTemplates(context, @class);
 
                 var properties = @class.DescendantNodes().OfType<PropertyDeclarationSyntax>()
                     .Where(x => x.Modifiers.All(m => m.ToString() != "static") && x.HasSetter())
@@ -32,7 +43,7 @@ namespace BuilderGenerator
 
                 templateParser.SetTag("UsingBlock", ((CompilationUnitSyntax)@class.SyntaxTree.GetRoot()).Usings.ToString());
                 templateParser.SetTag("Namespace", @class.Namespace() + ".Builders");
-                templateParser.SetTag("GeneratedAttribute", templates.GeneratedAttribute);
+                templateParser.SetTag("GeneratedAttribute", templates);
                 templateParser.SetTag("BuilderName", $"{@class.Identifier.Text}Builder");
                 templateParser.SetTag("ClassName", @class.Identifier.Text);
                 templateParser.SetTag("ClassFullName", @class.FullName());
@@ -40,14 +51,67 @@ namespace BuilderGenerator
                 templateParser.SetTag("BuildMethod", BuildBuildMethod(templateParser, templates, properties));
                 templateParser.SetTag("WithMethods", BuildWithMethods(templateParser, templates, properties));
 
-                var source = templateParser.ParseString(templates.BuilderClassTemplate);
+                var source = templateParser.ParseString(Templates.BuilderClassTemplate);
                 context.AddSource($"{@class.Identifier.Text}Builder.generated.cs", SourceText.From(source, Encoding.UTF8));
             }
         }
 
-        private string BuildWithMethods(TemplateParser templateParser, Templates templates, IEnumerable<PropertyDeclarationSyntax> properties)
+        private Dictionary<string, string> GetTemplates(GeneratorExecutionContext context, ClassDeclarationSyntax @class)
         {
-            var withPostProcessAction = templateParser.ParseString(templates.WithPostProcessActionTemplate);
+            var attributeSyntax = @class.AttributeLists.SelectMany(x => x.Attributes).Single(x => x.Name + "Attribute" == nameof(GenerateBuilderAttribute));
+
+            var syntaxResults = new Dictionary<string, string?>
+            {
+                { "GeneratedAttribute", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.GeneratedAttributeTemplate)) },
+                { "BuilderClassTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.BuilderClassTemplate)) },
+                { "BuildMethodSetterTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.BuildMethodSetterTemplate)) },
+                { "BuildMethodTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.BuildMethodTemplate)) },
+                //{ "PropertyTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.PropertyTemplate)) },
+                //{ "WithMethodTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.WithMethodTemplate)) },
+                //{ "WithPostProcessActionTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.WithPostProcessActionTemplate)) },
+            };
+
+            var model = context.Compilation.GetSemanticModel(@class.SyntaxTree);
+            var classSymbol = model.GetDeclaredSymbol(@class) as INamedTypeSymbol;
+            var attributeData = classSymbol?.GetAttributes().FirstOrDefault(x => $"{x.AttributeClass?.Name}Attribute" == nameof(GenerateBuilderAttribute));
+            var constructorArguments = attributeData?.ConstructorArguments.ToList();
+            var namedArguments = attributeData?.NamedArguments.ToList();
+
+            var symbolResults = new Dictionary<string, string?>
+            {
+                { "GeneratedAttribute", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.GeneratedAttributeTemplate)) },
+                { "BuilderClassTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.BuilderClassTemplate)) },
+                { "BuildMethodSetterTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.BuildMethodSetterTemplate)) },
+                { "BuildMethodTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.BuildMethodTemplate)) },
+                //{ "PropertyTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.PropertyTemplate)) },
+                //{ "WithMethodTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.WithMethodTemplate)) },
+                //{ "WithPostProcessActionTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.WithPostProcessActionTemplate)) },
+            };
+
+            return syntaxResults;
+        }
+
+        private string? GetAttributeValue(AttributeData? attribute, string name)
+        {
+            var arguments = attribute.ConstructorArguments;
+
+            return null;
+
+            var argument = arguments.FirstOrDefault();
+        }
+
+        private string? GetAttributeValue(AttributeSyntax attribute, string name)
+        {
+            var argument = attribute.ArgumentList?.Arguments.SingleOrDefault(x => x.NameColon?.Name.Identifier.ValueText.Equals(name, StringComparison.InvariantCultureIgnoreCase) == true);
+            var expression = argument?.Expression as LiteralExpressionSyntax;
+            var value = expression?.Token.ValueText;
+
+            return value;
+        }
+
+        private string BuildWithMethods(TemplateParser templateParser, Dictionary<string, string> templates, IEnumerable<PropertyDeclarationSyntax> properties)
+        {
+            var withPostProcessAction = templateParser.ParseString(templates["WithPostProcessActionTemplate"]);
 
             var withMethods = string.Join(
                 Environment.NewLine,
@@ -57,7 +121,7 @@ namespace BuilderGenerator
                         templateParser.SetTag("PropertyName", x.Identifier.ToString());
                         templateParser.SetTag("PropertyType", x.Type.ToString());
 
-                        return templateParser.ParseString(templates.WithMethodTemplate);
+                        return templateParser.ParseString(templates["WithMethodTemplate"]);
                     }));
 
             var result = withMethods + Environment.NewLine + withPostProcessAction;
@@ -65,7 +129,7 @@ namespace BuilderGenerator
             return result;
         }
 
-        private string BuildBuildMethod(TemplateParser templateParser, Templates templates, IEnumerable<PropertyDeclarationSyntax> properties)
+        private string BuildBuildMethod(TemplateParser templateParser, Dictionary<string, string> templates, IEnumerable<PropertyDeclarationSyntax> properties)
         {
             var setters = string.Join(
                 Environment.NewLine,
@@ -74,16 +138,16 @@ namespace BuilderGenerator
                     {
                         templateParser.SetTag("PropertyName", x.Identifier);
 
-                        return templateParser.ParseString(templates.BuildMethodSetterTemplate);
+                        return templateParser.ParseString(templates["BuildMethodSetterTemplate"]);
                     }));
 
             templateParser.SetTag("Setters", setters);
-            var result = templateParser.ParseString(templates.BuildMethodTemplate);
+            var result = templateParser.ParseString(templates["BuildMethodTemplate"]);
 
             return result;
         }
 
-        private static string BuildProperties(TemplateParser templateParser, Templates templates, IEnumerable<PropertyDeclarationSyntax> properties)
+        private static string BuildProperties(TemplateParser templateParser, Dictionary<string, string> templates, IEnumerable<PropertyDeclarationSyntax> properties)
         {
             var result = string.Join(
                 Environment.NewLine,
@@ -93,7 +157,7 @@ namespace BuilderGenerator
                         templateParser.SetTag("PropertyName", x.Identifier.ToString());
                         templateParser.SetTag("PropertyType", x.Type.ToString());
 
-                        return templateParser.ParseString(templates.PropertyTemplate);
+                        return templateParser.ParseString(templates["PropertyTemplate"]);
                     }));
 
             return result;

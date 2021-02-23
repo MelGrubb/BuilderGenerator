@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BuilderGenerator.Extensions
 {
-    public static class PropertyDeclarationSyntaxExtensions
+    internal static class PropertyDeclarationSyntaxExtensions
     {
         /// <summary>
         ///     Determines whether this <see cref="PropertyDeclarationSyntax" /> has a setter.
