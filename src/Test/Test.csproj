@@ -12,8 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BuilderGenerator\BuilderGenerator.csproj" />
     <ProjectReference Include="..\BuilderGenerator\BuilderGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
+
+  <!--<ItemGroup>
+    <AdditionalFiles Include=".\Entities\Builders\Templates\GeneratedCodeAttributeTemplate.txt" />
+  </ItemGroup>-->
 
 </Project>

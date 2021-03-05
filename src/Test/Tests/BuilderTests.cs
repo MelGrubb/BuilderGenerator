@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Test.Entities.Builders;
 
 namespace Test.Tests
 {
@@ -24,25 +25,25 @@ namespace Test.Tests
             Assert.AreEqual("FooBuilderTest", actual.Name);
         }
 
-        [Test]
-        public void BarBuilder_exists()
-        {
-            var actual = new BarBuilder();
-            Assert.IsInstanceOf<BarBuilder>(actual);
-        }
+        //[Test]
+        //public void BarBuilder_exists()
+        //{
+        //    var actual = new BarBuilder();
+        //    Assert.IsInstanceOf<BarBuilder>(actual);
+        //}
 
-        [Test]
-        public void BazBuilder_exists()
-        {
-            var actual = new BazBuilder();
-            Assert.IsInstanceOf<BazBuilder>(actual);
-        }
+        //[Test]
+        //public void BazBuilder_exists()
+        //{
+        //    var actual = new BazBuilder();
+        //    Assert.IsInstanceOf<BazBuilder>(actual);
+        //}
 
-        [Test]
-        public void BatBuilder_exists()
-        {
-            var actual = new BatBuilder();
-            Assert.IsInstanceOf<BatBuilder>(actual);
-        }
+        //[Test]
+        //public void BatBuilder_exists()
+        //{
+        //    var actual = new BatBuilder();
+        //    Assert.IsInstanceOf<BatBuilder>(actual);
+        //}
     }
 }

@@ -1,4 +1,9 @@
-[![Gitter](https://badges.gitter.im/BuilderGenerator/community.svg)](https://gitter.im/BuilderGenerator/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![Nuget](https://img.shields.io/nuget/dt/buildergenerator)
+![GitHub](https://img.shields.io/github/license/melgrubb/buildergenerator)
+![GitHub issues](https://img.shields.io/github/issues/melgrubb/buildergenerator)
+![Discord](https://img.shields.io/discord/813785114722697258?logo=discord)
+![Gitter](https://img.shields.io/gitter/room/melgrubb/buildergenerator?logo=gitter)
+
 
 # Work In Progress #
 

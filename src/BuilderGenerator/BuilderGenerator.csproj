@@ -11,14 +11,17 @@
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <Description>Generates builder classes for testing and/or seed data.
 
-Note: This package is still pre-alpha. Please read the release notes for information about what works and what doesn't.
-
-</Description>
+Note: This package is still pre-alpha. Please read the release notes for information about what works and what doesn't.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IncludeBuildOutput>true</IncludeBuildOutput>
-    <PackageReleaseNotes>v0.1.5
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <PackageReleaseNotes>Version History
+v0.1.6
+- Restored BuilderGenerator.Common assembly.
+- NuGet package complete
+
+v0.1.5
 - Eliminated separate BuilderGenerator.Common assembly.
-- NuGet package complete and working.
+- Overrideable templates implemented via AdditionalFiles in project file.
 
 v0.1.4
 - Added logo
@@ -34,7 +37,8 @@ v0.1.1
 - Preview/Alpha release
 
 v0.1.0
-- Initial Release</PackageReleaseNotes>
+- Initial Release
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,7 +47,6 @@ v0.1.0
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Package the generator in the analyzer directory of the nuget package -->
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     <None Include="..\..\LICENSE.md">
       <Pack>True</Pack>

@@ -1,5 +1,3 @@
-using BuilderGenerator.Attributes;
-
 namespace Demo.Entities
 {
     [GenerateBuilder]

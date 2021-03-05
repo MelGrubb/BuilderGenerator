@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using BuilderGenerator;
 
 namespace Test.Entities
 {
-    [GenerateBuilder("attributeTemplate", "classTemplate", buildMethodSetterTemplate: "setterTemplate")]
+    [GenerateBuilder]
     public class Foo
     {
         public int Id { get; set; }

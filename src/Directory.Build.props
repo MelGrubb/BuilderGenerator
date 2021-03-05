@@ -1,9 +1,9 @@
 <Project>
   <PropertyGroup>
-    <Version>0.1.5</Version>
-    <AssemblyVersion>0.1.5</AssemblyVersion>
-    <FileVersion>0.1.5</FileVersion>
-    <PackageVersion>0.1.5</PackageVersion>
+    <Version>0.1.6</Version>
+    <AssemblyVersion>0.1.6</AssemblyVersion>
+    <FileVersion>0.1.6</FileVersion>
+    <PackageVersion>0.1.6</PackageVersion>
     <Authors>Mel Grubb</Authors>
     <Copyright>2021</Copyright>
     <Nullable>enable</Nullable>
@@ -12,7 +12,7 @@
     <PackageProjectUrl>https://melgrubb.github.io/BuilderGenerator/</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
-    <PackageReleaseNotes>v0.1.5
+    <PackageReleaseNotes>v0.1.6
 - Eliminated separate BuilderGenerator.Common assembly
 - NuGet package complete and working
 

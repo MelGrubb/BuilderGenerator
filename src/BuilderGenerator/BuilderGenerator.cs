@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
-using BuilderGenerator.Attributes;
 using BuilderGenerator.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -14,9 +15,12 @@ namespace BuilderGenerator
     [Generator]
     internal class BuilderGenerator : ISourceGenerator
     {
+        private static Dictionary<string, string>? _templates;
+
         public void Initialize(GeneratorInitializationContext context)
         {
 #if DEBUG
+
             if (!Debugger.IsAttached)
             {
                 Debugger.Launch();
@@ -28,80 +32,62 @@ namespace BuilderGenerator
 
         public void Execute(GeneratorExecutionContext context)
         {
+            context.AddSource("Builder", SourceText.From(Templates.Builder, Encoding.UTF8));
+            context.AddSource("GenerateBuilderAttribute", SourceText.From(Templates.GenerateBuilderAttribute, Encoding.UTF8));
+
+            var templates = GetTemplates(context);
             var receiver = (BuilderGeneratorSyntaxReceiver)context.SyntaxReceiver!;
             var templateParser = new TemplateParser();
 
             foreach (var @class in receiver.Classes.Where(x => x != null))
             {
-                var templates = GetTemplates(context, @class);
-
-                var properties = @class.DescendantNodes().OfType<PropertyDeclarationSyntax>()
+                var targetClassProperties = @class.DescendantNodes().OfType<PropertyDeclarationSyntax>()
                     .Where(x => x.Modifiers.All(m => m.ToString() != "static") && x.HasSetter())
                     .ToArray();
 
-                templateParser.SetTag("UsingBlock", ((CompilationUnitSyntax)@class.SyntaxTree.GetRoot()).Usings.ToString());
-                templateParser.SetTag("Namespace", @class.Namespace() + ".Builders");
-                templateParser.SetTag("GeneratedAttribute", templates);
-                templateParser.SetTag("BuilderName", $"{@class.Identifier.Text}Builder");
-                templateParser.SetTag("ClassName", @class.Identifier.Text);
-                templateParser.SetTag("ClassFullName", @class.FullName());
-                templateParser.SetTag("Properties", BuildProperties(templateParser, templates, properties));
-                templateParser.SetTag("BuildMethod", BuildBuildMethod(templateParser, templates, properties));
-                templateParser.SetTag("WithMethods", BuildWithMethods(templateParser, templates, properties));
+                var targetClassName = @class.Identifier.Text;
+                var targetClassFullName = @class.FullName();
+                var generatedCodeAttributeTemplate = templates["GeneratedCodeAttributeTemplate"];
+                var builderClassUsingBlock = ((CompilationUnitSyntax)@class.SyntaxTree.GetRoot()).Usings.ToString();
+                var builderClassNamespace = @class.Namespace() + ".Builders";
+                var builderClassName = $"{targetClassName}Builder";
+
+                templateParser.SetTag("UsingBlock", builderClassUsingBlock);
+                templateParser.SetTag("Namespace", builderClassNamespace);
+                templateParser.SetTag("GeneratedCodeAttributeTemplate", generatedCodeAttributeTemplate);
+                templateParser.SetTag("BuilderName", builderClassName);
+                templateParser.SetTag("ClassName", targetClassName);
+                templateParser.SetTag("ClassFullName", targetClassFullName);
+
+                var builderClassProperties = BuildProperties(templateParser, templates, targetClassProperties);
+                var builderClassBuildMethod = BuildBuildMethod(templateParser, templates, targetClassProperties);
+                var builderClassWithMethods = BuildWithMethods(templateParser, templates, targetClassProperties);
+
+                templateParser.SetTag("Properties", builderClassProperties);
+                templateParser.SetTag("BuildMethod", builderClassBuildMethod);
+                templateParser.SetTag("WithMethods", builderClassWithMethods);
 
                 var source = templateParser.ParseString(Templates.BuilderClassTemplate);
-                context.AddSource($"{@class.Identifier.Text}Builder.generated.cs", SourceText.From(source, Encoding.UTF8));
+                context.AddSource($"{targetClassName}Builder.generated.cs", SourceText.From(source, Encoding.UTF8));
             }
         }
 
-        private Dictionary<string, string> GetTemplates(GeneratorExecutionContext context, ClassDeclarationSyntax @class)
+        private Dictionary<string, string> GetTemplates(GeneratorExecutionContext context)
         {
-            var attributeSyntax = @class.AttributeLists.SelectMany(x => x.Attributes).Single(x => x.Name + "Attribute" == nameof(GenerateBuilderAttribute));
-
-            var syntaxResults = new Dictionary<string, string?>
+            if (_templates == null)
             {
-                { "GeneratedAttribute", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.GeneratedAttributeTemplate)) },
-                { "BuilderClassTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.BuilderClassTemplate)) },
-                { "BuildMethodSetterTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.BuildMethodSetterTemplate)) },
-                { "BuildMethodTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.BuildMethodTemplate)) },
-                //{ "PropertyTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.PropertyTemplate)) },
-                //{ "WithMethodTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.WithMethodTemplate)) },
-                //{ "WithPostProcessActionTemplate", GetAttributeValue(attributeSyntax, nameof(GenerateBuilderAttribute.WithPostProcessActionTemplate)) },
-            };
+                var fields = typeof(Templates).GetFields(BindingFlags.Public | BindingFlags.Static);
+                _templates = fields.ToDictionary(x => x.Name, x => (string)x.GetValue(null));
 
-            var model = context.Compilation.GetSemanticModel(@class.SyntaxTree);
-            var classSymbol = model.GetDeclaredSymbol(@class) as INamedTypeSymbol;
-            var attributeData = classSymbol?.GetAttributes().FirstOrDefault(x => $"{x.AttributeClass?.Name}Attribute" == nameof(GenerateBuilderAttribute));
+                var overrides = context.AdditionalFiles.ToDictionary(x => Path.GetFileNameWithoutExtension(x.Path), x => File.ReadAllText(x.Path));
 
-            var symbolResults = new Dictionary<string, string?>
-            {
-                { "GeneratedAttribute", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.GeneratedAttributeTemplate)) },
-                { "BuilderClassTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.BuilderClassTemplate)) },
-                { "BuildMethodSetterTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.BuildMethodSetterTemplate)) },
-                { "BuildMethodTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.BuildMethodTemplate)) },
-                //{ "PropertyTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.PropertyTemplate)) },
-                //{ "WithMethodTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.WithMethodTemplate)) },
-                //{ "WithPostProcessActionTemplate", GetAttributeValue(attributeData, nameof(GenerateBuilderAttribute.WithPostProcessActionTemplate)) },
-            };
+                foreach (var template in overrides)
+                {
+                    _templates[template.Key] = template.Value;
+                }
+            }
 
-            return syntaxResults;
-        }
-
-        private string? GetAttributeValue(AttributeData? attribute, string name)
-        {
-            var constructorArguments = attribute?.ConstructorArguments.ToList();
-            var namedArguments = attribute?.NamedArguments.ToList();
-
-            return null;
-        }
-
-        private string? GetAttributeValue(AttributeSyntax attribute, string name)
-        {
-            var argument = attribute.ArgumentList?.Arguments.SingleOrDefault(x => x.NameColon?.Name.Identifier.ValueText.Equals(name, StringComparison.InvariantCultureIgnoreCase) == true);
-            var expression = argument?.Expression as LiteralExpressionSyntax;
-            var value = expression?.Token.ValueText;
-
-            return value;
+            return _templates;
         }
 
         private string BuildWithMethods(TemplateParser templateParser, Dictionary<string, string> templates, IEnumerable<PropertyDeclarationSyntax> properties)
