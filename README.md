@@ -1,4 +1,9 @@
-[![Gitter](https://badges.gitter.im/BuilderGenerator/community.svg)](https://gitter.im/BuilderGenerator/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![Nuget](https://img.shields.io/nuget/dt/buildergenerator)
+![GitHub](https://img.shields.io/github/license/melgrubb/buildergenerator)
+![GitHub issues](https://img.shields.io/github/issues/melgrubb/buildergenerator)
+![Discord](https://img.shields.io/discord/813785114722697258?logo=discord)
+![Gitter](https://img.shields.io/gitter/room/melgrubb/buildergenerator?logo=gitter)
+
 
 # Work In Progress #
 
@@ -11,6 +16,14 @@ This is a .Net Source Generator designed to add "Builders" to your projects. [Bu
 ## Installing BuilderGenerator ##
 
 Like other .Net Source Generators, BuilderGenerator operates as an analyzer. It is easiest to install it from its NuGet package.
+
+## Roadmap ##
+
+- v1.0 - First major release
+  - Working Nuget package
+  - Automated build pipeline
+  - Customizable templates
+  - Completed documentation
 
 ## Attributions ##
 

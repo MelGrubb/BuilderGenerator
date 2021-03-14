@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace BuilderGenerator.Extensions
 {
-    public static class TypeDeclarationSyntaxExtensions
+    internal static class TypeDeclarationSyntaxExtensions
     {
         public static string FullName(this TypeDeclarationSyntax source)
         {
@@ -38,20 +38,20 @@ namespace BuilderGenerator.Extensions
 
         public static string Namespace(this TypeDeclarationSyntax source)
         {
-            var items = new List<string>();
+            //var items = new List<string>();
             var parent = source.Parent;
 
             while (parent.IsKind(SyntaxKind.ClassDeclaration))
             {
-                var parentClass = (TypeDeclarationSyntax)parent;
-                items.Add(parentClass.Identifier.Text);
+                //var parentClass = (TypeDeclarationSyntax)parent;
+                //items.Add(parentClass.Identifier.Text);
 
                 parent = parent.Parent;
             }
 
             var result = (parent as NamespaceDeclarationSyntax)?.Name.ToString();
 
-            return result;
+            return result ?? string.Empty;
         }
     }
 }

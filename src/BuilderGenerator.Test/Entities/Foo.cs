@@ -1,14 +1,15 @@
 using System.Collections.Generic;
-using BuilderGenerator.Attributes;
+#nullable enable
 
-namespace Demo.Entities
+namespace BuilderGenerator.Test.Entities
 {
     [GenerateBuilder]
     public class Foo
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public Bar Bar { get; set; }
+        public string? Nickname { get; set; }
+        public Bar? Bar { get; set; }
 
         public string[] ReadWriteArray { get; set; } = new string[0];
         public string[] ReadOnlyArray { get; } = new string[0];

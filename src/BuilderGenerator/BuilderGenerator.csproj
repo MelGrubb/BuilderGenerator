@@ -1,58 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <!--Is preview still Needed?-->
     <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyVersion>0.1.10</AssemblyVersion>
+    <FileVersion>0.1.10</FileVersion>
+    <Version>0.1.10</Version>
+    <PackageId>BuilderGenerator.BuilderGenerator</PackageId>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <PackageId>BuilderGenerator</PackageId>
-    <PackageIcon>logo.png</PackageIcon>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <Description>Generates builder classes for testing and/or seed data.
-
-Note: This package is still pre-alpha. Please read the release notes for information about what works and what doesn't.
-
-</Description>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <IncludeBuildOutput>true</IncludeBuildOutput>
-    <PackageReleaseNotes>v0.1.5
-- Eliminated separate BuilderGenerator.Common assembly.
-- NuGet package complete and working.
-
-v0.1.4
-- Added logo
-- Builder now ignores properties without setters
-
-v0.1.3
-- Added Documentation site stub
-
-v0.1.2
-- Ignore read-only fields
-
-v0.1.1
-- Preview/Alpha release
-
-v0.1.0
-- Initial Release</PackageReleaseNotes>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2" PrivateAssets="all" />
   </ItemGroup>
-
-  <ItemGroup>
-    <!-- Package the generator in the analyzer directory of the nuget package -->
-    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-    <None Include="..\..\LICENSE.md">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\Images\logo.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
 </Project>

@@ -1,7 +1,7 @@
-using Demo.Entities.Builders;
+using BuilderGenerator.Test.Entities.Builders;
 using NUnit.Framework;
 
-namespace Demo.Tests
+namespace BuilderGenerator.Test.Tests
 {
     [TestFixture]
     public class BuilderTests
@@ -19,6 +19,7 @@ namespace Demo.Tests
             var actual = new FooBuilder()
                 .WithId(1)
                 .WithName("FooBuilderTest")
+                .WithNickname("FooTest")
                 .Build();
 
             Assert.AreEqual(1, actual.Id);

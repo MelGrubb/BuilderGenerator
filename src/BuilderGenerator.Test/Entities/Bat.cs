@@ -1,6 +1,4 @@
-using BuilderGenerator.Attributes;
-
-namespace Demo.Entities
+namespace BuilderGenerator.Test.Entities
 {
     [GenerateBuilder]
     public class Bat
