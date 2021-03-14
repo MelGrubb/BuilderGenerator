@@ -1,4 +1,4 @@
-namespace Demo.Entities
+namespace BuilderGenerator.Test.Entities
 {
     [GenerateBuilder]
     public class Bar

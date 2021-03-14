@@ -1,10 +1,10 @@
 Write-Output "Synchronizing version info"
-[xml]$buildProps = Get-Content Directory.Build.props
-$version = $buildProps.Project.PropertyGroup.Version
-$buildProps.Project.PropertyGroup.AssemblyVersion = $version
-$buildProps.Project.PropertyGroup.FileVersion = $version
-$buildProps.Project.PropertyGroup.PackageVersion = $version
-$buildProps.Save((Resolve-Path "Directory.Build.props"))
+[xml]$buildProps = Get-Content BuilderGenerator\BuilderGenerator.csproj
+$version = $buildProps.Project.PropertyGroup[1].Version
+$buildProps.Project.PropertyGroup[1].AssemblyVersion = $version
+$buildProps.Project.PropertyGroup[1].FileVersion = $version
+$buildProps.Project.PropertyGroup[1].PackageVersion = $version
+$buildProps.Save((Resolve-Path "BuilderGenerator\BuilderGenerator.csproj"))
 
 Write-Output "Building version $version"
 dotnet build .\BuilderGenerator\BuilderGenerator.csproj --configuration release --verbosity minimal

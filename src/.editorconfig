@@ -54,6 +54,7 @@ blank_lines_around_single_line_auto_property=0
 blank_lines_around_single_line_field=0
 blank_lines_around_single_line_invocable=1
 blank_lines_around_single_line_property=0
+blank_lines_between_using_groups=0
 keep_blank_lines_in_code=1
 remove_blank_lines_near_braces_in_code=true
 blank_lines_around_local_method=1

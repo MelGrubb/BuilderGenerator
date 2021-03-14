@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace BuilderGenerator
 {
     internal static class Templates
@@ -42,8 +44,6 @@ namespace BuilderGenerator
     {
     }
 }";
-
-        public const string GeneratedCodeAttributeTemplate = "[GeneratedCode(\"BuilderGenerator\", \"0.1.6\")]";
 
         public const string PropertyTemplate = @"        public Lazy<{{PropertyType}}> {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));";
 
@@ -124,6 +124,7 @@ namespace BuilderGenerator
 using System;
 using System.CodeDom.Compiler;
 {{UsingBlock}}
+#nullable enable
 
 namespace {{Namespace}}
 {
@@ -136,5 +137,7 @@ namespace {{Namespace}}
 {{WithMethods}}
     }
 }";
+
+        public static readonly string GeneratedCodeAttributeTemplate = $"[GeneratedCode(\"BuilderGenerator\", \"{Assembly.GetExecutingAssembly().GetName().Version}\")]";
     }
 }
