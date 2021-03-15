@@ -10,7 +10,7 @@ namespace BuilderGenerator.Test.Entities
 
         public string? Name { get; set; }
 
-        public string? Nickname { get; set; }
+        //public string? Nickname { get; set; }
         public Bar? Bar { get; set; }
 
         public string[] ReadWriteArray { get; set; } = new string[0];

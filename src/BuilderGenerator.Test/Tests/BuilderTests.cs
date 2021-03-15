@@ -19,7 +19,8 @@ namespace BuilderGenerator.Test.Tests
             var actual = new FooBuilder()
                 .WithId(1)
                 .WithName("FooBuilderTest")
-                .WithNickname("FooTest")
+
+                //.WithNickname("FooTest")
                 .Build();
 
             Assert.AreEqual(1, actual.Id);
