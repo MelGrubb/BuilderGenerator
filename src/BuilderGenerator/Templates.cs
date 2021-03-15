@@ -138,6 +138,6 @@ namespace {{Namespace}}
     }
 }";
 
-        public static readonly string GeneratedCodeAttributeTemplate = $"[GeneratedCode(\"BuilderGenerator\", \"{Assembly.GetExecutingAssembly().GetName().Version}\")]";
+        public static readonly string GeneratedCodeAttributeTemplate = $"[GeneratedCode(\"BuilderGenerator\", \"{Assembly.GetExecutingAssembly().GetName().Version.ToString(3)}\")]";
     }
 }

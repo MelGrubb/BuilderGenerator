@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -19,24 +18,25 @@ namespace BuilderGenerator
 
         public void Initialize(GeneratorInitializationContext context)
         {
-#if DEBUG
-
-            if (!Debugger.IsAttached)
-            {
-                Debugger.Launch();
-            }
-#endif
+            context.RegisterForPostInitialization(
+                x =>
+                {
+                    // Inject the base Builder class and GenerateBuilder attribute
+                    x.AddSource("Builder", SourceText.From(Templates.Builder, Encoding.UTF8));
+                    x.AddSource("Attribute", SourceText.From(Templates.GenerateBuilderAttribute, Encoding.UTF8));
+                });
 
             context.RegisterForSyntaxNotifications(() => new BuilderGeneratorSyntaxReceiver());
         }
 
         public void Execute(GeneratorExecutionContext context)
         {
-            context.AddSource("Builder", SourceText.From(Templates.Builder, Encoding.UTF8));
-            context.AddSource("GenerateBuilderAttribute", SourceText.From(Templates.GenerateBuilderAttribute, Encoding.UTF8));
+            if (context.SyntaxReceiver is not BuilderGeneratorSyntaxReceiver receiver)
+            {
+                return;
+            }
 
             var templates = GetTemplates(context);
-            var receiver = (BuilderGeneratorSyntaxReceiver)context.SyntaxReceiver!;
             var templateParser = new TemplateParser();
 
             foreach (var @class in receiver.Classes.Where(x => x != null))
