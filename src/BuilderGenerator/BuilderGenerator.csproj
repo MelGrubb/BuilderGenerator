@@ -5,9 +5,9 @@
     <!--Is preview still Needed?-->
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>0.1.15</AssemblyVersion>
-    <FileVersion>0.1.15</FileVersion>
-    <Version>0.1.15</Version>
+    <AssemblyVersion>0.1.16</AssemblyVersion>
+    <FileVersion>0.1.16</FileVersion>
+    <Version>0.1.16</Version>
     <PackageId>BuilderGenerator.BuilderGenerator</PackageId>
   </PropertyGroup>
   <ItemGroup>
