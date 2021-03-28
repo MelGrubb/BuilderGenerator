@@ -30,7 +30,7 @@ Install-Package BuilderGenerator
 
 After installation, decorate your classes with the ```GenerateBuilder``` attribute to mark them for generation. Builder classes will be generated in a "Builders" namespace next to the source classes.
 
-For more complete documentation, please see the [documentation site](https://github.com/MelGrubb/BuilderGenerator)
+For more complete documentation, please see the [documentation site](https://melgrubb.github.io/BuilderGenerator/) or the raw [docs](https://github.com/MelGrubb/BuilderGenerator/blob/main/docs/index.md).
 
 ## Roadmap ##
 
