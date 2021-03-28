@@ -1,5 +1,6 @@
 ![Nuget](https://img.shields.io/nuget/dt/buildergenerator)
 ![GitHub](https://img.shields.io/github/license/melgrubb/buildergenerator)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MelGrubb/BuilderGenerator/CI%20Workflow)
 ![GitHub issues](https://img.shields.io/github/issues/melgrubb/buildergenerator)
 
 ![Discord](https://img.shields.io/discord/813785114722697258?logo=discord)
