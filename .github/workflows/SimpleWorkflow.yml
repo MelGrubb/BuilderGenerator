@@ -8,8 +8,10 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    
+    env:
+        working-direcoty: ./src
 
     steps:
     - uses: actions/checkout@v2

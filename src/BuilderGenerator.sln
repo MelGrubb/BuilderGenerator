@@ -32,6 +32,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Package", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Test", "BuilderGenerator.Test\BuilderGenerator.Test.csproj", "{2AB8E2BE-9B7E-4C4C-94BB-CB53E567CE82}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{6842FF17-D296-4C8D-BDA2-90624C2E475C}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\SimpleWorkflow.yml = ..\.github\workflows\SimpleWorkflow.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +63,7 @@ Global
 		{16BA5C10-6F7A-4CDA-A88E-A4247FFEFC80} = {FBF0BDED-E356-445D-9E23-FEE97810416A}
 		{81886066-F662-4D04-B37E-E9C3F4C71E85} = {16BA5C10-6F7A-4CDA-A88E-A4247FFEFC80}
 		{14E9EF90-504C-473D-933A-DF3C26CB6083} = {81886066-F662-4D04-B37E-E9C3F4C71E85}
+		{6842FF17-D296-4C8D-BDA2-90624C2E475C} = {FBF0BDED-E356-445D-9E23-FEE97810416A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F843C644-4251-476E-812E-7FCEE2F68794}
