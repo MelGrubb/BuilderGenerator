@@ -1,4 +1,4 @@
-namespace BuilderGenerator.Tests.Models.Enums
+﻿namespace BuilderGenerator.Sample.Models.Enums
 {
     public enum OrderStatus
     {

@@ -1,6 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace BuilderGenerator.Tests.Models.Entities
+namespace BuilderGenerator.Sample.Models.Entities
 {
     [GenerateBuilder]
     public class Sample

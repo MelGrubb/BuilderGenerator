@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using BuilderGenerator.Tests.Framework;
+using BuilderGenerator.Sample.Framework;
 
-namespace BuilderGenerator.Tests.Models.Entities.Builders
+namespace BuilderGenerator.Sample.Models.Entities.Builders
 {
     public partial class UserBuilder
     {
