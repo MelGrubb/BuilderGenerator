@@ -18,7 +18,7 @@ This project and NuGet package are considered beta-phase. It is ready for genera
 
 ## Known Issues ##
 
-As of Visual Studio version 16.9.2, you may see complaints from CodeLens when editing classes decorated with the ```[GenerateBuilder]``` attribute. This is a known issue, and should be fixed in a future release. In the meantime, the builder classes are being properly generated and can be used. It's an annoyance more than anything, and hopefully we won't have to live with it for much longer.
+As of Visual Studio version 16.9.2, you may see complaints from CodeLens when editing classes decorated with the ```[GenerateBuilder]``` attribute. This is a known issue, and should be fixed in a future release of Visual Studio. In the meantime, the builder classes _are_ being properly generated and can be used. It's an annoyance more than anything, and hopefully we won't have to live with it for much longer.
 
 ## Installation ##
 
