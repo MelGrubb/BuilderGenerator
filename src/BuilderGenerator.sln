@@ -22,6 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{16BA5C10-6
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{81886066-F662-4D04-B37E-E9C3F4C71E85}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\assets\BuilderGeneratorLoop.gif = ..\docs\assets\BuilderGeneratorLoop.gif
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{14E9EF90-504C-473D-933A-DF3C26CB6083}"
 	ProjectSection(SolutionItems) = preProject

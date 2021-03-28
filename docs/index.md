@@ -103,6 +103,9 @@ var testUser = new UserBuilder()
     .Build();
 ```
 
+This Buidler class will be updated live as you make changes to the source class.
+![Loop showing live updates](./assets/BuilderGeneratorLoop.gif "Live Updates")
+
 This offers very little over simply instantiating the object you want though. Apart from using a different syntax, it's not really doing anything useful. That's where factory methods come into play.
 
 ## Extending via partial classes ##
