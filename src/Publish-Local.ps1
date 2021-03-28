@@ -16,6 +16,6 @@ $packageProps.Save((Resolve-Path "BuilderGenerator.Package\BuilderGenerator.Pack
 Write-Output "Building Package Version $version"
 dotnet build .\BuilderGenerator.Package\BuilderGenerator.Package.csproj --configuration release --verbosity minimal
 
+Write-Output "Publishing package to local NuGet repo"
 $path = '.\BuilderGenerator.Package\bin\Release\BuilderGenerator.' + $version + '.nupkg'
-Write-Output "Publishing package '$path'"
 dotnet nuget push $path --source 'C:\Projects\NuGet Local Repo'

@@ -1,4 +1,7 @@
-using BuilderGenerator.Test.Entities.Builders;
+using System;
+using BuilderGenerator.Test.Framework;
+using BuilderGenerator.Test.Models.Entities;
+using BuilderGenerator.Test.Models.Entities.Builders;
 using NUnit.Framework;
 
 namespace BuilderGenerator.Test.Tests
@@ -6,45 +9,38 @@ namespace BuilderGenerator.Test.Tests
     [TestFixture]
     public class BuilderTests
     {
+        private string _firstName;
+        private Guid _id;
+        private string _lastName;
+        private User _result;
+
         [Test]
-        public void FooBuilder_exists()
+        public void UserBuilder_can_set_properties()
         {
-            var actual = new FooBuilder();
-            Assert.IsInstanceOf<FooBuilder>(actual);
+            Assert.AreEqual(_id, _result.Id);
+            Assert.AreEqual(_firstName, _result.FirstName);
+            Assert.AreEqual(_lastName, _result.LastName);
         }
 
         [Test]
-        public void FooBuilder_can_set_properties()
+        public void UserBuilder_exists()
         {
-            var actual = new FooBuilder()
-                .WithId(1)
-                .WithName("FooBuilderTest")
-                .WithNickname("FooTest")
+            var actual = new UserBuilder();
+            Assert.IsInstanceOf<UserBuilder>(actual);
+        }
+
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            _id = Guid.NewGuid();
+            _firstName = GetRandom.FirstName();
+            _lastName = GetRandom.LastName();
+
+            _result = new UserBuilder()
+                .WithId(_id)
+                .WithFirstName(_firstName)
+                .WithLastName(_lastName)
                 .Build();
-
-            Assert.AreEqual(1, actual.Id);
-            Assert.AreEqual("FooBuilderTest", actual.Name);
-        }
-
-        [Test]
-        public void BarBuilder_exists()
-        {
-            var actual = new BarBuilder();
-            Assert.IsInstanceOf<BarBuilder>(actual);
-        }
-
-        [Test]
-        public void BazBuilder_exists()
-        {
-            var actual = new BazBuilder();
-            Assert.IsInstanceOf<BazBuilder>(actual);
-        }
-
-        [Test]
-        public void BatBuilder_exists()
-        {
-            var actual = new BatBuilder();
-            Assert.IsInstanceOf<BatBuilder>(actual);
         }
     }
 }
