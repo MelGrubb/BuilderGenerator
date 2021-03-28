@@ -10,6 +10,8 @@
 
 This is a .Net Source Generator designed to add "Builders" to your projects. [Builders](https://en.wikipedia.org/wiki/Builder_pattern) are an object creation pattern, similar to the [Object Mother](https://martinfowler.com/bliki/ObjectMother.html) pattern. Object Mothers and Builders are most commonly used to create objects for testing, but they can be used anywhere you want "canned" objects.
 
+For more complete documentation, please see the [documentation site](https://melgrubb.github.io/BuilderGenerator/) or the raw [documentation source](https://github.com/MelGrubb/BuilderGenerator/blob/main/docs/index.md).
+
 ## Work In Progress ##
 
 This project and NuGet package are considered beta-phase. It is ready for general testing, but is not yet considered completely done. See the Roadmap section for further details.
@@ -29,8 +31,6 @@ Install-Package BuilderGenerator
 ## Usage ##
 
 After installation, decorate your classes with the ```GenerateBuilder``` attribute to mark them for generation. Builder classes will be generated in a "Builders" namespace next to the source classes.
-
-For more complete documentation, please see the [documentation site](https://melgrubb.github.io/BuilderGenerator/) or the raw [docs](https://github.com/MelGrubb/BuilderGenerator/blob/main/docs/index.md).
 
 ## Roadmap ##
 
