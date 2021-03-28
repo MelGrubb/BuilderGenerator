@@ -34,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Test", "Bu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{6842FF17-D296-4C8D-BDA2-90624C2E475C}"
 	ProjectSection(SolutionItems) = preProject
-		..\.github\workflows\SimpleWorkflow.yml = ..\.github\workflows\SimpleWorkflow.yml
+		..\.github\workflows\CI Workflow.yml = ..\.github\workflows\CI Workflow.yml
 	EndProjectSection
 EndProject
 Global
