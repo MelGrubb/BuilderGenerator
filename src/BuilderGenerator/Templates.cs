@@ -126,16 +126,6 @@ namespace BuilderGenerator
 
             return this;
         }
-
-        /// <summary>Sets the object to be returned by this instance.</summary>
-        /// <param name=""func"">A function that will return the desired object.</param>
-        /// <returns>A reference to this builder instance.</returns>
-        public Builder<T> WithObject(System.Func<T> func)
-        {
-            Object = new System.Lazy<T>(func);
-
-            return this;
-        }
     }
 }";
 
