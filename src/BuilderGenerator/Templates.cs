@@ -120,7 +120,12 @@ namespace BuilderGenerator
         /// <summary>Sets the object to be returned by this instance.</summary>
         /// <param name=""value"">The object to be returned.</param>
         /// <returns>A reference to this builder instance.</returns>
-        public Builder<T> WithObject(T value) => WithObject(() => value);
+        public Builder<T> WithObject(T value)
+        {
+            Object = new Lazy<T>(value);
+
+            return this;
+        }
 
         /// <summary>Sets the object to be returned by this instance.</summary>
         /// <param name=""func"">A function that will return the desired object.</param>
