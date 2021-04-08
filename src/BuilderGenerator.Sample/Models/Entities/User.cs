@@ -12,7 +12,7 @@ namespace BuilderGenerator.Sample.Models.Entities
 
         public string? LastName { get; set; }
 
-        public string? MiddleName { get; set; }
+        //public string? MiddleName { get; set; }
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
     }

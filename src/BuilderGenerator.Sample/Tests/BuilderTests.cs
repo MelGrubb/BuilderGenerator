@@ -40,6 +40,8 @@ namespace BuilderGenerator.Sample.Tests
                 .WithId(_id)
                 .WithFirstName(_firstName)
                 .WithLastName(_lastName)
+
+                //.WithMiddleName("Bob")
                 .Build();
         }
     }
