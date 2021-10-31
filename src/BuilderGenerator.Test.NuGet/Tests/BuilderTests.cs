@@ -1,10 +1,10 @@
 using System;
-using BuilderGenerator.Sample.Framework;
-using BuilderGenerator.Sample.Models.Entities;
-using BuilderGenerator.Sample.Models.Entities.Builders;
+using BuilderGenerator.Test.NuGet.Framework;
+using BuilderGenerator.Test.NuGet.Models.Entities;
+using BuilderGenerator.Test.NuGet.Models.Entities.Builders;
 using NUnit.Framework;
 
-namespace BuilderGenerator.Sample.Tests
+namespace BuilderGenerator.Test.NuGet.Tests
 {
     [TestFixture]
     public class BuilderTests

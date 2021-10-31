@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 #nullable enable
 
-namespace BuilderGenerator.Sample.Models.Entities
+namespace BuilderGenerator.Test.NuGet.Models.Entities
 {
     [GenerateBuilder]
     public class User
