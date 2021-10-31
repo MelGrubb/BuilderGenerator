@@ -8,7 +8,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>BuilderGenerator</PackageId>
-    <PackageVersion>0.5.0</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <Authors>Mel Grubb</Authors>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://melgrubb.github.io/BuilderGenerator/</PackageProjectUrl>
