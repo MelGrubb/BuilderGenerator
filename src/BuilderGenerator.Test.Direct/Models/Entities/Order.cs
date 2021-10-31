@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using BuilderGenerator.Tests.Models.Enums;
+using BuilderGenerator.Test.Direct.Models.Enums;
 
-namespace BuilderGenerator.Tests.Models.Entities
+namespace BuilderGenerator.Test.Direct.Models.Entities
 {
     [GenerateBuilder]
     public class Order

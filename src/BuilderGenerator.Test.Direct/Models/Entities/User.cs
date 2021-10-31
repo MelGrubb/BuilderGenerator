@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 #nullable enable
 
-namespace BuilderGenerator.Tests.Models.Entities
+namespace BuilderGenerator.Test.Direct.Models.Entities
 {
     [GenerateBuilder]
     public class User
@@ -12,7 +12,7 @@ namespace BuilderGenerator.Tests.Models.Entities
 
         public string? LastName { get; set; }
 
-        //public string? MiddleName { get; set; }
+        public string? MiddleName { get; set; }
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
     }

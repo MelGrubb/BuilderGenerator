@@ -1,6 +1,6 @@
 using System;
 
-namespace BuilderGenerator.Tests.Models.Entities
+namespace BuilderGenerator.Test.Direct.Models.Entities
 {
     [GenerateBuilder]
     public class OrderItem

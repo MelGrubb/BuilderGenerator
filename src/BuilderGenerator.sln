@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{6842FF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Test.NuGet", "BuilderGenerator.Test.NuGet\BuilderGenerator.Test.NuGet.csproj", "{345044D3-F825-4F19-99A5-1D2FBF1590EE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Test.Direct", "BuilderGenerator.Test.Direct\BuilderGenerator.Test.Direct.csproj", "{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{345044D3-F825-4F19-99A5-1D2FBF1590EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{345044D3-F825-4F19-99A5-1D2FBF1590EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{345044D3-F825-4F19-99A5-1D2FBF1590EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

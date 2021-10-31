@@ -1,15 +1,16 @@
 using System;
-using BuilderGenerator.Tests.Framework;
-using BuilderGenerator.Tests.Models.Entities;
-using BuilderGenerator.Tests.Models.Entities.Builders;
+using BuilderGenerator.Test.Direct.Framework;
+using BuilderGenerator.Test.Direct.Models.Entities;
+using BuilderGenerator.Test.Direct.Models.Entities.Builders;
 using NUnit.Framework;
 
-namespace BuilderGenerator.Tests.Tests
+namespace BuilderGenerator.Test.Direct.Tests
 {
     [TestFixture]
     public class BuilderTests
     {
         private string _firstName;
+        private string _middleName;
         private Guid _id;
         private string _lastName;
         private User _result;
@@ -19,6 +20,7 @@ namespace BuilderGenerator.Tests.Tests
         {
             Assert.AreEqual(_id, _result.Id);
             Assert.AreEqual(_firstName, _result.FirstName);
+            Assert.AreEqual(_middleName, _result.MiddleName);
             Assert.AreEqual(_lastName, _result.LastName);
         }
 
@@ -34,11 +36,13 @@ namespace BuilderGenerator.Tests.Tests
         {
             _id = Guid.NewGuid();
             _firstName = GetRandom.FirstName();
+            _middleName = GetRandom.FirstName();
             _lastName = GetRandom.LastName();
 
             _result = new UserBuilder()
                 .WithId(_id)
                 .WithFirstName(_firstName)
+                .WithMiddleName(_middleName)
                 .WithLastName(_lastName)
                 .Build();
         }

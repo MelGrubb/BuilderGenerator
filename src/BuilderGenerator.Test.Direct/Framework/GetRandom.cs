@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BuilderGenerator.Tests.Framework
+namespace BuilderGenerator.Test.Direct.Framework
 {
     /// <summary>Creates and returns a variety of random value types.</summary>
     public static class GetRandom
