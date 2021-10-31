@@ -32,17 +32,26 @@ Install-Package BuilderGenerator
 
 After installation, decorate your classes with the ```GenerateBuilder``` attribute to mark them for generation. Builder classes will be generated in a "Builders" namespace next to the source classes.
 
-## Roadmap ##
+## Version History ##
 
-- v0.5 - Public beta
+- v1.2
+  - Solution reorganization
+  - Version number synchronization
+  - Automated build pipeline
+
+- v1.0
+  - First major release
+
+- v0.5
+  - Public beta
   - Working NuGet package
   - Customizable templates
 
-- v1.0 - First major release
-  - Automated build pipeline
-  - Completed documentation
+## Roadmap ##
 
-- v1.1 - Read-only collection support
+- v1.5
+  - Read-only collection support
+  - Completed documentation
 
 ## Attributions ##
 

@@ -32,9 +32,6 @@ namespace BuilderGenerator
                 var builderClassUsingBlock = ((CompilationUnitSyntax)@class.SyntaxTree.GetRoot()).Usings.ToString();
                 var builderClassNamespace = @class.Namespace() + ".Builders";
                 var builderClassName = $"{targetClassName}Builder";
-                var builderClassProperties = BuildProperties(templateParser, templates, targetClassProperties);
-                var builderClassBuildMethod = BuildBuildMethod(templateParser, templates, targetClassProperties);
-                var builderClassWithMethods = BuildWithMethods(templateParser, templates, targetClassProperties);
 
                 templateParser.SetTag("UsingBlock", builderClassUsingBlock);
                 templateParser.SetTag("Namespace", builderClassNamespace);
@@ -42,6 +39,11 @@ namespace BuilderGenerator
                 templateParser.SetTag("BuilderName", builderClassName);
                 templateParser.SetTag("ClassName", targetClassName);
                 templateParser.SetTag("ClassFullName", targetClassFullName);
+
+                var builderClassProperties = BuildProperties(templateParser, templates, targetClassProperties);
+                var builderClassBuildMethod = BuildBuildMethod(templateParser, templates, targetClassProperties);
+                var builderClassWithMethods = BuildWithMethods(templateParser, templates, targetClassProperties);
+
                 templateParser.SetTag("Properties", builderClassProperties);
                 templateParser.SetTag("BuildMethod", builderClassBuildMethod);
                 templateParser.SetTag("WithMethods", builderClassWithMethods);
