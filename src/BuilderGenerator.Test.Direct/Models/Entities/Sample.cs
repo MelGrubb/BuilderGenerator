@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 namespace BuilderGenerator.Test.Direct.Models.Entities
 {
-    [GenerateBuilder]
     public class Sample
     {
         public string[] ReadOnlyArray { get; } = new string[0];

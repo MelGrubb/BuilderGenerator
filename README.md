@@ -50,7 +50,8 @@ After installation, decorate your classes with the ```GenerateBuilder``` attribu
 ## Roadmap ##
 
 - v1.5
-  - Read-only collection support
+  - Read-only collection support in default templates
+  - BuilderFor<T> attribute to generate builders for classes from other assemblies
   - Completed documentation
 
 ## Attributions ##

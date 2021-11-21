@@ -2,17 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-
     <IsPackable>false</IsPackable>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Models\Entities\Builders\Templates\GeneratedCodeAttributeTemplate.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
+  <!--<ItemGroup>
     <AdditionalFiles Include="Models\Entities\Builders\Templates\GeneratedCodeAttributeTemplate.txt" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.2" />

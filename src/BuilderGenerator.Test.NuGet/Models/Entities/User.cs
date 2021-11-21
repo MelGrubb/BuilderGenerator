@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace BuilderGenerator.Test.NuGet.Models.Entities
 {
-    [GenerateBuilder]
     public class User
     {
         public string? FirstName { get; set; }

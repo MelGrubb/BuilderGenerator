@@ -8,18 +8,33 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>BuilderGenerator</PackageId>
-    <PackageVersion>1.2.0</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
     <Authors>Mel Grubb</Authors>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://melgrubb.github.io/BuilderGenerator/</PackageProjectUrl>
+    <!--<PackageReadmeFile>README.md</PackageReadmeFile>-->
     <PackageIcon>logo.png</PackageIcon>
     <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>Generates builder classes for testing and/or seed data.</Description>
+    <Description>Generates builder classes for testing and/or seed data. Please see documentation site (https://melgrubb.github.io/BuilderGenerator/) for complete details.</Description>
     <Copyright>2021 Mel Grubb</Copyright>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <PackageReleaseNotes>Note: This package is still considered beta-stage. It works in my own private testing, but Visual Studio's support for source generators is still not complete, and it may not be totally smooth. Occasional restarts of Visual Studio may be required to keep everything in sync, and CodeLens isn't dealing with the generated code very well at this time.
+    <PackageReleaseNotes>
+      Note: Visual Studio's support for source generators is still not complete, and it may not be totally smooth. Occasional restarts of Visual Studio may be required to keep everything in sync, and CodeLens isn't dealing with the generated code very well at this time.
+
+      v2.0
+      - Updated to .Net 6 and IIncrementalGenerator
+      - Changed usage pattern from marking target classes with attributes to marking partial builder classes
+
+      v1.2
+      - Solution reorganization
+      - Version number synchronization
+      - Automated build pipeline
+
+      v1.0
+      - First major release
+
       v0.5.0
       - Replaced separate BuilderGenerator.Common assembly with a generated attribute and base class.
       - NuGet package complete and working at last
@@ -44,6 +59,12 @@
     <Version>0.1.8</Version>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddGeneratorsToOutput</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.md" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuilderGenerator\BuilderGenerator.csproj" PrivateAssets="All" />
   </ItemGroup>

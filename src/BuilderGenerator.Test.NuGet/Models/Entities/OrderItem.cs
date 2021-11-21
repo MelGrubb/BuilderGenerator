@@ -2,7 +2,6 @@ using System;
 
 namespace BuilderGenerator.Test.NuGet.Models.Entities
 {
-    [GenerateBuilder]
     public class OrderItem
     {
         public Guid Id { get; set; }

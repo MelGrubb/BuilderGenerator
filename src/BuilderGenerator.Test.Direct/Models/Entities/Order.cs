@@ -4,14 +4,11 @@ using BuilderGenerator.Test.Direct.Models.Enums;
 
 namespace BuilderGenerator.Test.Direct.Models.Entities
 {
-    [GenerateBuilder]
     public class Order
     {
         public Guid Id { get; set; }
-
         public DateTime OrderDate { get; set; }
         public ICollection<OrderItem> Orders { get; set; } = new List<OrderItem>();
-
         public OrderStatus Status { get; set; }
     }
 }

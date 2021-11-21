@@ -1,17 +1,18 @@
 using System;
 using System.Collections.Generic;
-using BuilderGenerator.Test.Direct.Framework;
 
 namespace BuilderGenerator.Test.Direct.Models.Entities.Builders
 {
-    public partial class UserBuilder
+    [BuilderFor(typeof(User))]
+    public partial class UserBuilder : Builder<User>
     {
         public static UserBuilder Simple()
         {
             var builder = new UserBuilder()
                 .WithId(Guid.NewGuid)
-                .WithFirstName(() => GetRandom.FirstName())
-                .WithLastName(() => GetRandom.LastName());
+                .WithFirstName(() => Guid.NewGuid().ToString())
+                .WithMiddleName(() => Guid.NewGuid().ToString())
+                .WithLastName(() => Guid.NewGuid().ToString());
 
             return builder;
         }

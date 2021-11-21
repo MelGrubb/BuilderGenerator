@@ -4,7 +4,6 @@ using BuilderGenerator.Test.NuGet.Models.Enums;
 
 namespace BuilderGenerator.Test.NuGet.Models.Entities
 {
-    [GenerateBuilder]
     public class Order
     {
         public Guid Id { get; set; }

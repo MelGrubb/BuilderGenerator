@@ -1,10 +1,10 @@
-# BuilderGenerator #
+# BuilderGenerator
 
 This NuGet package automates the generation of object builders for testing. It generates the repetitive part of creating builders, leaving only the more interesting, hand-curated parts for you to create as partial classes.
 
-This is a beta release. It is ready for public testing, but may be subject to change in the future as any issues found in testing are addressed. The general design of the builder classes themselves should not change from now until the production release.
+With the v2.0 release, the mechanism has changed. Rather than decorating classes with the "GenerateBuilder" attribute, you now create a partial builder class and decorate it with the "BuilderFor" attribute. This puts the location of the generated builders more under the developers direct control. Builders can be used as part of normal development, but are most commonly used in testing scenarios. As such, development teams may not appreciate their domain projects being aware of their presence, and may not want them to be generated in the same assmebly with their domain entities. By decorating the builder instead of the entity, builders can be located wherever the developer wants.
 
-## Installation ##
+## Installation
 
 Like all .Net [Source Generators](https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/), BuilderGenerator is installed as an analyzer via [NuGet](https://www.nuget.org/packages/BuilderGenerator/). You can find it through the "Manage NuGet Packages" dialog in Visual Studio, or simply install it from the command line.
 
@@ -12,7 +12,7 @@ Like all .Net [Source Generators](https://devblogs.microsoft.com/dotnet/introduc
 Install-Package BuilderGenerator
 ```
 
-## What are Builders? ##
+## What are Builders?
 
 Builders provide a way to describe desired objects using a fluent syntax. They are commonly used to create test instances of classes for testing purposes, but they can be used to create real-world objects as well, although that is not as common. 
 
@@ -62,7 +62,7 @@ Right away, a reader can tell that the user's first name must be important to th
 
 Later on, if an additional field were added to the User object, and that new field was required, you could expect that change to break multiple tests. If each test built their own User instances from scratch, you'd have to fix each test context individually to include the new field. If those same tests were leveraging the UserBuilder class, however, you'd only need to fix the "Typical" method to include the new field and, generally-speaking, the tests should all pass again. Of course, if the new field somehow changes the behavior of the code in some important way, you might still be looking at some rework, but you'd have to do that in the non-builder example as well. Typically, Builders will allow you to skip over a lot of the noise of establishing a test context, and focus on what's actually relevant to that test.
 
-## Usage ##
+## Usage
 
 In order to generate a builder for a given class, simply decorate it with the ```[GenerateBuilder]``` attribute. A builder will be generated in a "Builders" namespace alongside the source class. For example, consider a "User" class in the "Entities" namespace.
 
@@ -108,7 +108,7 @@ This Buidler class will be updated live as you make changes to the source class.
 
 This offers very little over simply instantiating the object you want though. Apart from using a different syntax, it's not really doing anything useful. That's where factory methods come into play.
 
-## Extending via partial classes ##
+## Extending via partial classes
 
 The builders are generated as partial classes. The generated half comprises the repetitive, boring part of the process, including the backing fields and "With" methods that provide the fluent builder syntax. It will not, however, contain any of the "factory" methods that are one of the cornerstones of the Builder pattern. These must be created by hand as another partial class file.
 
@@ -151,7 +151,7 @@ public static UserBuilder Typical()
 
 Now your tests have both "Simple" and "Typical" users to choose from when creating a test context. These definitions can evolve over time as well. Maybe a "typical" user should have multiple orders in their history in varying stages of completion.
 
-## Canned values ##
+## Canned values
 
 In addition to random-value methods like ```Simple``` or ```Typical```, you should also feel free to create factory methods for well-known, predictable values when they make sense. For instance, in an online store scenario, you might create a factory method to return specific products that are used as placeholders for testing.
 
@@ -159,7 +159,7 @@ If you are familiar with the concept of testing personas, you could create facto
 
 Once these factory methods have been defined, future test development can be accelerated. Instead of describing the user you need in detail, you just check the builder to see what you have "in stock". If what you need is there, then you've skipped ahead in creating your test context. If the builder doesn't have what you need, perhaps it has something close enough that you can tweak slightly to get what you want. At that point, you can decide whether your new canned value is specific enough that only your test will ever need it, or general enough to add a new factory method to be leveraged when writing the next set of tests.
 
-## Resilient Test Contexts ##
+## Resilient Test Contexts
 
 Adding new orders to the object returned by UserBuilder.Typical should not break existing tests. If it does, then you're doing something wrong. If a test depends on some concrete fact about an object such as the User's first name, or the number of orders in their history, then that test needs to ensure that it controls that aspect of the context being built. It should specify the user's name if it matters, and it should populate the orders collection itself rather than depending on back-channel knowledge about the object returned from the builder.
 
@@ -176,11 +176,11 @@ var result = SomeMethod(user);
 
 I know that the test cares about the User's first name because it mentioned it. Every other aspect of that "Typical" user should be considered arbitrary. Their last name, how many orders they've ever placed, and other such details should not be depended on. Only the *documented* behavior of Typical should be counted on. Conversely, the Typical method should document what it is going to return. Can we assume that a typical User's status is "active"? That's probably a safe bet, but also one that the Typical method should have mentioned in its documentation. If the method doesn't promise it, don't depend on it.
 
-## "With" Method Types ##
+## "With" Method Types
 
 One feature of the generated builders is that the various "With" methods come in multiple flavors. There is the typical version that takes a simple value, such as the Guid Id value used in this example. In addition, there are overloads that take lambda expressions to be evaluated when the object is finally built at runtime. This can be useful as a way to delay the execution of potentially expensive code until the last moment in case the value is changed later on. Each "With" method can be called multiple times, with subsequent values overwriting previous ones. In other words, "Last in wins". Builders represent a *plan* for creating an object rather than the object itself, and plans are always subject to change.
 
-### Customizing the code templates ###
+### Customizing the code templates
 
 Custom templates are still a work in progress, so the following information is preliminary and subject to change.
 

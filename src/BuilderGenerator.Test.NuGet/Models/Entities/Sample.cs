@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace BuilderGenerator.Test.NuGet.Models.Entities
 {
-    [GenerateBuilder]
     public class Sample
     {
         public string[] ReadOnlyArray { get; } = new string[0];

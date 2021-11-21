@@ -1,5 +1,4 @@
 using System;
-using BuilderGenerator.Test.Direct.Framework;
 using BuilderGenerator.Test.Direct.Models.Entities;
 using BuilderGenerator.Test.Direct.Models.Entities.Builders;
 using NUnit.Framework;
@@ -35,9 +34,9 @@ namespace BuilderGenerator.Test.Direct.Tests
         public void SetUp()
         {
             _id = Guid.NewGuid();
-            _firstName = GetRandom.FirstName();
-            _middleName = GetRandom.FirstName();
-            _lastName = GetRandom.LastName();
+            _firstName = Guid.NewGuid().ToString();
+            _middleName = Guid.NewGuid().ToString();
+            _lastName = Guid.NewGuid().ToString();
 
             _result = new UserBuilder()
                 .WithId(_id)

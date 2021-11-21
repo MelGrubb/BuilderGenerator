@@ -2,9 +2,9 @@
 
 This project contains the implementation of the BuilderGenerator class itself, along with various support classes.
 
-## BuilderGeneratorSyntaxReceiver ##
+## BuilderGenerator ##
 
-This class handles the filtering to decide which classes should and should not get a builder.
+This class is the brains of the outfit. It reacts to changes in the target project, looking for classes decorated with the BuilderFor attribute, and generating partial builder classes for them.
 
 ## TemplateParser ##
 
@@ -12,8 +12,8 @@ This is a utility class to do regex-based search and replace over a string templ
 
 ## Templates ##
 
-The string templates are gathered together here to keep the BuilderGenerator class small and focused. The hope is to eventually pull these templates from the consuming project itself to allow for customization on a per-project basis.
+The string templates are gathered together here to keep the BuilderGenerator class small and focused. The hope is to eventually pull these templates from the consuming project itself to allow for customization on a per-project basis. Since the move to .Net 6, the mechanism being used previously no longer works, so I've put this on hold, but hope to return to it.
 
-## Extensions ##
+## Diagnostics ##
 
-Along with the above classes, several extensions are provided to make the BuilderGenerator class easier to read and understand.
+Diagnostic report classes to allow the generator to complain about things it doesn't like.
