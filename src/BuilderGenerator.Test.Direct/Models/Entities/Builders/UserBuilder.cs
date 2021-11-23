@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace BuilderGenerator.Test.Direct.Models.Entities.Builders
 {
     [BuilderFor(typeof(User))]
-    public partial class UserBuilder : Builder<User>
+    public partial class UserBuilder
     {
         public static UserBuilder Simple()
         {
