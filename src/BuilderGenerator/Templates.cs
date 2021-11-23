@@ -1,4 +1,4 @@
-using System.Reflection;
+
 
 // ReSharper disable UnusedMember.Global
 
@@ -13,7 +13,6 @@ using System.CodeDom.Compiler;
 
 namespace {{Namespace}}
 {
-    {{GeneratedCodeAttributeTemplate}}
     public partial class {{BuilderName}} : BuilderGenerator.Builder<{{ClassFullName}}>
     {
         public Action<{{ClassFullName}}>? PostProcessAction  { get; set; }
@@ -26,7 +25,6 @@ namespace {{Namespace}}
         internal const string BuildMethodSetterTemplate = "                        {{PropertyName}} = {{PropertyName}}.Value,";
 
         internal const string BuildMethodTemplate = @"
-        {{GeneratedCodeAttributeTemplate}}
         public override {{ClassFullName}} Build()
         {
             if (Object?.IsValueCreated != true)
@@ -53,20 +51,17 @@ namespace {{Namespace}}
         internal const string PropertyTemplate = @"        public Lazy<{{PropertyType}}> {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));";
 
         internal const string WithMethodTemplate = @"
-        {{GeneratedCodeAttributeTemplate}}
         public {{BuilderName}} With{{PropertyName}}({{PropertyType}} value)
         {
             return With{{PropertyName}}(() => value);
         }
 
-        {{GeneratedCodeAttributeTemplate}}
         public {{BuilderName}} With{{PropertyName}}(Func<{{PropertyType}}> func)
         {
             {{PropertyName}} = new Lazy<{{PropertyType}}>(func);
             return this;
         }
 
-        {{GeneratedCodeAttributeTemplate}}
         public {{BuilderName}} Without{{PropertyName}}()
         {                    
             {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));
@@ -74,7 +69,6 @@ namespace {{Namespace}}
         }";
 
         internal const string WithPostProcessActionTemplate = @"
-        {{GeneratedCodeAttributeTemplate}}
         public {{BuilderName}} WithPostProcessAction(Action<{{ClassFullName}}> action)
         {
             PostProcessAction = action;
@@ -82,7 +76,6 @@ namespace {{Namespace}}
             return this;
         }
 
-        {{GeneratedCodeAttributeTemplate}}
         public T WithPostProcessAction<T>(Action<{{ClassFullName}}> action) where T : {{BuilderName}}
         {
             PostProcessAction = action;
@@ -141,7 +134,5 @@ namespace BuilderGenerator
     {
     }
 }";
-
-        internal static readonly string GeneratedCodeAttributeTemplate = $"[GeneratedCode(\"BuilderGenerator\", \"{Assembly.GetExecutingAssembly().GetName().Version.ToString(3)}\")]";
     }
 }

@@ -20,8 +20,6 @@ namespace BuilderGenerator
 
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
-            //if (!Debugger.IsAttached) { Debugger.Launch(); }
-
             if (_templates == null)
             {
                 var fields = typeof(Templates).GetFields(BindingFlags.NonPublic | BindingFlags.Static);
@@ -53,8 +51,6 @@ namespace BuilderGenerator
 
         private static void Execute(Compilation compilation, ImmutableArray<TypeDeclarationSyntax> nodes, SourceProductionContext context)
         {
-            //if (!Debugger.IsAttached) { Debugger.Launch(); }
-
             if (nodes.IsDefaultOrEmpty) { return; }
 
             var distinctTypes = nodes.Distinct().Where(x => x != null);
@@ -179,18 +175,6 @@ namespace BuilderGenerator
             {
                 return typeNode;
             }
-
-            // For some reason, this works when embedded inside the above block, but not when it stands on its own.
-            if (namedTypeSymbol.BaseType?.ContainingNamespace.ToString() == "BuilderGenerator" && namedTypeSymbol.BaseType?.Name == "Builder")
-            {
-                return typeNode;
-            }
-
-            // Not having much luck with this part either
-            //if (SymbolEqualityComparer.Default.Equals(model.Compilation.GetTypeByMetadataName("BuilderGenerator.Builder`1"), namedTypeSymbol.BaseType?.OriginalDefinition))
-            //{
-            //    return typeNode;
-            //}
 
             return null;
         }
