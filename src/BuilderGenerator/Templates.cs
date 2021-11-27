@@ -1,12 +1,10 @@
-
-
 // ReSharper disable UnusedMember.Global
 
 namespace BuilderGenerator
 {
     internal static class Templates
     {
-        internal const string BuilderClassTemplate = @"using System;
+        internal const string BuilderClass = @"using System;
 using System.CodeDom.Compiler;
 {{UsingBlock}}
 #nullable enable
@@ -15,16 +13,15 @@ namespace {{Namespace}}
 {
     public partial class {{BuilderName}} : BuilderGenerator.Builder<{{ClassFullName}}>
     {
-        public Action<{{ClassFullName}}>? PostProcessAction  { get; set; }
 {{Properties}}
 {{BuildMethod}}
 {{WithMethods}}
     }
 }";
 
-        internal const string BuildMethodSetterTemplate = "                        {{PropertyName}} = {{PropertyName}}.Value,";
+        internal const string BuildMethodSetter = "                        {{PropertyName}} = {{PropertyName}}.Value,";
 
-        internal const string BuildMethodTemplate = @"
+        internal const string BuildMethod = @"
         public override {{ClassFullName}} Build()
         {
             if (Object?.IsValueCreated != true)
@@ -39,18 +36,15 @@ namespace {{Namespace}}
                     return result;
                 });
 
-                if (PostProcessAction != null)
-                {
-                    PostProcessAction(Object.Value);
-                }
+                PostProcess(Object.Value);
             }
 
             return Object.Value;
         }";
 
-        internal const string PropertyTemplate = @"        public Lazy<{{PropertyType}}> {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));";
+        internal const string Property = @"        public Lazy<{{PropertyType}}> {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));";
 
-        internal const string WithMethodTemplate = @"
+        internal const string WithMethod = @"
         public {{BuilderName}} With{{PropertyName}}({{PropertyType}} value)
         {
             return With{{PropertyName}}(() => value);
@@ -68,22 +62,7 @@ namespace {{Namespace}}
             return this;
         }";
 
-        internal const string WithPostProcessActionTemplate = @"
-        public {{BuilderName}} WithPostProcessAction(Action<{{ClassFullName}}> action)
-        {
-            PostProcessAction = action;
-
-            return this;
-        }
-
-        public T WithPostProcessAction<T>(Action<{{ClassFullName}}> action) where T : {{BuilderName}}
-        {
-            PostProcessAction = action;
-
-            return (T)this;
-        }";
-
-        internal const string BuilderForAttributeTemplate = @"namespace BuilderGenerator
+        internal const string BuilderForAttribute = @"namespace BuilderGenerator
 {
     [System.AttributeUsage(System.AttributeTargets.Class)]
     public class BuilderForAttribute : System.Attribute
@@ -97,7 +76,7 @@ namespace {{Namespace}}
     }
 }";
 
-        internal const string BuilderTemplate = @"#nullable enable
+        internal const string BuilderBaseClass = @"#nullable enable
 
 namespace BuilderGenerator
 {
@@ -114,6 +93,10 @@ namespace BuilderGenerator
         /// <summary>Builds the object instance.</summary>
         /// <returns>The constructed object.</returns>
         public abstract T Build();
+
+        protected virtual void PostProcess(T value)
+        {
+        }
 
         /// <summary>Sets the object to be returned by this instance.</summary>
         /// <param name=""value"">The object to be returned.</param>

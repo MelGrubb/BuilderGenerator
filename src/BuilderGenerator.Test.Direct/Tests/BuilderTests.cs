@@ -1,7 +1,8 @@
 using System;
+using BuilderGenerator.Test.Direct.Builders;
 using BuilderGenerator.Test.Direct.Models.Entities;
-using BuilderGenerator.Test.Direct.Models.Entities.Builders;
 using NUnit.Framework;
+using Shouldly;
 
 namespace BuilderGenerator.Test.Direct.Tests
 {
@@ -17,17 +18,32 @@ namespace BuilderGenerator.Test.Direct.Tests
         [Test]
         public void UserBuilder_can_set_properties()
         {
-            Assert.AreEqual(_id, _result.Id);
-            Assert.AreEqual(_firstName, _result.FirstName);
-            Assert.AreEqual(_middleName, _result.MiddleName);
-            Assert.AreEqual(_lastName, _result.LastName);
+            _result.Id.ShouldBe(_id);
+            _result.FirstName.ShouldBe(_firstName);
+            _result.MiddleName.ShouldBe(_middleName);
+            _result.LastName.ShouldBe(_lastName);
         }
 
         [Test]
-        public void UserBuilder_exists()
+        public void Simple_returns_a_UserBuilder() => UserBuilder.Simple().ShouldBeOfType<UserBuilder>();
+
+        [Test]
+        public void Typical_returns_a_UserBuilder() => UserBuilder.Typical().ShouldBeOfType<UserBuilder>();
+
+        [Test]
+        public void Simple_does_not_populate_Orders()
         {
-            var actual = new UserBuilder();
-            Assert.IsInstanceOf<UserBuilder>(actual);
+            var actual = UserBuilder.Simple().Build();
+            actual.ShouldBeOfType<User>();
+            actual.Orders.ShouldBeNull();
+        }
+
+        [Test]
+        public void Typical_populates_Orders()
+        {
+            var actual = UserBuilder.Typical().Build();
+            actual.ShouldBeOfType<User>();
+            actual.Orders.ShouldNotBeNull();
         }
 
         [OneTimeSetUp]
@@ -38,7 +54,8 @@ namespace BuilderGenerator.Test.Direct.Tests
             _middleName = Guid.NewGuid().ToString();
             _lastName = Guid.NewGuid().ToString();
 
-            _result = new UserBuilder()
+            _result = UserBuilder
+                .Typical()
                 .WithId(_id)
                 .WithFirstName(_firstName)
                 .WithMiddleName(_middleName)

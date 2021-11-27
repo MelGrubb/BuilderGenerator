@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using BuilderGenerator.Test.NuGet.Models.Entities;
 
-namespace BuilderGenerator.Test.NuGet.Models.Entities.Builders
+namespace BuilderGenerator.Test.NuGet.Builders
 {
     [BuilderFor(typeof(User))]
     public partial class UserBuilder

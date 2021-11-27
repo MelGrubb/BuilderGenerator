@@ -1,6 +1,7 @@
 using System;
+using BuilderGenerator.Test.Direct.Models.Entities;
 
-namespace BuilderGenerator.Test.NuGet.Models.Entities.Builders
+namespace BuilderGenerator.Test.Direct.Builders
 {
     [BuilderFor(typeof(Order))]
     public partial class OrderBuilder

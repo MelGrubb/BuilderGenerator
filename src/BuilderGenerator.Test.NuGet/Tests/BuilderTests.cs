@@ -1,8 +1,8 @@
 using System;
-using System.Linq;
+using BuilderGenerator.Test.NuGet.Builders;
 using BuilderGenerator.Test.NuGet.Models.Entities;
-using BuilderGenerator.Test.NuGet.Models.Entities.Builders;
 using NUnit.Framework;
+using Shouldly;
 
 namespace BuilderGenerator.Test.NuGet.Tests
 {
@@ -18,40 +18,32 @@ namespace BuilderGenerator.Test.NuGet.Tests
         [Test]
         public void UserBuilder_can_set_properties()
         {
-            Assert.AreEqual(_id, _result.Id);
-            Assert.AreEqual(_firstName, _result.FirstName);
-            Assert.AreEqual(_middleName, _result.MiddleName);
-            Assert.AreEqual(_lastName, _result.LastName);
+            _result.Id.ShouldBe(_id);
+            _result.FirstName.ShouldBe(_firstName);
+            _result.MiddleName.ShouldBe(_middleName);
+            _result.LastName.ShouldBe(_lastName);
         }
 
         [Test]
-        public void Simple_returns_a_UserBuilder()
-        {
-            var actual = UserBuilder.Simple();
-            Assert.IsInstanceOf<UserBuilder>(actual);
-        }
+        public void Simple_returns_a_UserBuilder() => UserBuilder.Simple().ShouldBeOfType<UserBuilder>();
 
         [Test]
-        public void Typical_returns_a_UserBuilder()
-        {
-            var actual = UserBuilder.Typical();
-            Assert.IsInstanceOf<UserBuilder>(actual);
-        }
+        public void Typical_returns_a_UserBuilder() => UserBuilder.Typical().ShouldBeOfType<UserBuilder>();
 
         [Test]
         public void Simple_does_not_populate_Orders()
         {
             var actual = UserBuilder.Simple().Build();
-            Assert.IsInstanceOf<User>(actual);
-            Assert.IsFalse(actual.Orders.Any() == false);
+            actual.ShouldBeOfType<User>();
+            actual.Orders.ShouldBeNull();
         }
 
         [Test]
         public void Typical_populates_Orders()
         {
             var actual = UserBuilder.Typical().Build();
-            Assert.IsInstanceOf<User>(actual);
-            Assert.IsTrue(actual.Orders.Any());
+            actual.ShouldBeOfType<User>();
+            actual.Orders.ShouldNotBeNull();
         }
 
         [OneTimeSetUp]
