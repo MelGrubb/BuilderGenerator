@@ -13,11 +13,6 @@ namespace BuilderGenerator
     [Generator]
     internal class BuilderGenerator : IIncrementalGenerator
     {
-        //private static INamedTypeSymbol? _builderForAttributeSymbol;
-        //private static INamedTypeSymbol? _builderSymbol;
-        //private static INamedTypeSymbol? GetBuilderForAttributeSymbol(Compilation compilation) => _builderForAttributeSymbol ??= compilation.GetTypeByMetadataName(BuilderForAttributeFullName);
-        //private static INamedTypeSymbol? GetBuilderSymbol(Compilation compilation) => _builderSymbol ??= compilation.GetTypeByMetadataName(Templates.BuilderBaseClass);
-
         public void Initialize(IncrementalGeneratorInitializationContext context)
         {
             var classDeclarations = context.SyntaxProvider.CreateSyntaxProvider(Predicate, Transform).Where(static node => node is not null);
