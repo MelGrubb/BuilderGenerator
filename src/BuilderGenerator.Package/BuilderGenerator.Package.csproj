@@ -21,7 +21,10 @@
     <Copyright>2021 Mel Grubb</Copyright>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <PackageReleaseNotes>v2.0
+    <PackageReleaseNotes>v2.1
+- Improved error handling
+
+v2.0
 - Updated to .Net 6 and IIncrementalGenerator
 - Changed usage pattern from marking target classes with attributes to marking partial builder classes
 
@@ -52,7 +55,8 @@ v0.1.1
 - Preview/Alpha release
 
 v0.1.0
-- Initial Release    </PackageReleaseNotes>
+- Initial Release
+    </PackageReleaseNotes>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddGeneratorsToOutput</TargetsForTfmSpecificContentInPackage>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
