@@ -6,12 +6,13 @@ namespace BuilderGenerator
     {
         internal const string BuilderClass = @"using System;
 using System.CodeDom.Compiler;
-{{UsingBlock}}
+{{BuilderClassUsingBlock}}
 #nullable enable
 
-namespace {{Namespace}}
+namespace {{BuilderClassNamespace}}
 {
-    public partial class {{BuilderName}} : BuilderGenerator.Builder<{{ClassFullName}}>
+    // Generated at {{GeneratedAt}}
+    {{BuilderClassAccessibility}} partial class {{BuilderClassName}} : BuilderGenerator.Builder<{{TargetClassFullName}}>
     {
 {{Properties}}
 {{BuildMethod}}
@@ -22,13 +23,13 @@ namespace {{Namespace}}
         internal const string BuildMethodSetter = "                        {{PropertyName}} = {{PropertyName}}.Value,";
 
         internal const string BuildMethod = @"
-        public override {{ClassFullName}} Build()
+        public override {{TargetClassFullName}} Build()
         {
             if (Object?.IsValueCreated != true)
             {
-                Object = new Lazy<{{ClassFullName}}>(() => 
+                Object = new Lazy<{{TargetClassFullName}}>(() => 
                 {
-                    var result = new {{ClassFullName}} 
+                    var result = new {{TargetClassFullName}} 
                     {
 {{Setters}}
                     };
@@ -45,18 +46,18 @@ namespace {{Namespace}}
         internal const string Property = @"        public Lazy<{{PropertyType}}> {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));";
 
         internal const string WithMethod = @"
-        public {{BuilderName}} With{{PropertyName}}({{PropertyType}} value)
+        public {{BuilderClassName}} With{{PropertyName}}({{PropertyType}} value)
         {
             return With{{PropertyName}}(() => value);
         }
 
-        public {{BuilderName}} With{{PropertyName}}(Func<{{PropertyType}}> func)
+        public {{BuilderClassName}} With{{PropertyName}}(Func<{{PropertyType}}> func)
         {
             {{PropertyName}} = new Lazy<{{PropertyType}}>(func);
             return this;
         }
 
-        public {{BuilderName}} Without{{PropertyName}}()
+        public {{BuilderClassName}} Without{{PropertyName}}()
         {                    
             {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));
             return this;
@@ -107,14 +108,6 @@ namespace BuilderGenerator
 
             return this;
         }
-    }
-}";
-
-        internal const string GenerateBuilderAttributeTemplate = @"namespace BuilderGenerator
-{
-    [System.AttributeUsage(System.AttributeTargets.Class)]
-    public class GenerateBuilderAttribute : System.Attribute
-    {
     }
 }";
     }

@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using BuilderGenerator.Diagnostics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
@@ -36,45 +37,55 @@ namespace BuilderGenerator
 
             foreach (var typeDeclaration in distinctClasses)
             {
-                var semanticModel = compilation.GetSemanticModel(typeDeclaration.SyntaxTree);
-                var typeSymbol = semanticModel.GetDeclaredSymbol(typeDeclaration, context.CancellationToken);
-                var templateParser = new TemplateParser();
+                try
+                {
+                    var semanticModel = compilation.GetSemanticModel(typeDeclaration.SyntaxTree);
+                    var typeSymbol = semanticModel.GetDeclaredSymbol(typeDeclaration, context.CancellationToken);
+                    var templateParser = new TemplateParser();
 
-                if (typeSymbol is not INamedTypeSymbol namedTypeSymbol) { continue; }
+                    if (typeSymbol is not INamedTypeSymbol namedTypeSymbol) { continue; }
 
-                var attributeSymbol = namedTypeSymbol.GetAttributes().SingleOrDefault(x => x.AttributeClass!.Name == "BuilderForAttribute");
+                    var attributeSymbol = namedTypeSymbol.GetAttributes().SingleOrDefault(x => x.AttributeClass!.Name == "BuilderForAttribute");
 
-                if (attributeSymbol is null) { continue; }
+                    if (attributeSymbol is null) { continue; }
 
-                var targetClassType = attributeSymbol.ConstructorArguments[0];
-                var targetClassName = ((ISymbol)targetClassType.Value!).Name;
-                var targetClassFullName = targetClassType.Value!.ToString();
+                    var targetClassType = attributeSymbol.ConstructorArguments[0];
+                    var targetClassName = ((ISymbol)targetClassType.Value!).Name;
+                    var targetClassFullName = targetClassType.Value!.ToString();
 
-                var targetClassProperties = ((INamedTypeSymbol)targetClassType.Value).GetMembers().OfType<IPropertySymbol>()
-                    .Where(_ => _.SetMethod is not null && _.SetMethod.DeclaredAccessibility == Accessibility.Public)
-                    .ToList();
+                    var targetClassProperties = ((INamedTypeSymbol)targetClassType.Value).GetMembers().OfType<IPropertySymbol>()
+                        .Where(_ => _.SetMethod is not null && _.SetMethod.DeclaredAccessibility == Accessibility.Public)
+                        .ToList();
 
-                var builderClassName = typeSymbol.Name;
-                var builderClassNamespace = typeSymbol.ContainingNamespace.ToString();
-                var builderClassUsingBlock = ((CompilationUnitSyntax)typeDeclaration.SyntaxTree.GetRoot()).Usings.ToString();
+                    var builderClassName = typeSymbol.Name;
+                    var builderClassNamespace = typeSymbol.ContainingNamespace.ToString();
+                    var builderClassUsingBlock = ((CompilationUnitSyntax)typeDeclaration.SyntaxTree.GetRoot()).Usings.ToString();
+                    var builderClassAccessibility = typeSymbol.DeclaredAccessibility.ToString().ToLower();
 
-                templateParser.SetTag("UsingBlock", builderClassUsingBlock);
-                templateParser.SetTag("Namespace", builderClassNamespace);
-                templateParser.SetTag("BuilderName", builderClassName);
-                templateParser.SetTag("ClassName", targetClassName);
-                templateParser.SetTag("ClassFullName", targetClassFullName);
+                    templateParser.SetTag("GeneratedAt", DateTime.Now.ToString("s"));
+                    templateParser.SetTag("BuilderClassUsingBlock", builderClassUsingBlock);
+                    templateParser.SetTag("BuilderClassNamespace", builderClassNamespace);
+                    templateParser.SetTag("BuilderClassAccessibility", builderClassAccessibility);
+                    templateParser.SetTag("BuilderClassName", builderClassName);
+                    templateParser.SetTag("TargetClassName", targetClassName);
+                    templateParser.SetTag("TargetClassFullName", targetClassFullName);
 
-                var builderClassProperties = GenerateProperties(templateParser, targetClassProperties);
-                var builderClassBuildMethod = GenerateBuildMethod(templateParser, targetClassProperties);
-                var builderClassWithMethods = GenerateWithMethods(templateParser, targetClassProperties);
+                    var builderClassProperties = GenerateProperties(templateParser, targetClassProperties);
+                    var builderClassBuildMethod = GenerateBuildMethod(templateParser, targetClassProperties);
+                    var builderClassWithMethods = GenerateWithMethods(templateParser, targetClassProperties);
 
-                templateParser.SetTag("Properties", builderClassProperties);
-                templateParser.SetTag("BuildMethod", builderClassBuildMethod);
-                templateParser.SetTag("WithMethods", builderClassWithMethods);
+                    templateParser.SetTag("Properties", builderClassProperties);
+                    templateParser.SetTag("BuildMethod", builderClassBuildMethod);
+                    templateParser.SetTag("WithMethods", builderClassWithMethods);
 
-                var source = templateParser.ParseString(Templates.BuilderClass);
+                    var source = templateParser.ParseString(Templates.BuilderClass);
 
-                context.AddSource($"{builderClassName}.generated.cs", SourceText.From(source, Encoding.UTF8));
+                    context.AddSource($"{builderClassName}.generated.cs", SourceText.From(source, Encoding.UTF8));
+                }
+                catch (Exception e)
+                {
+                    context.ReportDiagnostic(DiagnosticDescriptors.UnexpectedErrorDiagnostic(e, typeDeclaration.GetLocation(), typeDeclaration.Identifier.ToString()));
+                }
             }
         }
 

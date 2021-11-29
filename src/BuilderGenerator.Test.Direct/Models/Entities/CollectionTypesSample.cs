@@ -1,16 +1,17 @@
+using System;
 using System.Collections.Generic;
 
-namespace BuilderGenerator.Test.NuGet.Models.Entities
+namespace BuilderGenerator.Test.Direct.Models.Entities
 {
-    public class Sample
+    public class CollectionTypesSample
     {
-        public string[] ReadOnlyArray { get; } = new string[0];
+        public string[] ReadOnlyArray { get; } = Array.Empty<string>();
         public ICollection<string> ReadOnlyCollection { get; } = new List<string>();
         public IEnumerable<string> ReadOnlyEnumerable { get; } = new List<string>();
         public HashSet<string> ReadOnlyHashSet { get; } = new();
         public List<string> ReadOnlyList { get; } = new();
 
-        public string[] ReadWriteArray { get; set; } = new string[0];
+        public string[] ReadWriteArray { get; set; } = Array.Empty<string>();
 
         public ICollection<string> ReadWriteCollection { get; set; } = new List<string>();
 
