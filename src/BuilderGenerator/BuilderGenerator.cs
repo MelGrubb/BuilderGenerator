@@ -45,6 +45,11 @@ namespace BuilderGenerator
 
                     if (typeSymbol is not INamedTypeSymbol namedTypeSymbol) { continue; }
 
+                    if (namedTypeSymbol.IsAbstract)
+                    {
+                        context.ReportDiagnostic(DiagnosticDescriptors.TargetClassIsAbstract(typeDeclaration.GetLocation(), typeDeclaration.Identifier.ToString()));
+                    }
+
                     var attributeSymbol = namedTypeSymbol.GetAttributes().SingleOrDefault(x => x.AttributeClass!.Name == "BuilderForAttribute");
 
                     if (attributeSymbol is null) { continue; }
@@ -52,11 +57,7 @@ namespace BuilderGenerator
                     var targetClassType = attributeSymbol.ConstructorArguments[0];
                     var targetClassName = ((ISymbol)targetClassType.Value!).Name;
                     var targetClassFullName = targetClassType.Value!.ToString();
-
-                    var targetClassProperties = ((INamedTypeSymbol)targetClassType.Value).GetMembers().OfType<IPropertySymbol>()
-                        .Where(_ => _.SetMethod is not null && _.SetMethod.DeclaredAccessibility == Accessibility.Public)
-                        .ToList();
-
+                    var targetClassProperties = GetPropertySymbols((INamedTypeSymbol)targetClassType.Value).OrderBy(x => x.Name).ToList();
                     var builderClassName = typeSymbol.Name;
                     var builderClassNamespace = typeSymbol.ContainingNamespace.ToString();
                     var builderClassUsingBlock = ((CompilationUnitSyntax)typeDeclaration.SyntaxTree.GetRoot()).Usings.ToString();
@@ -87,6 +88,24 @@ namespace BuilderGenerator
                     context.ReportDiagnostic(DiagnosticDescriptors.UnexpectedErrorDiagnostic(e, typeDeclaration.GetLocation(), typeDeclaration.Identifier.ToString()));
                 }
             }
+        }
+
+        private static IEnumerable<IPropertySymbol> GetPropertySymbols(INamedTypeSymbol namedTypeSymbol)
+        {
+            var results = namedTypeSymbol.GetMembers()
+                .OfType<IPropertySymbol>()
+                .Where(_ => _.SetMethod is not null && _.SetMethod.DeclaredAccessibility == Accessibility.Public)
+                .ToList();
+
+            var baseTypeSymbol = namedTypeSymbol.BaseType;
+
+            while (baseTypeSymbol != null)
+            {
+                results.AddRange(GetPropertySymbols(baseTypeSymbol));
+                baseTypeSymbol = baseTypeSymbol.BaseType;
+            }
+
+            return results;
         }
 
         private static string GenerateBuildMethod(TemplateParser templateParser, IEnumerable<IPropertySymbol> properties)

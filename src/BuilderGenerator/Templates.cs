@@ -4,9 +4,8 @@ namespace BuilderGenerator
 {
     internal static class Templates
     {
-        internal const string BuilderClass = @"using System;
+        internal const string BuilderClass = @"{{BuilderClassUsingBlock}}
 using System.CodeDom.Compiler;
-{{BuilderClassUsingBlock}}
 #nullable enable
 
 namespace {{BuilderClassNamespace}}
@@ -27,7 +26,7 @@ namespace {{BuilderClassNamespace}}
         {
             if (Object?.IsValueCreated != true)
             {
-                Object = new Lazy<{{TargetClassFullName}}>(() => 
+                Object = new System.Lazy<{{TargetClassFullName}}>(() => 
                 {
                     var result = new {{TargetClassFullName}} 
                     {
@@ -43,7 +42,7 @@ namespace {{BuilderClassNamespace}}
             return Object.Value;
         }";
 
-        internal const string Property = @"        public Lazy<{{PropertyType}}> {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));";
+        internal const string Property = @"        public System.Lazy<{{PropertyType}}> {{PropertyName}} = new System.Lazy<{{PropertyType}}>(() => default({{PropertyType}}));";
 
         internal const string WithMethod = @"
         public {{BuilderClassName}} With{{PropertyName}}({{PropertyType}} value)
@@ -51,15 +50,15 @@ namespace {{BuilderClassNamespace}}
             return With{{PropertyName}}(() => value);
         }
 
-        public {{BuilderClassName}} With{{PropertyName}}(Func<{{PropertyType}}> func)
+        public {{BuilderClassName}} With{{PropertyName}}(System.Func<{{PropertyType}}> func)
         {
-            {{PropertyName}} = new Lazy<{{PropertyType}}>(func);
+            {{PropertyName}} = new System.Lazy<{{PropertyType}}>(func);
             return this;
         }
 
         public {{BuilderClassName}} Without{{PropertyName}}()
         {                    
-            {{PropertyName}} = new Lazy<{{PropertyType}}>(() => default({{PropertyType}}));
+            {{PropertyName}} = new System.Lazy<{{PropertyType}}>(() => default({{PropertyType}}));
             return this;
         }";
 

@@ -7,9 +7,9 @@
     <DevelopmentDependency>true</DevelopmentDependency>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <PackageId>BuilderGenerator</PackageId>
-    <PackageVersion>2.0.1</PackageVersion>
+    <PackageVersion>2.0.2</PackageVersion>
     <Authors>Mel Grubb</Authors>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://melgrubb.github.io/BuilderGenerator/</PackageProjectUrl>
@@ -21,19 +21,22 @@
     <Copyright>2021 Mel Grubb</Copyright>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <PackageReleaseNotes>v2.1
+    <PackageReleaseNotes>v2.0.2
+- Setters for base class properties rendering properly
+
+v2.0.1
 - Improved error handling
 
-v2.0
+v2.0.0
 - Updated to .Net 6 and IIncrementalGenerator
 - Changed usage pattern from marking target classes with attributes to marking partial builder classes
 
-v1.2
+v1.2.0
 - Solution reorganization
 - Version number synchronization
 - Automated build pipeline
 
-v1.0
+v1.0.0
 - First major release
 
 v0.5.0
