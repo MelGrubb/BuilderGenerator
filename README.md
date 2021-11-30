@@ -34,6 +34,16 @@ After installation, decorate your classes with the ```GenerateBuilder``` attribu
 
 ## Version History ##
 
+- v2.0.2
+  - Setters for base class properties rendering properly
+
+- v2.0.1
+  - Improved error handling
+
+- v2.0.0
+  - Updated to .Net 6 and IIncrementalGenerator
+  - Changed usage pattern from marking target classes with attributes to marking partial builder classes
+
 - v1.2
   - Solution reorganization
   - Version number synchronization
