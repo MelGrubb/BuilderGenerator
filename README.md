@@ -59,10 +59,10 @@ After installation, decorate your classes with the ```GenerateBuilder``` attribu
 
 ## Roadmap ##
 
-- v1.5
-  - Read-only collection support in default templates
-  - BuilderFor<T> attribute to generate builders for classes from other assemblies
-  - Completed documentation
+- Read-only collection support in default templates
+- Attribute-less generation of partial classes
+- Completed documentation
+- Unit tests for generation components
 
 ## Attributions ##
 
