@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IncludeBuildOutput>false</IncludeBuildOutput>
@@ -7,9 +7,9 @@
     <DevelopmentDependency>true</DevelopmentDependency>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>2.0.2</Version>
+    <Version>2.0.3</Version>
     <PackageId>BuilderGenerator</PackageId>
-    <PackageVersion>2.0.2</PackageVersion>
+    <PackageVersion>2.0.3</PackageVersion>
     <Authors>Mel Grubb</Authors>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://melgrubb.github.io/BuilderGenerator/</PackageProjectUrl>
@@ -21,7 +21,10 @@
     <Copyright>2021 Mel Grubb</Copyright>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <PackageReleaseNotes>v2.0.2
+    <PackageReleaseNotes>v2.0.3
+- Fixed NuGet packaging problem
+
+v2.0.2
 - Setters for base class properties rendering properly
 
 v2.0.1
@@ -86,7 +89,7 @@ v0.1.0
   </ItemGroup>
   <Target Name="_AddGeneratorsToOutput">
     <ItemGroup>
-      <TfmSpecificPackageFile Include="$(OutputPath)\BuilderGenerator.dll" PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="$(OutputPath)\BuilderGenerator.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
   </Target>
 </Project>

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using BuilderGenerator.Test.NuGet.Builders;
-using BuilderGenerator.Test.NuGet.Models.Entities;
+using BuilderGenerator.Test.Local.Builders;
+using BuilderGenerator.Test.Local.Models.Entities;
 using NUnit.Framework;
 using Shouldly;
 
-namespace BuilderGenerator.Test.NuGet.Tests
+namespace BuilderGenerator.Test.Local.Tests
 {
     [TestFixture]
     public class BuilderTests

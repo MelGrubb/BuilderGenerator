@@ -5,9 +5,9 @@
     <!--Is preview still Needed?-->
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>2.0.2</AssemblyVersion>
-    <FileVersion>2.0.2</FileVersion>
-    <Version>2.0.2</Version>
+    <AssemblyVersion>2.0.3</AssemblyVersion>
+    <FileVersion>2.0.3</FileVersion>
+    <Version>2.0.3</Version>
     <PackageId>BuilderGenerator.BuilderGenerator</PackageId>
   </PropertyGroup>
   <ItemGroup>
@@ -18,6 +18,6 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <None Include="$(OutputPath)\netstandard2.0\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
 </Project>

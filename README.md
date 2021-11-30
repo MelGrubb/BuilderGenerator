@@ -12,13 +12,9 @@ This is a .Net Source Generator designed to add "Builders" to your projects. [Bu
 
 For more complete documentation, please see the [documentation site](https://melgrubb.github.io/BuilderGenerator/) or the raw [documentation source](https://github.com/MelGrubb/BuilderGenerator/blob/main/docs/index.md).
 
-## Work In Progress ##
-
-This project and NuGet package are considered beta-phase. It is ready for general testing, but is not yet considered completely done. See the Roadmap section for further details.
-
 ## Known Issues ##
 
-As of Visual Studio version 16.9.2, you may see complaints from CodeLens when editing classes decorated with the ```[GenerateBuilder]``` attribute. This is a known issue, and should be fixed in a future release of Visual Studio. In the meantime, the builder classes _are_ being properly generated and can be used. It's an annoyance more than anything, and hopefully we won't have to live with it for much longer.
+This project has moved to the .Net 6 version of source generators, which unfortuntely means that it's incompatible with Visual Studio 2019. It's also breaking the GitHub build pipeline at the moment. It all seems to work just fine in VS2022 though. If you're stuck on .Net 5 and VS2019, you can always use the v1.x series, although its usage is different.
 
 ## Installation ##
 
@@ -33,6 +29,8 @@ Install-Package BuilderGenerator
 After installation, decorate your classes with the ```GenerateBuilder``` attribute to mark them for generation. Builder classes will be generated in a "Builders" namespace next to the source classes.
 
 ## Version History ##
+- v2.0.3
+  - Attempting to fix NuGet packaging problems
 
 - v2.0.2
   - Setters for base class properties rendering properly
@@ -41,7 +39,7 @@ After installation, decorate your classes with the ```GenerateBuilder``` attribu
   - Improved error handling
 
 - v2.0.0
-  - Updated to .Net 6 and IIncrementalGenerator
+  - Updated to .Net 6 and IIncrementalGenerator (See note above about incompatibility with VS2019)
   - Changed usage pattern from marking target classes with attributes to marking partial builder classes
 
 - v1.2
