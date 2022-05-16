@@ -26,7 +26,7 @@ Install-Package BuilderGenerator
 
 ## Usage ##
 
-After installation, decorate your classes with the ```GenerateBuilder``` attribute to mark them for generation. Builder classes will be generated in a "Builders" namespace next to the source classes.
+After installation, create a partial class to define your builder in. Decorate it with the ```BuilderFor``` attribute, specifying the type of class that the builder is meant to build (e.g. ```[BuilderFor(typeof(Foo))]```. Define any factory and helper methods in this partial class. Meanwhile, another partial class definition will be auto-generated which contains all the "boring" parts such as the backing fields and "with" methods.
 
 ## Version History ##
 - v2.0.3
