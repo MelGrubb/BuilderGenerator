@@ -57,7 +57,12 @@ namespace BuilderGenerator
                     var targetClassType = attributeSymbol.ConstructorArguments[0];
                     var targetClassName = ((ISymbol)targetClassType.Value!).Name;
                     var targetClassFullName = targetClassType.Value!.ToString();
-                    var targetClassProperties = GetPropertySymbols((INamedTypeSymbol)targetClassType.Value).OrderBy(x => x.Name).ToList();
+                    var targetClassProperties = GetPropertySymbols((INamedTypeSymbol)targetClassType.Value)
+                        .Select<IPropertySymbol, (string Name, string TypeName)>(x => new (x.Name, x.Type.ToString()))
+                        .Distinct()
+                        .OrderBy(x => x.Name)
+                        .ToList();
+
                     var builderClassName = typeSymbol.Name;
                     var builderClassNamespace = typeSymbol.ContainingNamespace.ToString();
                     var builderClassUsingBlock = ((CompilationUnitSyntax)typeDeclaration.SyntaxTree.GetRoot()).Usings.ToString();
@@ -92,23 +97,23 @@ namespace BuilderGenerator
 
         private static IEnumerable<IPropertySymbol> GetPropertySymbols(INamedTypeSymbol namedTypeSymbol)
         {
-            var results = namedTypeSymbol.GetMembers()
+            var symbols = namedTypeSymbol.GetMembers()
                 .OfType<IPropertySymbol>()
-                .Where(_ => _.SetMethod is not null && _.SetMethod.DeclaredAccessibility == Accessibility.Public)
+                .Where(x => x.SetMethod is not null && x.SetMethod.DeclaredAccessibility == Accessibility.Public)
                 .ToList();
 
             var baseTypeSymbol = namedTypeSymbol.BaseType;
 
             while (baseTypeSymbol != null)
             {
-                results.AddRange(GetPropertySymbols(baseTypeSymbol));
+                symbols.AddRange(GetPropertySymbols(baseTypeSymbol));
                 baseTypeSymbol = baseTypeSymbol.BaseType;
             }
 
-            return results;
+            return symbols;
         }
 
-        private static string GenerateBuildMethod(TemplateParser templateParser, IEnumerable<IPropertySymbol> properties)
+        private static string GenerateBuildMethod(TemplateParser templateParser, IEnumerable<(string Name, string TypeName)> properties)
         {
             var setters = string.Join(
                 Environment.NewLine,
@@ -126,7 +131,7 @@ namespace BuilderGenerator
             return result;
         }
 
-        private static string GenerateProperties(TemplateParser templateParser, IEnumerable<IPropertySymbol> properties)
+        private static string GenerateProperties(TemplateParser templateParser, IEnumerable<(string Name, string TypeName)> properties)
         {
             var result = string.Join(
                 Environment.NewLine,
@@ -134,7 +139,7 @@ namespace BuilderGenerator
                     x =>
                     {
                         templateParser.SetTag("PropertyName", x.Name);
-                        templateParser.SetTag("PropertyType", x.Type.ToString());
+                        templateParser.SetTag("PropertyType", x.TypeName);
 
                         return templateParser.ParseString(Templates.Property);
                     }));
@@ -142,15 +147,15 @@ namespace BuilderGenerator
             return result;
         }
 
-        private static string GenerateWithMethods(TemplateParser templateParser, IEnumerable<IPropertySymbol> properties)
+        private static string GenerateWithMethods(TemplateParser templateParser, IEnumerable<(string Name, string TypeName)> properties)
         {
             var result = string.Join(
                 Environment.NewLine,
                 properties.Select(
                     x =>
                     {
-                        templateParser.SetTag("PropertyName", x.Name.ToString());
-                        templateParser.SetTag("PropertyType", x.Type.ToString());
+                        templateParser.SetTag("PropertyName", x.Name);
+                        templateParser.SetTag("PropertyType", x.TypeName);
 
                         return templateParser.ParseString(Templates.WithMethod);
                     }));

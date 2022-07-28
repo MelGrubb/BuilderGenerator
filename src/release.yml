@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    env:
+      working-directory: ./src
+
+    runs-on: ubuntu-latest
+   
+    steps:
+    - name: Check out source
+      uses: actions/checkout@v2
+
+    - name: Setup .NET 3
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+
+    - name: Setup .NET 5
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: ${{env.working-directory}}
+
+    - name: Build solution
+      run: dotnet build --configuration Release --no-restore
+      working-directory: ${{env.working-directory}}
+
+    - name: Test solution
+      run: dotnet test --configuration Release --no-restore --no-build --verbosity normal
+      working-directory: ${{env.working-directory}}
+
+    - name: Pack
+      run: dotnet pack --configuration Release --no-build --output .
+
+    - name: Push
+      run: dotnet nuget push "*.nupkg" --api-key ${{NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json

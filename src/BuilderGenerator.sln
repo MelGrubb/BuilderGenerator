@@ -35,7 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Package", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{6842FF17-D296-4C8D-BDA2-90624C2E475C}"
 	ProjectSection(SolutionItems) = preProject
-		..\.github\workflows\CI Workflow.yml = ..\.github\workflows\CI Workflow.yml
+		..\.github\workflows\ci.yml = ..\.github\workflows\ci.yml
+		release.yml = release.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Test.Direct", "BuilderGenerator.Test.Direct\BuilderGenerator.Test.Direct.csproj", "{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}"

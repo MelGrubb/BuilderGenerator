@@ -76,7 +76,7 @@ namespace {{BuilderClassNamespace}}
     }
 }";
 
-        internal const string BuilderBaseClass = @"#nullable enable
+        internal const string BuilderBaseClass = @"#nullable disable
 
 namespace BuilderGenerator
 {

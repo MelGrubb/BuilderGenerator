@@ -1,4 +1,4 @@
-name: CI Workflow
+name: CI
 
 on:
   push:
@@ -8,11 +8,11 @@ on:
 
 jobs:
   build:
+    env:
+      working-directory: ./src
+
     runs-on: ubuntu-latest
     
-    env:
-        working-directory: ./src
-
     steps:
     - name: Check out source
       uses: actions/checkout@v2

@@ -1,9 +1,10 @@
-using System.Collections.Generic;
 #nullable enable
+
+using System.Collections.Generic;
 
 namespace BuilderGenerator.Test.Direct.Models.Entities
 {
-    public class User : Entity
+    public class User : AuditableEntity
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
