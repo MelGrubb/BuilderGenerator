@@ -41,10 +41,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{6842FF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Test.Direct", "BuilderGenerator.Test.Direct\BuilderGenerator.Test.Direct.csproj", "{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Test.Local", "BuilderGenerator.Test.Local\BuilderGenerator.Test.Local.csproj", "{2AFAC25B-6B30-48FE-A74F-C08907D3BD6D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Test.NuGet", "BuilderGenerator.Test.NuGet\BuilderGenerator.Test.NuGet.csproj", "{7F89C5A0-338B-463F-8FB7-C398DF0912B7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,12 +58,6 @@ Global
 		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2AFAC25B-6B30-48FE-A74F-C08907D3BD6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2AFAC25B-6B30-48FE-A74F-C08907D3BD6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2AFAC25B-6B30-48FE-A74F-C08907D3BD6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F89C5A0-338B-463F-8FB7-C398DF0912B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F89C5A0-338B-463F-8FB7-C398DF0912B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F89C5A0-338B-463F-8FB7-C398DF0912B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
