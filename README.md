@@ -1,10 +1,7 @@
 [![Nuget](https://img.shields.io/nuget/dt/buildergenerator)](https://www.nuget.org/packages/BuilderGenerator/)
 [![GitHub](https://img.shields.io/github/license/melgrubb/buildergenerator)](https://opensource.org/licenses/MIT)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MelGrubb/BuilderGenerator/CI%20Workflow)](https://github.com/MelGrubb/BuilderGenerator/actions/workflows/CI%20Workflow.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MelGrubb/BuilderGenerator/CI)](https://github.com/MelGrubb/BuilderGenerator/actions/workflows/CI.yml)
 [![GitHub issues](https://img.shields.io/github/issues/melgrubb/buildergenerator)](https://github.com/MelGrubb/BuilderGenerator/issues)
-
-[![Gitter](https://img.shields.io/gitter/room/melgrubb/buildergenerator?logo=gitter)](https://gitter.im/BuilderGenerator/community)
-
 
 # Builder Generator #
 
