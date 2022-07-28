@@ -7,9 +7,9 @@
     <DevelopmentDependency>true</DevelopmentDependency>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>2.0.3</Version>
+    <Version>2.0.4</Version>
     <PackageId>BuilderGenerator</PackageId>
-    <PackageVersion>2.0.3</PackageVersion>
+    <PackageVersion>2.0.4</PackageVersion>
     <Authors>Mel Grubb</Authors>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://melgrubb.github.io/BuilderGenerator/</PackageProjectUrl>
@@ -21,7 +21,10 @@
     <Copyright>2021 Mel Grubb</Copyright>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <PackageReleaseNotes>v2.0.3
+    <PackageReleaseNotes>v2.0.4
+- Fixed #14, duplicate properties
+
+v2.0.3
 - Fixed NuGet packaging problem
 
 v2.0.2
