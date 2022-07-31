@@ -1,19 +1,5 @@
-# BuilderGenerator #
+# Builder Generator #
 
-This project contains the implementation of the BuilderGenerator class itself, along with various support classes.
+This is a .Net Source Generator designed to add "Builders" to your projects. [Builders](https://en.wikipedia.org/wiki/Builder_pattern) are an object creation pattern, similar to the [Object Mother](https://martinfowler.com/bliki/ObjectMother.html) pattern. Object Mothers and Builders are most commonly used to create objects for testing, but they can be used anywhere you want "canned" objects.
 
-## BuilderGenerator ##
-
-This class is the brains of the outfit. It reacts to changes in the target project, looking for classes decorated with the BuilderFor attribute, and generating partial builder classes for them.
-
-## TemplateParser ##
-
-This is a utility class to do regex-based search and replace over a string template, looking for all tags in a given format, and replacing them with their corresponding values in an internal dictionary of values. Its main difference is that it only needs to make a single pass over the source string. It is used here as a way to set certain values only once, while allowing others, such as property names, to change on each iteration through a loop.
-
-## Templates ##
-
-The string templates are gathered together here to keep the BuilderGenerator class small and focused. The hope is to eventually pull these templates from the consuming project itself to allow for customization on a per-project basis. Since the move to .Net 6, the mechanism being used previously no longer works, so I've put this on hold, but hope to return to it.
-
-## Diagnostics ##
-
-Diagnostic report classes to allow the generator to complain about things it doesn't like.
+For more complete documentation, please see the [documentation site](https://melgrubb.github.io/BuilderGenerator/) or the [GitHub project page](https://github.com/MelGrubb/BuilderGenerator/).

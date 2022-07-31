@@ -31,8 +31,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{14E9EF90-504
 		..\docs\assets\css\style.scss = ..\docs\assets\css\style.scss
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Package", "BuilderGenerator.Package\BuilderGenerator.Package.csproj", "{BEFDAAF2-7A1F-414E-AC74-F533032265CA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{6842FF17-D296-4C8D-BDA2-90624C2E475C}"
 	ProjectSection(SolutionItems) = preProject
 		..\.github\workflows\ci.yml = ..\.github\workflows\ci.yml
@@ -51,13 +49,10 @@ Global
 		{159A1DAD-038B-4EBB-BA6B-58C98C68A596}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{159A1DAD-038B-4EBB-BA6B-58C98C68A596}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{159A1DAD-038B-4EBB-BA6B-58C98C68A596}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BEFDAAF2-7A1F-414E-AC74-F533032265CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BEFDAAF2-7A1F-414E-AC74-F533032265CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BEFDAAF2-7A1F-414E-AC74-F533032265CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BEFDAAF2-7A1F-414E-AC74-F533032265CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{202BB3ED-3EC8-4545-A242-5FA0F7B1E6CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
