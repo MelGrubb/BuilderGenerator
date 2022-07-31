@@ -28,21 +28,21 @@ jobs:
 
     # Build and Test
     - name: Restore dependencies
-      run: dotnet restore --verbosity normal
+      run: dotnet restore --verbosity minimal
       working-directory: ${{env.working-directory}}
 
     - name: Build solution
-      run: dotnet build --configuration Release --no-restore  --verbosity normal
+      run: dotnet build --configuration Release --no-restore  --verbosity minimal
       working-directory: ${{env.working-directory}}
 
     - name: Test solution
-      run: dotnet test --configuration Release --no-restore --no-build --verbosity normal
+      run: dotnet test --configuration Release --no-restore --no-build --verbosity minimal
       working-directory: ${{env.working-directory}}
 
     - name: Pack
-      run: dotnet pack --configuration Release --no-restore --no-build --verbosity normal --output .
+      run: dotnet pack --configuration Release --no-restore --no-build --output . --verbosity detailed
       working-directory: ${{env.working-directory}}
 
     - name: Push
-      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --verbosity detailed
       working-directory: ${{env.working-directory}}
