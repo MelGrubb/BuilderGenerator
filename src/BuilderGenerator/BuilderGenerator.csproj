@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <IsPackable>false</IsPackable>
+    <IsPackable>true</IsPackable>
     <!--Is preview still Needed?-->
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
@@ -64,7 +64,7 @@ v0.1.1
 v0.1.0
 - Initial Release</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
@@ -74,16 +74,15 @@ v0.1.0
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(OutputPath)\netstandard2.0\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Assets\logo.png" Link="Assets\logo.png">
       <PackagePath>\</PackagePath>
       <Pack>True</Pack>
     </None>
-    <None Update="README.md">
-      <PackagePath>\</PackagePath>
-      <Pack>True</Pack>
-    </None>
+    <None Include="LICENSE.txt" Pack="true" PackagePath ="" />
+    <None Include="Assets/logo.png" Pack="true" PackagePath ="" />
+    <None Update="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>
