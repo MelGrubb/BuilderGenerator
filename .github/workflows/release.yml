@@ -40,9 +40,9 @@ jobs:
       working-directory: ${{env.working-directory}}
 
     - name: Pack
-      run: dotnet pack --configuration Release --no-restore --no-build --output . --verbosity detailed
+      run: dotnet pack --configuration Release --no-restore --no-build --output . --verbosity normal
       working-directory: ${{env.working-directory}}
 
     - name: Push
-      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --verbosity detailed
+      run: dotnet nuget push "*.nupkg" --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
       working-directory: ${{env.working-directory}}
