@@ -40,3 +40,7 @@ jobs:
     - name: Test solution
       run: dotnet test --configuration Release --no-restore --no-build --verbosity minimal
       working-directory: ${{env.working-directory}}
+
+    - name: Pack
+      run: dotnet pack --configuration Release --no-restore --no-build --output . --verbosity normal
+      working-directory: ${{env.working-directory}}
