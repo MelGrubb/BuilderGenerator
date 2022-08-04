@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IsPackable>true</IsPackable>
@@ -83,6 +83,6 @@ v0.1.0
     </None>
     <None Include="LICENSE.txt" Pack="true" PackagePath ="" />
     <None Include="Assets/logo.png" Pack="true" PackagePath ="" />
-    <None Update="README.md" Pack="true" PackagePath="\" />
+    <None Update="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>
