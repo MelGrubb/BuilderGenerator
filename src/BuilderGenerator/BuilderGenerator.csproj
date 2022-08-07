@@ -5,9 +5,9 @@
     <!--Is preview still Needed?-->
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>2.0.7</AssemblyVersion>
-    <FileVersion>2.0.7</FileVersion>
-    <Version>2.0.7</Version>
+    <AssemblyVersion>2.0.7.1</AssemblyVersion>
+    <FileVersion>2.0.7.1</FileVersion>
+    <Version>2.0.7.1</Version>
     <PackageId>BuilderGenerator</PackageId>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Mel Grubb</Authors>
