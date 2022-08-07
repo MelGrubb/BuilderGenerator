@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using BuilderGenerator.Test.Direct.Models.Enums;
+using BuilderGenerator.Test.Core.Models.Enums;
 
-namespace BuilderGenerator.Test.Direct.Models.Entities
+namespace BuilderGenerator.Test.Core.Models.Entities
 {
     public class Order : AuditableEntity
     {
