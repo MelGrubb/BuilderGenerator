@@ -31,7 +31,7 @@ namespace BuilderGenerator
         /// <returns>A reference to this builder instance.</returns>
         public Builder<T> WithObject(T value)
         {
-            Object = new System.Lazy<T>(value);
+            Object = new System.Lazy<T>(() => value);
 
             return this;
         }

@@ -75,7 +75,7 @@ v0.1.0
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
@@ -85,8 +85,8 @@ v0.1.0
       <PackagePath>\</PackagePath>
       <Pack>True</Pack>
     </None>
-    <None Include="Assets/logo.png" Pack="true" PackagePath ="" />
-    <None Include="LICENSE.txt" Pack="true" PackagePath ="" />
+    <None Include="Assets/logo.png" Pack="true" PackagePath="" />
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
     <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>
