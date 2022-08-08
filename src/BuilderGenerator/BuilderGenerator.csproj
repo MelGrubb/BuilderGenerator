@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <!--Is preview still Needed?-->
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>2.0.5</AssemblyVersion>
-    <FileVersion>2.0.5</FileVersion>
-    <Version>2.0.5</Version>
+    <AssemblyVersion>2.1.0</AssemblyVersion>
+    <FileVersion>2.1.0</FileVersion>
+    <Version>2.1.0</Version>
     <PackageId>BuilderGenerator</PackageId>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Mel Grubb</Authors>
@@ -19,7 +19,16 @@
     <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
-    <PackageReleaseNotes>v2.0.5
+    <PackageReleaseNotes>v2.1.0
+- Fixed #15, Builders can manipulate internals if configured to do so.
+
+v2.0.7
+- Fixed #13, NetStandard2.0 compatibility
+
+v2.0.6
+- Fixed #12, Generated files now marked with auth-generated header
+
+v2.0.5
 - Fixed #14, duplicate properties
 
 v2.0.3
