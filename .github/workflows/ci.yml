@@ -30,13 +30,13 @@ jobs:
 
     # Build and Test    
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore --verbosity minimal
       working-directory: ${{env.working-directory}}
 
     - name: Build solution
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release --no-restore  --verbosity minimal
       working-directory: ${{env.working-directory}}
 
     - name: Test solution
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --configuration Release --no-restore --no-build --verbosity minimal
       working-directory: ${{env.working-directory}}

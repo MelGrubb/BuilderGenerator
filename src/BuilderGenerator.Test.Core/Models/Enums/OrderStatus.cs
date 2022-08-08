@@ -1,10 +1,11 @@
-namespace BuilderGenerator.Test.Core.Models.Enums;
-
-public enum OrderStatus
+namespace BuilderGenerator.Test.Core.Models.Enums
 {
-    Received = 1,
-    Processing = 2,
-    Shipping = 3,
-    Shipped = 4,
-    Completed = 5,
+    public enum OrderStatus
+    {
+        Received = 1,
+        Processing = 2,
+        Shipping = 3,
+        Shipped = 4,
+        Completed = 5,
+    }
 }
