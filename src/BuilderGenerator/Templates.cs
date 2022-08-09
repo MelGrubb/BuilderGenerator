@@ -1,3 +1,4 @@
+// ReSharper disable ArrangeNamespaceBody
 // ReSharper disable UnusedMember.Global
 
 namespace BuilderGenerator;
@@ -55,15 +56,17 @@ namespace {{BuilderClassNamespace}}
     }
 }";
 
-    internal const string BuilderForAttribute = @"namespace BuilderGenerator
+        internal const string BuilderForAttribute = @"namespace BuilderGenerator
 {
     [System.AttributeUsage(System.AttributeTargets.Class)]
     public class BuilderForAttribute : System.Attribute
     {
+        public bool IncludeInternals { get; }
         public System.Type Type { get; }
 
-        public BuilderForAttribute(System.Type type)
+        public BuilderForAttribute(System.Type type, bool includeInternals = false)
         {
+            this.IncludeInternals = includeInternals;
             this.Type = type;
         }
     }
