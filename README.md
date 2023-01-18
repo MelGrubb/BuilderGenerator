@@ -1,6 +1,6 @@
 [![Nuget](https://img.shields.io/nuget/dt/buildergenerator)](https://www.nuget.org/packages/BuilderGenerator/)
 [![GitHub](https://img.shields.io/github/license/melgrubb/buildergenerator)](https://opensource.org/licenses/MIT)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MelGrubb/BuilderGenerator/CI)](https://github.com/MelGrubb/BuilderGenerator/actions/workflows/CI.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MelGrubb/BuilderGenerator/ci)](https://github.com/MelGrubb/BuilderGenerator/actions/workflows/ci.yml)
 [![GitHub issues](https://img.shields.io/github/issues/melgrubb/buildergenerator)](https://github.com/MelGrubb/BuilderGenerator/issues)
 
 # Builder Generator #
