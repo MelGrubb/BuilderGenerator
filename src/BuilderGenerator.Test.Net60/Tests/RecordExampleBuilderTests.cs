@@ -32,7 +32,7 @@ public class RecordExampleBuilderTests
     public void SetUp()
     {
         _parameterOne = Random.Shared.Next();
-        _parameterTwo = Random.Shared.Next(0, 5) == 3;
+        _parameterTwo = Random.Shared.Next(0, 2) == 1;
         _parameterThree = Guid.NewGuid().ToString();
 
         _result = RecordExampleBuilder
