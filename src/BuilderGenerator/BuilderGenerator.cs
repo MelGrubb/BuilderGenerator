@@ -100,7 +100,9 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static string GenerateBuildMethod(TemplateParser templateParser, IEnumerable<(string Name, string TypeName)> properties)
     {
         var setters = string.Join(
+#pragma warning disable RS1035 // Do not use APIs banned for analyzers
             Environment.NewLine,
+#pragma warning restore RS1035 // Do not use APIs banned for analyzers
             properties.Select(
                 x =>
                 {
@@ -118,7 +120,9 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static string GenerateProperties(TemplateParser templateParser, IEnumerable<(string Name, string TypeName)> properties)
     {
         var result = string.Join(
+#pragma warning disable RS1035 // Do not use APIs banned for analyzers
             Environment.NewLine,
+#pragma warning restore RS1035 // Do not use APIs banned for analyzers
             properties.Select(
                 x =>
                 {
@@ -134,7 +138,9 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static string GenerateWithMethods(TemplateParser templateParser, IEnumerable<(string Name, string TypeName)> properties)
     {
         var result = string.Join(
+#pragma warning disable RS1035 // Do not use APIs banned for analyzers
             Environment.NewLine,
+#pragma warning restore RS1035 // Do not use APIs banned for analyzers
             properties.Select(
                 x =>
                 {
