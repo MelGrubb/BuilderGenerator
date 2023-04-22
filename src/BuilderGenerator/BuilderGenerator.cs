@@ -88,7 +88,7 @@ internal class BuilderGenerator : IIncrementalGenerator
 
                 var source = templateParser.ParseString(Templates.BuilderClass);
 
-                context.AddSource($"{builderClassName}.generated.cs", SourceText.From(source, Encoding.UTF8));
+                context.AddSource($"{builderClassName}.g.cs", SourceText.From(source, Encoding.UTF8));
             }
             catch (Exception e)
             {
