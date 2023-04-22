@@ -19,7 +19,10 @@
     <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
-    <PackageReleaseNotes>v2.1.0
+    <PackageReleaseNotes>v2.2.0
+- Changed generated file extension to .g.cs
+
+v2.1.0
 - Fixed #15, Builders can manipulate internals if configured to do so.
 
 v2.0.7
