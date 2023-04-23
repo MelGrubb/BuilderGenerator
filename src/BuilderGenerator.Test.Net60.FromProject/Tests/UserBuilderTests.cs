@@ -1,10 +1,10 @@
 using System;
 using BuilderGenerator.Test.Core.Models.Entities;
-using BuilderGenerator.Test.Net50.Builders;
+using BuilderGenerator.Test.Net60.Builders;
 using NUnit.Framework;
 using Shouldly;
 
-namespace BuilderGenerator.Test.Net50.Tests;
+namespace BuilderGenerator.Test.Net60.Tests;
 
 [TestFixture]
 public class UserBuilderTests
