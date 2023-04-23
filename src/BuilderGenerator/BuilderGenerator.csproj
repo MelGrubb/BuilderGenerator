@@ -1,84 +1,95 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <IsPackable>true</IsPackable>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>2.2.0</AssemblyVersion>
-    <FileVersion>2.2.0</FileVersion>
-    <Version>2.2.0</Version>
-    <PackageId>BuilderGenerator</PackageId>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IsRoslynComponent>true</IsRoslynComponent>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-    <Authors>Mel Grubb</Authors>
-    <Description>Generates builder classes for testing and/or seed data. Please see documentation site (https://melgrubb.github.io/BuilderGenerator/) for complete details.</Description>
-    <Copyright>2021-2022 Mel Grubb</Copyright>
-    <PackageProjectUrl>https://github.com/MelGrubb/BuilderGenerator</PackageProjectUrl>
-    <PackageIcon>logo.png</PackageIcon>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
-    <PackageReleaseNotes>v2.2.0
-- Changed generated file extension to .g.cs
-
-v2.1.0
-- Fixed #15, Builders can manipulate internals if configured to do so.
-
-v2.0.7
-- Fixed #13, NetStandard2.0 compatibility
-
-v2.0.6
-- Fixed #12, Generated files now marked with auth-generated header
-
-v2.0.5
-- Fixed #14, duplicate properties
-
-v2.0.3
-- Fixed NuGet packaging problem
-
-v2.0.2
-- Setters for base class properties rendering properly
-
-v2.0.1
-- Improved error handling
-
-v2.0.0
-- Updated to .Net 6 and IIncrementalGenerator
-- Changed usage pattern from marking target classes with attributes to marking partial builder classes
-
-v1.2.0
-- Solution reorganization
-- Version number synchronization
-- Automated build pipeline
-
-v1.0.0
-- First major release
-
-v0.5.0
-- Replaced separate BuilderGenerator.Common assembly with a generated attribute and base class.
-- NuGet package complete and working at last
-
-v0.1.4
-- Added logo
-- Builder now ignores properties without setters
-- NuGet package should auto-install analyzer now
-
-v0.1.3
-- Added Documentation site stub
-
-v0.1.2
-- Ignore read-only fields
-
-v0.1.1
-- Preview/Alpha release
-
-v0.1.0
-- Initial Release
-    </PackageReleaseNotes>
-    <NeutralLanguage>en</NeutralLanguage>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <Authors>Mel Grubb</Authors>
+    <Copyright>2021-2023 Mel Grubb</Copyright>
+    <Description>Generates builder classes for testing and/or seed data. Please see documentation site (https://melgrubb.github.io/BuilderGenerator/) for complete details.</Description>
+    <Version>2.2.0</Version>
+    <AssemblyVersion>$(Version).0</AssemblyVersion>
+    <AssemblyFileVersion>$(Version).0</AssemblyFileVersion>
+    <FileVersion>$(Version).0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageId>BuilderGenerator</PackageId>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/MelGrubb/BuilderGenerator</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
+    <PackageReleaseNotes>
+      v2.2.0
+      - Changed generated file extension to .g.cs
+
+      v2.1.0
+      - Fixed #15, Builders can manipulate internals if configured to do so.
+
+      v2.0.7
+      - Fixed #13, NetStandard2.0 compatibility
+
+      v2.0.6
+      - Fixed #12, Generated files now marked with auth-generated header
+
+      v2.0.5
+      - Fixed #14, duplicate properties
+
+      v2.0.3
+      - Fixed NuGet packaging problem
+
+      v2.0.2
+      - Setters for base class properties rendering properly
+
+      v2.0.1
+      - Improved error handling
+
+      v2.0.0
+      - Updated to .Net 6 and IIncrementalGenerator
+      - Changed usage pattern from marking target classes with attributes to marking partial builder classes
+
+      v1.2.0
+      - Solution reorganization
+      - Version number synchronization
+      - Automated build pipeline
+
+      v1.0.0
+      - First major release
+
+      v0.5.0
+      - Replaced separate BuilderGenerator.Common assembly with a generated attribute and base class.
+      - NuGet package complete and working at last
+
+      v0.1.4
+      - Added logo
+      - Builder now ignores properties without setters
+      - NuGet package should auto-install analyzer now
+
+      v0.1.3
+      - Added Documentation site stub
+
+      v0.1.2
+      - Ignore read-only fields
+
+      v0.1.1
+      - Preview/Alpha release
+
+      v0.1.0
+      - Initial Release
+    </PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
@@ -86,9 +97,11 @@ v0.1.0
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
   </ItemGroup>
+
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>
+
   <ItemGroup>
     <None Update="Assets\logo.png" Link="Assets\logo.png">
       <PackagePath>\</PackagePath>
