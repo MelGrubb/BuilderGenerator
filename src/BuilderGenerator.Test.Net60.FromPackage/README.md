@@ -1,5 +1,5 @@
-# BuilderGenerator.Test.Net60 #
+# BuilderGenerator.Test.Net60.FromPackage
 
 This project provides tests the BuilderGenerator package being used in a .Net 6.0 project using a simple series of inter-related classes defined in the BuiderGenerator.Test.Core project.
 
-The reference to the BuilderGenerator is a direct project reference, so it can be used to rapidly check the results of changes, but does not represent the real-world usage of the generator. It tests the functionality of the builder, but not the deployment mechanism.
+The reference to the BuilderGenerator is a NuGet package reference, so it can be used to check the results of the final product. It is meant to test the deployment mechanism.

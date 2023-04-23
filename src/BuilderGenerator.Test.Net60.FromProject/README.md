@@ -1,4 +1,4 @@
-# BuilderGenerator.Test.Net60 #
+# BuilderGenerator.Test.Net60.FromProject
 
 This project provides tests the BuilderGenerator package being used in a .Net 6.0 project using a simple series of inter-related classes defined in the BuiderGenerator.Test.Core project.
 
