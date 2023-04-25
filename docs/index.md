@@ -84,9 +84,9 @@ namespace MyTests.Builders
         public Lazy<string?> FirstName = new Lazy<string?>(() => default(string?));
         public Lazy<System.Guid> Id = new Lazy<System.Guid>(() => default(System.Guid));
         public Lazy<string?> LastName = new Lazy<string?>(() => default(string?));
-        public Lazy<System.Collections.Generic.ICollection<BuilderGenerator.Test.NuGet.Models.Entities.Order>> Orders = new Lazy<System.Collections.Generic.ICollection<BuilderGenerator.Test.NuGet.Models.Entities.Order>>(() => default(System.Collections.Generic.ICollection<BuilderGenerator.Test.NuGet.Models.Entities.Order>));
+        public Lazy<System.Collections.Generic.ICollection<BuilderGenerator.Sample.NuGet.Models.Entities.Order>> Orders = new Lazy<System.Collections.Generic.ICollection<BuilderGenerator.Sample.NuGet.Models.Entities.Order>>(() => default(System.Collections.Generic.ICollection<BuilderGenerator.Sample.NuGet.Models.Entities.Order>));
 
-        public override BuilderGenerator.Test.NuGet.Models.Entities.User Build()
+        public override BuilderGenerator.Sample.NuGet.Models.Entities.User Build()
         {
         ...
         }
@@ -179,6 +179,10 @@ I know that the test cares about the User's first name because it mentioned it. 
 ## "With" Method Types
 
 One feature of the generated builders is that the various "With" methods come in multiple flavors. There is the typical version that takes a simple value, such as the Guid Id value used in this example. In addition, there are overloads that take lambda expressions to be evaluated when the builder's Build method is finally invoked at runtime. This can be useful as a way to delay the execution of potentially expensive code until the last moment in case the value is changed later on. Each "With" method can be called multiple times, with subsequent values overwriting previous ones. In other words, "Last in wins". Builders represent a *plan* for creating an object rather than the object itself, and plans are always subject to change.
+
+## Manipulating internal properties
+
+Your objects may have internal properties that you expose to unit tests via the ```InternalsVisibleTo``` attribute. In order to manipulate these properties from the builders, you must explicitly tell the builder to expose them. In the ```BuilderFor``` attribute, add a second parameter with the value ```true``` or a named parameter called "includeInternals". This will tell that specific builder to include internal properties in addition to the public properties as it does now.
 
 ### Customizing the code templates
 

@@ -1,3 +1,4 @@
+// ReSharper disable ArrangeNamespaceBody
 // ReSharper disable UnusedMember.Global
 
 namespace BuilderGenerator;
@@ -15,7 +16,7 @@ namespace BuilderGenerator
         /// <summary>Gets or sets the object returned by this builder.</summary>
         /// <value>The constructed object.</value>
         #pragma warning disable CA1720 // Identifier contains type name
-        protected System.Lazy<T>? Object { get; set; }
+        protected System.Lazy<T> Object { get; set; }
         #pragma warning restore CA1720 // Identifier contains type name
 
         /// <summary>Builds the object instance.</summary>
@@ -31,7 +32,7 @@ namespace BuilderGenerator
         /// <returns>A reference to this builder instance.</returns>
         public Builder<T> WithObject(T value)
         {
-            Object = new System.Lazy<T>(value);
+            Object = new System.Lazy<T>(() => value);
 
             return this;
         }
@@ -42,7 +43,7 @@ namespace BuilderGenerator
 {{BuilderClassUsingBlock}}
 using System.CodeDom.Compiler;
 
-#nullable enable
+#nullable disable
 
 namespace {{BuilderClassNamespace}}
 {
@@ -60,10 +61,12 @@ namespace {{BuilderClassNamespace}}
     [System.AttributeUsage(System.AttributeTargets.Class)]
     public class BuilderForAttribute : System.Attribute
     {
+        public bool IncludeInternals { get; }
         public System.Type Type { get; }
 
-        public BuilderForAttribute(System.Type type)
+        public BuilderForAttribute(System.Type type, bool includeInternals = false)
         {
+            this.IncludeInternals = includeInternals;
             this.Type = type;
         }
     }

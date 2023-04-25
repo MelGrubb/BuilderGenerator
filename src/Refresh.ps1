@@ -2,7 +2,7 @@
 $version = $buildProps.Project.PropertyGroup.Version
 
 Write-Output "Uninstalling package"
-Uninstall-Package -Id BuilderGenerator -ProjectName BuilderGenerator.Test.NuGet
+Uninstall-Package -Id BuilderGenerator -ProjectName BuilderGenerator.Sample.NuGet
 
 Write-Output "Deleting local package cache version $version"
 if (test-path C:\Users\Mel\.nuget\packages\buildergenerator\$version)
@@ -21,4 +21,4 @@ Write-Output "Publishing new package version"
 ./Publish-Local.ps1
 
 Write-Output "Installing new package version"
-Install-Package -Id BuilderGenerator -ProjectName BuilderGenerator.Test.NuGet
+Install-Package -Id BuilderGenerator -ProjectName BuilderGenerator.Sample.NuGet

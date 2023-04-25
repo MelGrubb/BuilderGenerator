@@ -1,7 +1,8 @@
 [![Nuget](https://img.shields.io/nuget/dt/buildergenerator)](https://www.nuget.org/packages/BuilderGenerator/)
 [![GitHub](https://img.shields.io/github/license/melgrubb/buildergenerator)](https://opensource.org/licenses/MIT)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/MelGrubb/BuilderGenerator/CI)](https://github.com/MelGrubb/BuilderGenerator/actions/workflows/CI.yml)
 [![GitHub issues](https://img.shields.io/github/issues/melgrubb/buildergenerator)](https://github.com/MelGrubb/BuilderGenerator/issues)
+[![CI](https://github.com/MelGrubb/BuilderGenerator/actions/workflows/ci.yml/badge.svg)](https://github.com/MelGrubb/BuilderGenerator/actions/workflows/ci.yml)
+[![Discord](https://img.shields.io/discord/813785114722697258?logo=discord&logoColor=white)](https://discord.com/channels/813785114722697258/1099524153436012694)
 
 # Builder Generator #
 
@@ -26,6 +27,18 @@ Install-Package BuilderGenerator
 After installation, create a partial class to define your builder in. Decorate it with the ```BuilderFor``` attribute, specifying the type of class that the builder is meant to build (e.g. ```[BuilderFor(typeof(Foo))]```. Define any factory and helper methods in this partial class. Meanwhile, another partial class definition will be auto-generated which contains all the "boring" parts such as the backing fields and "with" methods.
 
 ## Version History ##
+- v2.2.0
+  - Changed generated file extension to .g.cs
+
+- v2.0.7
+  - Fixed #13, NetStandard2.0 compatibility
+
+- v2.0.6
+  - Fixed #12, Generated files now marked with auth-generated header
+
+- v2.0.5
+  - Fixed #14, duplicate properties
+
 - v2.0.3
   - Attempting to fix NuGet packaging problems
 
