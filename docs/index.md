@@ -84,9 +84,9 @@ namespace MyTests.Builders
         public Lazy<string?> FirstName = new Lazy<string?>(() => default(string?));
         public Lazy<System.Guid> Id = new Lazy<System.Guid>(() => default(System.Guid));
         public Lazy<string?> LastName = new Lazy<string?>(() => default(string?));
-        public Lazy<System.Collections.Generic.ICollection<BuilderGenerator.Test.NuGet.Models.Entities.Order>> Orders = new Lazy<System.Collections.Generic.ICollection<BuilderGenerator.Test.NuGet.Models.Entities.Order>>(() => default(System.Collections.Generic.ICollection<BuilderGenerator.Test.NuGet.Models.Entities.Order>));
+        public Lazy<System.Collections.Generic.ICollection<BuilderGenerator.Sample.NuGet.Models.Entities.Order>> Orders = new Lazy<System.Collections.Generic.ICollection<BuilderGenerator.Sample.NuGet.Models.Entities.Order>>(() => default(System.Collections.Generic.ICollection<BuilderGenerator.Sample.NuGet.Models.Entities.Order>));
 
-        public override BuilderGenerator.Test.NuGet.Models.Entities.User Build()
+        public override BuilderGenerator.Sample.NuGet.Models.Entities.User Build()
         {
         ...
         }
