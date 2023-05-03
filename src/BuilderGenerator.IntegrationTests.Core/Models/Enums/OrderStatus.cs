@@ -1,11 +1,10 @@
-namespace BuilderGenerator.Sample.Core.Models.Enums
+namespace BuilderGenerator.IntegrationTests.Core.Models.Enums;
+
+public enum OrderStatus
 {
-    public enum OrderStatus
-    {
-        Received = 1,
-        Processing = 2,
-        Shipping = 3,
-        Shipped = 4,
-        Completed = 5,
-    }
+    Received = 1,
+    Processing = 2,
+    Shipping = 3,
+    Shipped = 4,
+    Completed = 5,
 }

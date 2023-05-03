@@ -1,6 +1,6 @@
-using BuilderGenerator.Sample.Core.Models.Entities;
+using BuilderGenerator.IntegrationTests.Core.Models.Entities;
 
-namespace BuilderGenerator.Sample.Net60.Builders;
+namespace BuilderGenerator.IntegrationTests.Net60.FromProject.Builders;
 
 [BuilderFor(typeof(CollectionTypesSample))]
 public partial class CollectionTypeSampleBuilder

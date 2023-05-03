@@ -1,6 +1,6 @@
 using System;
 
-namespace BuilderGenerator.Sample.Core.Models.Entities;
+namespace BuilderGenerator.IntegrationTests.Core.Models.Entities;
 
 public abstract class AuditableEntity : Entity
 {

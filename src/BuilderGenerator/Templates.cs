@@ -47,7 +47,6 @@ using System.CodeDom.Compiler;
 
 namespace {{BuilderClassNamespace}}
 {
-    // Generated at {{GeneratedAt}}
     {{BuilderClassAccessibility}} partial class {{BuilderClassName}} : BuilderGenerator.Builder<{{TargetClassFullName}}>
     {
 {{Properties}}
