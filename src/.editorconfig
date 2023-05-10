@@ -149,6 +149,21 @@ resharper_redundant_base_qualifier_highlighting=warning
 resharper_suggest_var_or_type_built_in_types_highlighting=hint
 resharper_suggest_var_or_type_elsewhere_highlighting=hint
 resharper_suggest_var_or_type_simple_types_highlighting=hint
+csharp_using_directive_placement = outside_namespace:silent
+csharp_prefer_simple_using_statement = true:suggestion
+csharp_prefer_braces = true:suggestion
+csharp_style_namespace_declarations = block_scoped:silent
+csharp_style_prefer_method_group_conversion = true:silent
+csharp_style_prefer_top_level_statements = true:silent
+csharp_style_expression_bodied_methods = when_on_single_line:none
+csharp_style_expression_bodied_constructors = false:none
+csharp_style_expression_bodied_operators = false:none
+csharp_style_expression_bodied_properties = true:none
+csharp_style_expression_bodied_indexers = true:none
+csharp_style_expression_bodied_accessors = true:none
+csharp_style_expression_bodied_lambdas = true:silent
+csharp_style_expression_bodied_local_functions = false:silent
+csharp_indent_labels = no_change
 
 
 # Visual Studio Solution Files
@@ -207,9 +222,9 @@ spaces_around_operators=true
 
 # Dotnet code style
 [*.{cs,csx,vb,vbx,cake}]
-end_of_line=crlf
+end_of_line= crlf
 indent_brace_style=Allman
-indent_size=4
+indent_size= 4
 insert_final_newline=true
 spaces_around_brackets=inside
 spaces_around_operators=true
@@ -246,17 +261,17 @@ dotnet_style_readonly_field=true:suggestion
 
 
 # Expression-level preferences
-dotnet_style_object_initializer=true:suggestion
-dotnet_style_collection_initializer=true:suggestion
-dotnet_style_explicit_tuple_names=true:suggestion
-dotnet_style_null_propagation=true:suggestion
-dotnet_style_coalesce_expression=true:suggestion
-dotnet_style_prefer_is_null_check_over_reference_equality_method=true:silent
+dotnet_style_object_initializer= true:suggestion
+dotnet_style_collection_initializer= true:suggestion
+dotnet_style_explicit_tuple_names= true:suggestion
+dotnet_style_null_propagation= true:suggestion
+dotnet_style_coalesce_expression= true:suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method= true:silent
 dotnet_prefer_inferred_tuple_names=true:suggestion
 dotnet_prefer_inferred_anonymous_type_member_names=true:suggestion
-dotnet_style_prefer_auto_properties=true:silent
-dotnet_style_prefer_conditional_expression_over_assignment=true:silent
-dotnet_style_prefer_conditional_expression_over_return=true:silent
+dotnet_style_prefer_auto_properties= true:silent
+dotnet_style_prefer_conditional_expression_over_assignment= true:silent
+dotnet_style_prefer_conditional_expression_over_return= true:silent
 
 
 # Naming Styles:
@@ -338,52 +353,52 @@ dotnet_naming_symbols.type_parameters.applicable_kinds=type_parameter
 # Note (From the docs): Naming conventions should be ordered from most-specific to least-specific.
 # The first rule encountered that can be applied is the only rule that is applied, so put more-specific rules first.
 dotnet_naming_rule.private_constant_fields.symbols=constant_fields
-dotnet_naming_rule.private_constant_fields.style=camel_case_style
-dotnet_naming_rule.private_constant_fields.severity=warning
+dotnet_naming_rule.private_constant_fields.style = camel_case_style
+dotnet_naming_rule.private_constant_fields.severity = warning
 
 dotnet_naming_rule.non_private_constant_fields.symbols=constant_fields
-dotnet_naming_rule.non_private_constant_fields.style=pascal_case_style
-dotnet_naming_rule.non_private_constant_fields.severity=warning
+dotnet_naming_rule.non_private_constant_fields.style = pascal_case_style
+dotnet_naming_rule.non_private_constant_fields.severity = warning
 
 dotnet_naming_rule.private_static_readonly_fields.symbols=private_static_readonly_fields
-dotnet_naming_rule.private_static_readonly_fields.style=pascal_case_style
-dotnet_naming_rule.private_static_readonly_fields.severity=warning
+dotnet_naming_rule.private_static_readonly_fields.style = pascal_case_style
+dotnet_naming_rule.private_static_readonly_fields.severity = warning
 
 dotnet_naming_rule.private_readonly_fields.symbols=private_readonly_fields
-dotnet_naming_rule.private_readonly_fields.style=underscore_style
-dotnet_naming_rule.private_readonly_fields.severity=warning
+dotnet_naming_rule.private_readonly_fields.style = underscore_style
+dotnet_naming_rule.private_readonly_fields.severity = warning
 
 dotnet_naming_rule.private_fields.symbols=private_fields
-dotnet_naming_rule.private_fields.style=underscore_style
-dotnet_naming_rule.private_fields.severity=warning
+dotnet_naming_rule.private_fields.style = underscore_style
+dotnet_naming_rule.private_fields.severity = warning
 
 dotnet_naming_rule.namespace.symbols=namespaces
-dotnet_naming_rule.namespace.style=pascal_case_style
-dotnet_naming_rule.namespace.severity=error
+dotnet_naming_rule.namespace.style = pascal_case_style
+dotnet_naming_rule.namespace.severity = error
 
 dotnet_naming_rule.interfaces.symbols=interfaces
-dotnet_naming_rule.interfaces.style=interface_style
-dotnet_naming_rule.interfaces.severity=warning
+dotnet_naming_rule.interfaces.style = interface_style
+dotnet_naming_rule.interfaces.severity = warning
 
 dotnet_naming_rule.non_private_members.symbols=non_private_symbols
-dotnet_naming_rule.non_private_members.style=pascal_case_style
-dotnet_naming_rule.non_private_members.severity=warning
+dotnet_naming_rule.non_private_members.style = pascal_case_style
+dotnet_naming_rule.non_private_members.severity = warning
 
 dotnet_naming_rule.async_methods.symbols=async_methods
-dotnet_naming_rule.async_methods.style=async_style
-dotnet_naming_rule.async_methods.severity=warning
+dotnet_naming_rule.async_methods.style = async_style
+dotnet_naming_rule.async_methods.severity = warning
 
 dotnet_naming_rule.methods_and_properties.symbols=methods_and_properties
-dotnet_naming_rule.methods_and_properties.style=pascal_case_style
-dotnet_naming_rule.methods_and_properties.severity=warning
+dotnet_naming_rule.methods_and_properties.style = pascal_case_style
+dotnet_naming_rule.methods_and_properties.severity = warning
 
 dotnet_naming_rule.parameters.symbols=parameters
-dotnet_naming_rule.parameters.style=camel_case_style
-dotnet_naming_rule.parameters.severity=warning
+dotnet_naming_rule.parameters.style = camel_case_style
+dotnet_naming_rule.parameters.severity = warning
 
 dotnet_naming_rule.type_parameters.symbols=type_parameters
-dotnet_naming_rule.type_parameters.style=type_parameter_style
-dotnet_naming_rule.type_parameters.severity=suggestion
+dotnet_naming_rule.type_parameters.style = type_parameter_style
+dotnet_naming_rule.type_parameters.severity = suggestion
 
 
 # Prefer "var" over explicit types
@@ -563,3 +578,11 @@ csharp_place_simple_initializer_on_single_line=true
 csharp_trailing_comma_in_multiline_lists=true
 csharp_wrap_array_initializer_style=chop_if_long
 csharp_wrap_object_and_collection_initializer_style=chop_if_long
+dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
+dotnet_style_prefer_inferred_tuple_names = true:suggestion
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
+dotnet_style_prefer_compound_assignment = true:suggestion
+dotnet_style_prefer_simplified_interpolation = true:suggestion
+dotnet_style_namespace_match_folder = true:suggestion
+dotnet_style_operator_placement_when_wrapping = beginning_of_line
+tab_width = 4
