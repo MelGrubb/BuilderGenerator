@@ -29,7 +29,7 @@ public class OrderBuilderTests
     public void Simple_does_not_populate_Items()
     {
         var actual = OrderBuilder.Simple().Build();
-        ShouldBeTestExtensions.ShouldBeOfType<Order>(actual);
+        actual.ShouldBeOfType<Order>();
         actual.Items.ShouldBeNull();
     }
 
@@ -40,7 +40,7 @@ public class OrderBuilderTests
     public void Typical_populates_Items()
     {
         var actual = OrderBuilder.Typical().Build();
-        ShouldBeTestExtensions.ShouldBeOfType<Order>(actual);
+        actual.ShouldBeOfType<Order>();
         actual.Items.ShouldNotBeNull();
     }
 

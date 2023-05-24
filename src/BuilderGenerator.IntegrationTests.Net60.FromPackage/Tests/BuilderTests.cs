@@ -19,7 +19,7 @@ public class BuilderTests
     public void Simple_does_not_populate_Orders()
     {
         var actual = UserBuilder.Simple().Build();
-        ShouldBeTestExtensions.ShouldBeOfType<User>(actual);
+        actual.ShouldBeOfType<User>();
         actual.Orders.ShouldBeNull();
     }
 
@@ -30,7 +30,7 @@ public class BuilderTests
     public void Typical_populates_Orders()
     {
         var actual = UserBuilder.Typical().Build();
-        ShouldBeTestExtensions.ShouldBeOfType<User>(actual);
+        actual.ShouldBeOfType<User>();
         actual.Orders.ShouldNotBeNull();
     }
 

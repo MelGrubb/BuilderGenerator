@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using BuilderGenerator.Diagnostics;
@@ -14,19 +16,59 @@ namespace BuilderGenerator;
 [Generator]
 internal class BuilderGenerator : IIncrementalGenerator
 {
+    private static readonly string BuilderBaseClass;
+    private static readonly string BuilderClass;
+    private static readonly string BuilderForAttribute;
+    private static readonly string BuildMethod;
+    private static readonly string BuildMethodSetter;
+    private static readonly string Property;
+    private static readonly string WithMethod;
+
+    static BuilderGenerator()
+    {
+        var assembly = typeof(BuilderGenerator).Assembly;
+
+        BuilderBaseClass = GetResourceAsString(assembly, nameof(BuilderBaseClass));
+        BuilderClass = GetResourceAsString(assembly, nameof(BuilderClass));
+        BuilderForAttribute = GetResourceAsString(assembly, nameof(BuilderForAttribute));
+        BuildMethodSetter = GetResourceAsString(assembly, nameof(BuildMethodSetter));
+        BuildMethod = GetResourceAsString(assembly, nameof(BuildMethod));
+        Property = GetResourceAsString(assembly, nameof(Property));
+        WithMethod = GetResourceAsString(assembly, nameof(WithMethod));
+    }
+
+    public static string GetResourceAsString(Assembly assembly, string resourceName)
+    {
+        resourceName = assembly.GetManifestResourceNames().Single(x => x.Equals($"BuilderGenerator.Templates.{resourceName}.txt", StringComparison.OrdinalIgnoreCase));
+
+        using (var stream = assembly.GetManifestResourceStream(resourceName))
+        {
+            if (stream == null)
+            {
+                throw new InvalidOperationException($"Resource '{resourceName}' not found.");
+            }
+
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+    }
+
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        var classDeclarations = context.SyntaxProvider.CreateSyntaxProvider(Predicate, Transform).Where(static node => node is not null);
-        var compilationAndClasses = context.CompilationProvider.Combine(classDeclarations.Collect());
-        context.RegisterSourceOutput(compilationAndClasses, static (spc, source) => Execute(source.Item1, source.Item2!, spc));
-
+        // Register injection of classes that never change.
         context.RegisterPostInitializationOutput(
             x =>
             {
-                // Inject base classes that never change
-                x.AddSource(nameof(Templates.BuilderBaseClass), SourceText.From(Templates.BuilderBaseClass, Encoding.UTF8));
-                x.AddSource(nameof(Templates.BuilderForAttribute), SourceText.From(Templates.BuilderForAttribute, Encoding.UTF8));
+                x.AddSource(nameof(BuilderBaseClass), SourceText.From(BuilderBaseClass, Encoding.UTF8));
+                x.AddSource(nameof(BuilderForAttribute), SourceText.From(BuilderForAttribute, Encoding.UTF8));
             });
+
+        // Register generation for classes based on the project contents
+        var classDeclarations = context.SyntaxProvider.CreateSyntaxProvider(Predicate, Transform).Where(static node => node is not null);
+        var compilationAndClasses = context.CompilationProvider.Combine(classDeclarations.Collect());
+        context.RegisterSourceOutput(compilationAndClasses, static (spc, source) => Execute(source.Left, source.Right!, spc));
     }
 
     private static void Execute(Compilation compilation, ImmutableArray<TypeDeclarationSyntax> classes, SourceProductionContext context)
@@ -50,7 +92,7 @@ internal class BuilderGenerator : IIncrementalGenerator
                     context.ReportDiagnostic(DiagnosticDescriptors.TargetClassIsAbstract(typeDeclaration.GetLocation(), typeDeclaration.Identifier.ToString()));
                 }
 
-                var attributeSymbol = namedTypeSymbol.GetAttributes().SingleOrDefault(x => x.AttributeClass!.Name == "BuilderForAttribute");
+                var attributeSymbol = namedTypeSymbol.GetAttributes().SingleOrDefault(x => x.AttributeClass!.Name == nameof(BuilderForAttribute));
 
                 if (attributeSymbol is null) { continue; }
 
@@ -86,7 +128,7 @@ internal class BuilderGenerator : IIncrementalGenerator
                 templateParser.SetTag("BuildMethod", builderClassBuildMethod);
                 templateParser.SetTag("WithMethods", builderClassWithMethods);
 
-                var source = templateParser.ParseString(Templates.BuilderClass);
+                var source = templateParser.ParseString(BuilderClass);
 
                 context.AddSource($"{builderClassName}.g.cs", SourceText.From(source, Encoding.UTF8));
             }
@@ -100,19 +142,17 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static string GenerateBuildMethod(TemplateParser templateParser, IEnumerable<(string Name, string TypeName)> properties)
     {
         var setters = string.Join(
-#pragma warning disable RS1035 // Do not use APIs banned for analyzers
-            Environment.NewLine,
-#pragma warning restore RS1035 // Do not use APIs banned for analyzers
+            "\n",
             properties.Select(
                 x =>
                 {
                     templateParser.SetTag("PropertyName", x.Name);
 
-                    return templateParser.ParseString(Templates.BuildMethodSetter);
+                    return templateParser.ParseString(BuildMethodSetter);
                 }));
 
         templateParser.SetTag("Setters", setters);
-        var result = templateParser.ParseString(Templates.BuildMethod);
+        var result = templateParser.ParseString(BuildMethod);
 
         return result;
     }
@@ -120,16 +160,14 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static string GenerateProperties(TemplateParser templateParser, IEnumerable<(string Name, string TypeName)> properties)
     {
         var result = string.Join(
-#pragma warning disable RS1035 // Do not use APIs banned for analyzers
-            Environment.NewLine,
-#pragma warning restore RS1035 // Do not use APIs banned for analyzers
+            "\n",
             properties.Select(
                 x =>
                 {
                     templateParser.SetTag("PropertyName", x.Name);
                     templateParser.SetTag("PropertyType", x.TypeName);
 
-                    return templateParser.ParseString(Templates.Property);
+                    return templateParser.ParseString(Property);
                 }));
 
         return result;
@@ -138,16 +176,14 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static string GenerateWithMethods(TemplateParser templateParser, IEnumerable<(string Name, string TypeName)> properties)
     {
         var result = string.Join(
-#pragma warning disable RS1035 // Do not use APIs banned for analyzers
-            Environment.NewLine,
-#pragma warning restore RS1035 // Do not use APIs banned for analyzers
+            "\n",
             properties.Select(
                 x =>
                 {
                     templateParser.SetTag("PropertyName", x.Name);
                     templateParser.SetTag("PropertyType", x.TypeName);
 
-                    return templateParser.ParseString(Templates.WithMethod);
+                    return templateParser.ParseString(WithMethod);
                 }));
 
         return result;
