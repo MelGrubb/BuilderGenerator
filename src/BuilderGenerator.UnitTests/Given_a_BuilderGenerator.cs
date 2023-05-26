@@ -23,11 +23,8 @@ public class GeneratorTests
         diagnostics.ShouldBeEmpty();
         outputCompilation.SyntaxTrees.Count().ShouldBe(4);
 
-        //outputCompilation.GetDiagnostics().ShouldBeEmpty();
-
         var runResult = driver.GetRunResult();
         runResult.Diagnostics.ShouldBeEmpty();
-
         runResult.GeneratedTrees.Length.ShouldBe(3); // The Builder base class, the BuilderFor attribute, and the generated builder.
 
         // TODO: Check for the presence of the Builder base class.
@@ -37,7 +34,11 @@ public class GeneratorTests
         generatorResult.Generator.GetGeneratorType().ShouldBe(new BuilderGenerator().GetType());
         generatorResult.Exception.ShouldBeNull();
         generatorResult.GeneratedSources.Length.ShouldBe(3);
-        generatorResult.GeneratedSources[2].SourceText.ToString().ShouldBe(expectedOutput);
+
+        var sourceText = generatorResult.GeneratedSources[2].SourceText.ToString();
+
+        // Since the generation time will keep changing, we'll just compare everything after the first instance of the word "using".
+        sourceText[sourceText.IndexOf("using", StringComparison.OrdinalIgnoreCase)..].ShouldBe(expectedOutput[expectedOutput.IndexOf("using", StringComparison.OrdinalIgnoreCase)..]);
     }
 
     public static string GetResourceAsString(Assembly assembly, string resourceName)

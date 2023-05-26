@@ -6,8 +6,8 @@ namespace BuilderGenerator.IntegrationTests.Core.Models.Entities;
 
 public partial class User : AuditableEntity
 {
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
     public string? MiddleName { get; set; }
 }
 

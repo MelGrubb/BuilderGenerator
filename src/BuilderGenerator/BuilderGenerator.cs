@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,8 +15,6 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace BuilderGenerator;
 
-// TODO: Revisit the Environment.NewLine problem. How can I get to the project setting?
-
 [Generator]
 internal class BuilderGenerator : IIncrementalGenerator
 {
@@ -24,9 +23,11 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static readonly string BuilderForAttribute;
     private static readonly string BuildMethod;
     private static readonly string BuildMethodSetter;
+#pragma warning disable RS1035
+    private static readonly string NewLine = Environment.NewLine; // TODO: Derive this value from the project itself
+#pragma warning restore RS1035
     private static readonly string Property;
     private static readonly string WithMethod;
-    private static int _count;
 
     static BuilderGenerator()
     {
@@ -78,24 +79,22 @@ internal class BuilderGenerator : IIncrementalGenerator
     {
         _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
+        var stopwatch = Stopwatch.StartNew();
         var templateParser = new TemplateParser();
 
         try
         {
-            templateParser.SetTag("Count", ++_count);
-            templateParser.SetTag("GeneratedAt", DateTime.Now.ToString("s"));
+            templateParser.SetTag("GenerationTime", DateTime.Now.ToString("s"));
+            templateParser.SetTag("GenerationDuration", (builder.Value.TimeToGenerate + stopwatch.Elapsed).TotalMilliseconds);
             templateParser.SetTag("BuilderClassUsingBlock", builder.Value.BuilderClassUsingBlock);
             templateParser.SetTag("BuilderClassNamespace", builder.Value.BuilderClassNamespace);
-            templateParser.SetTag("BuilderClassAccessibility", builder.Value.BuilderClassAccessibility);
+            templateParser.SetTag("BuilderClassAccessibility", builder.Value.BuilderClassAccessibility.ToString().ToLower());
             templateParser.SetTag("BuilderClassName", builder.Value.BuilderClassName);
             templateParser.SetTag("TargetClassName", builder.Value.TargetClassName);
             templateParser.SetTag("TargetClassFullName", builder.Value.TargetClassFullName);
-
-            var properties = builder.Value.Properties;
-
-            templateParser.SetTag("Properties", GenerateProperties(templateParser, properties));
-            templateParser.SetTag("BuildMethod", GenerateBuildMethod(templateParser, properties));
-            templateParser.SetTag("WithMethods", GenerateWithMethods(templateParser, properties));
+            templateParser.SetTag("Properties", GenerateProperties(templateParser, builder.Value.Properties));
+            templateParser.SetTag("BuildMethod", GenerateBuildMethod(templateParser, builder.Value.Properties));
+            templateParser.SetTag("WithMethods", GenerateWithMethods(templateParser, builder.Value.Properties));
 
             var source = templateParser.ParseString(BuilderClass);
             context.AddSource($"{builder.Value.BuilderClassName}.g.cs", SourceText.From(source, Encoding.UTF8));
@@ -109,9 +108,7 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static string GenerateBuildMethod(TemplateParser templateParser, IEnumerable<PropertyInfo> properties)
     {
         var setters = string.Join(
-#pragma warning disable RS1035
-            Environment.NewLine,
-#pragma warning restore RS1035
+            NewLine,
             properties.Select(
                 x =>
                 {
@@ -129,9 +126,7 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static string GenerateProperties(TemplateParser templateParser, IEnumerable<PropertyInfo> properties)
     {
         var result = string.Join(
-#pragma warning disable RS1035
-            Environment.NewLine,
-#pragma warning restore RS1035
+            NewLine,
             properties.Select(
                 x =>
                 {
@@ -147,9 +142,7 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static string GenerateWithMethods(TemplateParser templateParser, IEnumerable<PropertyInfo> properties)
     {
         var result = string.Join(
-#pragma warning disable RS1035
-            Environment.NewLine,
-#pragma warning restore RS1035
+            NewLine,
             properties.Select(
                 x =>
                 {
@@ -192,6 +185,7 @@ internal class BuilderGenerator : IIncrementalGenerator
     /// <returns>A <see cref="BuilderInfo" /> describing the Builder if the node represents a builder; otherwise, null.</returns>
     private static BuilderInfo? Transform(GeneratorSyntaxContext context, CancellationToken token)
     {
+        var stopwatch = Stopwatch.StartNew();
         var node = context.Node;
 
         if (node is not TypeDeclarationSyntax typeNode) { return null; }
@@ -219,8 +213,7 @@ internal class BuilderGenerator : IIncrementalGenerator
 
         var result = new BuilderInfo
         {
-            // TODO: Store enum values instead of strings where possible
-            BuilderClassAccessibility = typeSymbol.DeclaredAccessibility.ToString().ToLower(),
+            BuilderClassAccessibility = typeSymbol.DeclaredAccessibility,
             BuilderClassNamespace = typeSymbol.ContainingNamespace.ToString(),
             BuilderClassName = typeSymbol.Name,
             TargetClassName = ((ISymbol)targetClassType.Value!).Name,
@@ -229,12 +222,13 @@ internal class BuilderGenerator : IIncrementalGenerator
             Properties = targetClassProperties.Select(
                 x => new PropertyInfo
                 {
+                    Accessibility = x.Accessibility,
                     Name = x.Name,
                     Type = x.TypeName,
-                    Accessibility = x.Accessibility,
                 }).ToList(),
             Location = typeNode.GetLocation(),
             Identifier = typeNode.Identifier.ToString(),
+            TimeToGenerate = stopwatch.Elapsed,
         };
 
         return result;

@@ -1,5 +1,6 @@
 #nullable enable
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
@@ -8,19 +9,20 @@ namespace BuilderGenerator;
 
 internal record struct BuilderInfo
 {
-    // TODO: Implement IComparable and GetHashCode to care only about the combined properties, since List seems to be interpreted using reference equality
-
-    public string BuilderClassAccessibility { get; set; }
+    public Accessibility BuilderClassAccessibility { get; set; }
     public string BuilderClassName { get; set; }
     public string BuilderClassNamespace { get; set; }
     public string BuilderClassUsingBlock { get; set; }
     public string Identifier { get; set; }
-
     public Location Location { get; set; }
-
     public List<PropertyInfo> Properties { get; set; }
     public string TargetClassFullName { get; set; }
     public string TargetClassName { get; set; }
+
+    /// <summary>Gets or sets the time it took to generate a particular builder.</summary>
+    /// <value>The time to generate the builder class.</value>
+    /// <remarks>Note that this property is not included in the hash.</remarks>
+    public TimeSpan TimeToGenerate { get; set; }
 
     public bool Equals(BuilderInfo other)
     {
@@ -33,9 +35,7 @@ internal record struct BuilderInfo
             && Location == other.Location
             && TargetClassFullName == other.TargetClassFullName
             && TargetClassName == other.TargetClassName
-
-            // TODO: See if we can live without the OrderBy. Should moving properties around alter the order of the generated builder anyway?
-            && Properties.OrderBy(x => x.Name).SequenceEqual(other.Properties.OrderBy(x => x.Name));
+            && Properties.SequenceEqual(other.Properties);
 
         return result;
     }
