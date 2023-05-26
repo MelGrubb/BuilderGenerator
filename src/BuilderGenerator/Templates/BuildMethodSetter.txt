@@ -1,1 +1,1 @@
-                    {{PropertyName}} = {{PropertyName}}.Value,
+                        {{PropertyName}} = {{PropertyName}}.Value,

@@ -25,6 +25,11 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
     <PackageReleaseNotes>
+      v2.3.0
+      - Major caching and performance improvements
+      - Internal code cleanup
+      - Conversion of templates to embedded resources
+
       v2.2.0
       - Changed generated file extension to .g.cs
 
@@ -84,6 +89,14 @@
     </PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;NU5128</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;NU5128</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

@@ -44,16 +44,16 @@ internal record struct BuilderInfo
     {
         unchecked
         {
-            var hash = 27;
-            hash = (13 * hash) + BuilderClassAccessibility.GetHashCode();
-            hash = (13 * hash) + BuilderClassName.GetHashCode();
-            hash = (13 * hash) + BuilderClassNamespace.GetHashCode();
-            hash = (13 * hash) + BuilderClassUsingBlock.GetHashCode();
-            hash = (13 * hash) + Identifier.GetHashCode();
-            hash = (13 * hash) + Location.GetHashCode();
-            hash = (13 * hash) + TargetClassFullName.GetHashCode();
-            hash = (13 * hash) + TargetClassName.GetHashCode();
-            hash = (13 * hash) + Properties.Aggregate(hash, (current, property) => (13 * current) + property.GetHashCode());
+            var hash = 17;
+            hash = (hash * 23) + BuilderClassAccessibility.GetHashCode();
+            hash = (hash * 23) + BuilderClassName.GetHashCode();
+            hash = (hash * 23) + BuilderClassNamespace.GetHashCode();
+            hash = (hash * 23) + BuilderClassUsingBlock.GetHashCode();
+            hash = (hash * 23) + Identifier.GetHashCode();
+            hash = (hash * 23) + Location.GetHashCode();
+            hash = (hash * 23) + TargetClassFullName.GetHashCode();
+            hash = (hash * 23) + TargetClassName.GetHashCode();
+            hash = (hash * 23) + Properties.Aggregate(hash, (current, property) => (current * 23) + property.GetHashCode());
 
             return hash;
         }
