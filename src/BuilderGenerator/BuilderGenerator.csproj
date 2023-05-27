@@ -7,10 +7,9 @@
     <Copyright>2021-2023 Mel Grubb</Copyright>
     <Description>Generates builder classes for testing and/or seed data. Please see documentation site (https://melgrubb.github.io/BuilderGenerator/) for complete details.</Description>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
     <IsRoslynComponent>true</IsRoslynComponent>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>2.2.0</Version>
+    <Version>2.3.0</Version>
     <AssemblyVersion>$(Version).0</AssemblyVersion>
     <AssemblyFileVersion>$(Version).0</AssemblyFileVersion>
     <FileVersion>$(Version).0</FileVersion>
@@ -18,13 +17,18 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
     <PackageId>BuilderGenerator</PackageId>
     <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/MelGrubb/BuilderGenerator</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
-    <PackageReleaseNotes>
+    <PackageReleaseNotes>      v2.3.0
+      - Major caching and performance improvements
+      - Internal code cleanup
+      - Conversion of templates to embedded resources
+
       v2.2.0
       - Changed generated file extension to .g.cs
 
@@ -84,6 +88,14 @@
     </PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;NU5128</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;NU5128</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

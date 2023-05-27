@@ -27,6 +27,11 @@ Install-Package BuilderGenerator
 After installation, create a partial class to define your builder in. Decorate it with the ```BuilderFor``` attribute, specifying the type of class that the builder is meant to build (e.g. ```[BuilderFor(typeof(Foo))]```. Define any factory and helper methods in this partial class. Meanwhile, another partial class definition will be auto-generated which contains all the "boring" parts such as the backing fields and "with" methods.
 
 ## Version History ##
+- v2.3.0
+    - Major caching and performance improvements
+    - Internal code cleanup
+    - Conversion of templates to embedded resources
+
 - v2.2.0
   - Changed generated file extension to .g.cs
 

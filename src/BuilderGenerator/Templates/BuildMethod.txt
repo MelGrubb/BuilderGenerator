@@ -1,12 +1,13 @@
+
         public override {{TargetClassFullName}} Build()
         {
             if (Object?.IsValueCreated != true)
             {
-                Object = new System.Lazy<{{TargetClassFullName}}>(() => 
+                Object = new System.Lazy<{{TargetClassFullName}}>(() =>
                 {
-                    var result = new {{TargetClassFullName}} 
+                    var result = new {{TargetClassFullName}}
                     {
-    {{Setters}}
+{{Setters}}
                     };
 
                     return result;
