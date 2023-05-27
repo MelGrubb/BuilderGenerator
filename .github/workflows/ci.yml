@@ -24,9 +24,9 @@ jobs:
         dotnet-version: 6.0.x
 
     # Build and Test    
-    - name: Restore dependencies
-      run: dotnet restore --verbosity minimal
-      working-directory: ${{env.working-directory}}
+    #- name: Restore dependencies
+    #  run: dotnet restore -s BuilderGenerator\bin\Debug\ --verbosity minimal
+    #  working-directory: ${{env.working-directory}}
 
     - name: Build solution
       run: dotnet build --configuration Release --no-restore  --verbosity minimal
