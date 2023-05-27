@@ -25,7 +25,7 @@ jobs:
 
     # Build and Test    
     - name: Restore dependencies
-      run: dotnet restore -s BuilderGenerator\bin\Debug\ --verbosity minimal
+      run: dotnet restore --verbosity minimal
       working-directory: ${{env.working-directory}}
 
     - name: Build solution
