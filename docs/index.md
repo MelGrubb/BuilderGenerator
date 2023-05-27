@@ -1,6 +1,6 @@
 # BuilderGenerator
 
-This NuGet package automates the generation of object builders for testing. It generates the repetitive part of creating builders, leaving only the more interesting, hand-curated parts for you to create as partial classes.
+This NuGet package automates the generation of object builders for testing. It generates the repetitive part of creating builders, leaving only the more interesting, hand-curated parts for you to implement as partial classes.
 
 With the v2.0 release, the mechanism has changed. Rather than decorating entity classes with the "GenerateBuilder" attribute, as was done in v1.x, you now create a partial builder class and decorate it with the "BuilderFor" attribute. This makes it possible to generate builders anywhere you want rather than always creating them in the same assembly as the entities. Builders can be used as part of normal development, but are most commonly used in testing scenarios and many development teams would prefer not to "pollute" their domain assembly with knowledge of classes created for the benefit of their test assemblies. Of course, if you want to use builders as part of normal business logic, you can simply create and decorate the partial builder classes in the domain assembly and achieve the same effect as in the v1.x releases.
 

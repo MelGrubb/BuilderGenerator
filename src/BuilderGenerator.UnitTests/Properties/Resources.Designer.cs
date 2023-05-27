@@ -59,52 +59,5 @@ namespace BuilderGenerator.UnitTests.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to using BuilderGenerator;
-        ///
-        ///namespace BuilderGenerator.UnitTests
-        ///{
-        ///    public class Person
-        ///    {
-        ///        public string FirstName { get; set; }
-        ///        public string LastName { get; set; }
-        ///    }
-        ///
-        ///    [BuilderFor(typeof(Person))]
-        ///    public partial class PersonBuilder
-        ///    {
-        ///    }
-        ///}
-        ///.
-        /// </summary>
-        internal static string Input {
-            get {
-                return ResourceManager.GetString("Input", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to #nullable disable
-        ///
-        ///using System.CodeDom.Compiler;
-        ///using BuilderGenerator;
-        ///
-        ///namespace BuilderGenerator.UnitTests
-        ///{
-        ///    public partial class PersonBuilder : BuilderGenerator.Builder&lt;BuilderGenerator.UnitTests.Person&gt;
-        ///    {
-        ///        public System.Lazy&lt;string&gt; FirstName = new System.Lazy&lt;string&gt;(() =&gt; default(string));
-        ///        public System.Lazy&lt;string&gt; LastName = new System.Lazy&lt;string&gt;(() =&gt; default(string));
-        ///
-        ///        public override BuilderGenerator.UnitTests.Person Build()
-        ///        {
-        ///            [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Output {
-            get {
-                return ResourceManager.GetString("Output", resourceCulture);
-            }
-        }
     }
 }

@@ -34,7 +34,10 @@ public class OrderBuilderTests
     }
 
     [Test]
-    public void Simple_returns_an_OrderBuilder() => OrderBuilder.Simple().ShouldBeOfType<OrderBuilder>();
+    public void Simple_returns_an_OrderBuilder()
+    {
+        OrderBuilder.Simple().ShouldBeOfType<OrderBuilder>();
+    }
 
     [Test]
     public void Typical_populates_Items()
@@ -45,7 +48,10 @@ public class OrderBuilderTests
     }
 
     [Test]
-    public void Typical_returns_an_OrderBuilder() => OrderBuilder.Typical().ShouldBeOfType<OrderBuilder>();
+    public void Typical_returns_an_OrderBuilder()
+    {
+        OrderBuilder.Typical().ShouldBeOfType<OrderBuilder>();
+    }
 
     [OneTimeSetUp]
     public void SetUp()
