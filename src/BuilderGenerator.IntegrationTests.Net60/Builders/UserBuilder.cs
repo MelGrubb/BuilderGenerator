@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using BuilderGenerator.IntegrationTests.Core.Models.Entities;
 
-namespace BuilderGenerator.IntegrationTests.Net60.FromPackage.Builders;
+namespace BuilderGenerator.IntegrationTests.Net60.Builders;
 
 [BuilderFor(typeof(User))]
 public partial class UserBuilder

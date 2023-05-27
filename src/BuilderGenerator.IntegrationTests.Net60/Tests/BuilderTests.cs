@@ -1,13 +1,13 @@
 using System;
 using BuilderGenerator.IntegrationTests.Core.Models.Entities;
-using BuilderGenerator.IntegrationTests.Net60.FromPackage.Builders;
+using BuilderGenerator.IntegrationTests.Net60.Builders;
 using NUnit.Framework;
 using Shouldly;
 
-namespace BuilderGenerator.IntegrationTests.Net60.FromPackage.Tests;
+namespace BuilderGenerator.IntegrationTests.Net60.Tests;
 
 [TestFixture]
-public class UserBuilderTests
+public class BuilderTests
 {
     private string _firstName;
     private Guid _id;
