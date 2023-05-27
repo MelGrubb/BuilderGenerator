@@ -41,6 +41,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.IntegrationTests.Core", "BuilderGenerator.IntegrationTests.Core\BuilderGenerator.IntegrationTests.Core.csproj", "{4C0FCA0D-2B74-4125-B106-A32191D39EDB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.IntegrationTests.Net60.FromPackage", "BuilderGenerator.IntegrationTests.Net60.FromPackage\BuilderGenerator.IntegrationTests.Net60.FromPackage.csproj", "{BD81CADD-0C09-4D3B-83D9-3122E4117085}"
+	ProjectSection(ProjectDependencies) = postProject
+		{159A1DAD-038B-4EBB-BA6B-58C98C68A596} = {159A1DAD-038B-4EBB-BA6B-58C98C68A596}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.IntegrationTests.Net60.FromProject", "BuilderGenerator.IntegrationTests.Net60.FromProject\BuilderGenerator.IntegrationTests.Net60.FromProject.csproj", "{8428D6E5-FF2C-423C-AF8E-22841E5CBE15}"
 EndProject
