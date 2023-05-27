@@ -24,7 +24,8 @@
     <PackageProjectUrl>https://github.com/MelGrubb/BuilderGenerator</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
-    <PackageReleaseNotes>      v2.3.0
+    <PackageReleaseNotes>
+      v2.3.0
       - Major caching and performance improvements
       - Internal code cleanup
       - Conversion of templates to embedded resources

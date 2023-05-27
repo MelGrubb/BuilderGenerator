@@ -177,7 +177,10 @@ internal class BuilderGenerator : IIncrementalGenerator
     /// <param name="node">The syntax node being examined.</param>
     /// <param name="_">A cancellation token (currently unused).</param>
     /// <returns>A <see cref="bool" /> indicating whether or not <paramref name="node" /> might possibly represent a builder class.</returns>
-    private static bool Predicate(SyntaxNode node, CancellationToken _) => node is TypeDeclarationSyntax { AttributeLists.Count: > 0 };
+    private static bool Predicate(SyntaxNode node, CancellationToken _)
+    {
+        return node is TypeDeclarationSyntax { AttributeLists.Count: > 0 };
+    }
 
     /// <summary>Transforms the syntax node into a <see cref="BuilderInfo" /> containing the information needed to generate a Builder.</summary>
     /// <param name="context">The <see cref="GeneratorSyntaxContext" />, which contains a reference to the node.</param>

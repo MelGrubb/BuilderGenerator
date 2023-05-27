@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,13 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Examples\Input.cs" />
-    <Compile Remove="Examples\Output.cs" />
+    <Compile Remove="Examples\InputWithInternals.cs" />
+    <Compile Remove="Examples\InputWithoutInternals.cs" />
+    <Compile Remove="Examples\OutputWithInternals.cs" />
+    <Compile Remove="Examples\OutputWithoutInternals.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Examples\Input.cs" />
-    <EmbeddedResource Include="Examples\Output.cs" />
+    <EmbeddedResource Include="Examples\InputWithInternals.cs" />
+    <EmbeddedResource Include="Examples\InputWithoutInternals.cs" />
+    <EmbeddedResource Include="Examples\OutputWithInternals.cs" />
+    <EmbeddedResource Include="Examples\OutputWithoutInternals.cs" />
   </ItemGroup>
 
   <ItemGroup>

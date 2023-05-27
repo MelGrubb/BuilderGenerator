@@ -6,10 +6,11 @@ namespace BuilderGenerator.UnitTests
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        internal string InternalString { get; set; }
     }
 
-    [BuilderFor(typeof(Person))]
-    public partial class PersonBuilder
+    [BuilderFor(typeof(Person), false)]
+    public partial class PersonBuilderWithoutInternals
     {
     }
 }

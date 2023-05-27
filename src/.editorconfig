@@ -155,14 +155,6 @@ csharp_prefer_braces = true:suggestion
 csharp_style_namespace_declarations = file_scoped:silent
 csharp_style_prefer_method_group_conversion = true:silent
 csharp_style_prefer_top_level_statements = true:silent
-csharp_style_expression_bodied_methods = when_on_single_line:none
-csharp_style_expression_bodied_constructors = false:none
-csharp_style_expression_bodied_operators = false:none
-csharp_style_expression_bodied_properties = true:none
-csharp_style_expression_bodied_indexers = true:none
-csharp_style_expression_bodied_accessors = true:none
-csharp_style_expression_bodied_lambdas = true:silent
-csharp_style_expression_bodied_local_functions = false:silent
 csharp_indent_labels = no_change
 csharp_style_throw_expression = true:suggestion
 csharp_style_prefer_null_check_over_type_check = true:suggestion
@@ -422,12 +414,14 @@ csharp_style_var_elsewhere=true:suggestion
 
 
 # Expression-bodied members
-csharp_style_expression_bodied_methods=when_on_single_line:none
-csharp_style_expression_bodied_constructors=false:none
-csharp_style_expression_bodied_operators=false:none
-csharp_style_expression_bodied_properties=true:none
-csharp_style_expression_bodied_indexers=true:none
-csharp_style_expression_bodied_accessors=true:none
+csharp_style_expression_bodied_methods = false:none
+csharp_style_expression_bodied_constructors = false:none
+csharp_style_expression_bodied_operators = false:none
+csharp_style_expression_bodied_properties = false:none
+csharp_style_expression_bodied_indexers = false:none
+csharp_style_expression_bodied_accessors = false:none
+csharp_style_expression_bodied_lambdas = true:silent
+csharp_style_expression_bodied_local_functions = false:silent
 
 
 # Pattern matching:

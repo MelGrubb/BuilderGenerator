@@ -24,7 +24,10 @@ public class BuilderTests
     }
 
     [Test]
-    public void Simple_returns_a_UserBuilder() => UserBuilder.Simple().ShouldBeOfType<UserBuilder>();
+    public void Simple_returns_a_UserBuilder()
+    {
+        UserBuilder.Simple().ShouldBeOfType<UserBuilder>();
+    }
 
     [Test]
     public void Typical_populates_Orders()
@@ -35,7 +38,10 @@ public class BuilderTests
     }
 
     [Test]
-    public void Typical_returns_a_UserBuilder() => UserBuilder.Typical().ShouldBeOfType<UserBuilder>();
+    public void Typical_returns_a_UserBuilder()
+    {
+        UserBuilder.Typical().ShouldBeOfType<UserBuilder>();
+    }
 
     [Test]
     public void UserBuilder_can_set_properties()

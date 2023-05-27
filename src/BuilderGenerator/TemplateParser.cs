@@ -66,10 +66,16 @@ internal class TemplateParser
     /// <summary>Defines a tag, and the value that should replace it.</summary>
     /// <param name="tag">The tag name.</param>
     /// <param name="value">The tag value.</param>
-    public void SetTag(string tag, object value) => TagValues[tag] = new Lazy<object>(() => value);
+    public void SetTag(string tag, object value)
+    {
+        TagValues[tag] = new Lazy<object>(() => value);
+    }
 
     /// <summary>Defines a tag, and the value that should replace it.</summary>
     /// <param name="tag">The tag name.</param>
     /// <param name="func">A <see cref="Func{T}" /> that returns the tag value.</param>
-    public void SetTag(string tag, Func<object> func) => TagValues[tag] = new Lazy<object>(func);
+    public void SetTag(string tag, Func<object> func)
+    {
+        TagValues[tag] = new Lazy<object>(func);
+    }
 }
