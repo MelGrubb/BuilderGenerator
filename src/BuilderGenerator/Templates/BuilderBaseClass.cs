@@ -16,18 +16,18 @@ namespace BuilderGenerator
         /// <returns>The constructed object.</returns>
         public abstract T Build();
 
-        protected virtual void PostProcess(T value)
-        {
-        }
-
         /// <summary>Sets the object to be returned by this instance.</summary>
         /// <param name="value">The object to be returned.</param>
         /// <returns>A reference to this builder instance.</returns>
-        public Builder<T> WithObject(T value)
+        public virtual Builder<T> WithObject(T value)
         {
             Object = new System.Lazy<T>(() => value);
 
             return this;
+        }
+
+        protected virtual void PostProcess(T value)
+        {
         }
     }
 }

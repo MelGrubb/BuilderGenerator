@@ -1,5 +1,3 @@
-#nullable disable
-
 using System.CodeDom.Compiler;
 using BuilderGenerator;
 
@@ -15,22 +13,30 @@ namespace BuilderGenerator.UnitTests
         {
             if (Object?.IsValueCreated != true)
             {
-                Object = new System.Lazy<BuilderGenerator.UnitTests.Person>(() =>
-                {
-                    var result = new BuilderGenerator.UnitTests.Person
-                    {
-                        FirstName = FirstName.Value,
-                        InternalString = InternalString.Value,
-                        LastName = LastName.Value,
-                    };
-
-                    return result;
-                });
-
-                PostProcess(Object.Value);
+                Object = new System.Lazy<BuilderGenerator.UnitTests.Person>(new BuilderGenerator.UnitTests.Person());
             }
 
+            Object.Value.FirstName = FirstName.Value;
+            Object.Value.InternalString = InternalString.Value;
+            Object.Value.LastName = LastName.Value;
+
+            PostProcess(Object.Value);
+
             return Object.Value;
+        }
+
+        /// <summary>Sets the object to be returned by this instance.</summary>
+        /// <param name="value">The object to be returned.</param>
+        /// <returns>A reference to this builder instance.</returns>
+        public override Builder<BuilderGenerator.UnitTests.Person> WithObject(BuilderGenerator.UnitTests.Person value)
+        {
+            base.WithObject(value);
+
+            WithFirstName(value.FirstName);
+            WithInternalString(value.InternalString);
+            WithLastName(value.LastName);
+
+            return this;
         }
 
         public PersonBuilderWithInternals WithFirstName(string value)

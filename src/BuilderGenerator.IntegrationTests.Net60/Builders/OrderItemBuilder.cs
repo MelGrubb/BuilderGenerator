@@ -1,7 +1,7 @@
 using System;
-using BuilderGenerator.IntegrationTests.Core.Models.Entities;
+using BuilderGenerator.Tests.Core.Models.Entities;
 
-namespace BuilderGenerator.IntegrationTests.Net60.Builders;
+namespace BuilderGenerator.Tests.Integration.Net60.Builders;
 
 [BuilderFor(typeof(OrderItem))]
 public partial class OrderItemBuilder

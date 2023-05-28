@@ -104,6 +104,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Templates\BuilderBaseClass.cs" />
+    <Compile Remove="Templates\BuilderClass.cs" />
+    <Compile Remove="Templates\BuilderForAttribute.cs" />
+    <Compile Remove="Templates\BuilderProperty.cs" />
+    <Compile Remove="Templates\BuildMethod.cs" />
+    <Compile Remove="Templates\BuildMethodSetter.cs" />
+    <Compile Remove="Templates\WithMethods.cs" />
+    <Compile Remove="Templates\WithObjectMethod.cs" />
+    <Compile Remove="Templates\WithObjectMethodSetter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Templates\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -113,6 +129,13 @@
 
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="Templates\BuilderBaseClass.cs" />
+    <None Include="Templates\BuilderClass.cs" />
+    <None Include="Templates\BuilderForAttribute.cs" />
+    <None Include="Templates\BuildMethod.cs" />
+    <None Include="Templates\BuilderProperty.cs" />
+    <None Include="Templates\BuildMethodSetter.cs" />
+    <None Include="Templates\WithMethods.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -127,7 +150,7 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>BuilderGenerator.UnitTests</_Parameter1>
+      <_Parameter1>BuilderGenerator.Tests.Unit</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 

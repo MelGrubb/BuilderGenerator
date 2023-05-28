@@ -1,4 +1,4 @@
-namespace BuilderGenerator.IntegrationTests.Core.Models.Enums;
+namespace BuilderGenerator.Tests.Core.Models.Enums;
 
 public enum OrderStatus
 {

@@ -7,14 +7,14 @@ using Microsoft.CodeAnalysis.CSharp;
 
 // ReSharper disable InconsistentNaming
 
-namespace BuilderGenerator.UnitTests;
+namespace BuilderGenerator.Tests.Unit;
 
 public abstract class Given_a_BuilderGenerator
 {
     public static string GetResourceAsString(Assembly assembly, string resourceName)
     {
         var manifestResourceNames = assembly.GetManifestResourceNames();
-        resourceName = manifestResourceNames.Single(x => x.Equals($"BuilderGenerator.UnitTests.Examples.{resourceName}", StringComparison.OrdinalIgnoreCase));
+        resourceName = manifestResourceNames.Single(x => x.Equals($"BuilderGenerator.Tests.Unit.Examples.{resourceName}", StringComparison.OrdinalIgnoreCase));
 
         using (var stream = assembly.GetManifestResourceStream(resourceName))
         {

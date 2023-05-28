@@ -7,7 +7,7 @@ using Shouldly;
 
 // ReSharper disable InconsistentNaming
 
-namespace BuilderGenerator.UnitTests;
+namespace BuilderGenerator.Tests.Unit;
 
 [TestFixture]
 public class When_generating_a_Builder_without_internals : Given_a_BuilderGenerator

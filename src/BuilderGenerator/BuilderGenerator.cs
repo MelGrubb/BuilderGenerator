@@ -21,30 +21,34 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static readonly string BuilderBaseClass;
     private static readonly string BuilderClass;
     private static readonly string BuilderForAttribute;
+    private static readonly string BuilderProperty;
     private static readonly string BuildMethod;
     private static readonly string BuildMethodSetter;
 #pragma warning disable RS1035
     private static readonly string NewLine = Environment.NewLine; // TODO: Derive this value from the project itself
 #pragma warning restore RS1035
-    private static readonly string Property;
-    private static readonly string WithMethod;
+    private static readonly string WithMethods;
+    private static readonly string WithObjectMethod;
+    private static readonly string WithObjectMethodSetter;
 
     static BuilderGenerator()
     {
         var assembly = typeof(BuilderGenerator).Assembly;
 
-        BuilderBaseClass = GetResourceAsString(assembly, nameof(BuilderBaseClass));
-        BuilderClass = GetResourceAsString(assembly, nameof(BuilderClass));
-        BuilderForAttribute = GetResourceAsString(assembly, nameof(BuilderForAttribute));
-        BuildMethodSetter = GetResourceAsString(assembly, nameof(BuildMethodSetter));
-        BuildMethod = GetResourceAsString(assembly, nameof(BuildMethod));
-        Property = GetResourceAsString(assembly, nameof(Property));
-        WithMethod = GetResourceAsString(assembly, nameof(WithMethod));
+        BuilderBaseClass = GetResourceAsString(assembly, $"{nameof(BuilderBaseClass)}.cs");
+        BuilderClass = GetResourceAsString(assembly, $"{nameof(BuilderClass)}.cs");
+        BuilderForAttribute = GetResourceAsString(assembly, $"{nameof(BuilderForAttribute)}.cs");
+        BuilderProperty = GetResourceAsString(assembly, $"{nameof(BuilderProperty)}.cs");
+        BuildMethodSetter = GetResourceAsString(assembly, $"{nameof(BuildMethodSetter)}.cs");
+        BuildMethod = GetResourceAsString(assembly, $"{nameof(BuildMethod)}.cs");
+        WithMethods = GetResourceAsString(assembly, $"{nameof(WithMethods)}.cs");
+        WithObjectMethod = GetResourceAsString(assembly, $"{nameof(WithObjectMethod)}.cs");
+        WithObjectMethodSetter = GetResourceAsString(assembly, $"{nameof(WithObjectMethodSetter)}.cs");
     }
 
     public static string GetResourceAsString(Assembly assembly, string resourceName)
     {
-        resourceName = assembly.GetManifestResourceNames().Single(x => x.Equals($"BuilderGenerator.Templates.{resourceName}.txt", StringComparison.OrdinalIgnoreCase));
+        resourceName = assembly.GetManifestResourceNames().Single(x => x.Equals($"BuilderGenerator.Templates.{resourceName}", StringComparison.OrdinalIgnoreCase));
 
         using (var stream = assembly.GetManifestResourceStream(resourceName))
         {
@@ -133,26 +137,46 @@ internal class BuilderGenerator : IIncrementalGenerator
                     templateParser.SetTag("PropertyName", x.Name);
                     templateParser.SetTag("PropertyType", x.Type);
 
-                    return templateParser.ParseString(Property);
+                    return templateParser.ParseString(BuilderProperty);
                 }));
 
         return result;
     }
 
-    private static string GenerateWithMethods(TemplateParser templateParser, IEnumerable<PropertyInfo> properties)
+    private static string GenerateWithMethods(TemplateParser templateParser, ICollection<PropertyInfo> properties)
     {
-        var result = string.Join(
-            NewLine,
-            properties.Select(
-                x =>
-                {
-                    templateParser.SetTag("PropertyName", x.Name);
-                    templateParser.SetTag("PropertyType", x.Type);
+        var builder = new StringBuilder();
 
-                    return templateParser.ParseString(WithMethod);
-                }));
+        // Build the WithObject method first
+        templateParser.SetTag(
+            "WithObjectMethodSetters",
+            string.Join(
+                NewLine,
+                properties.Select(
+                    x =>
+                    {
+                        templateParser.SetTag("PropertyName", x.Name);
+                        templateParser.SetTag("PropertyType", x.Type);
 
-        return result;
+                        return templateParser.ParseString(WithObjectMethodSetter);
+                    })));
+
+        builder.AppendLine(templateParser.ParseString(WithObjectMethod));
+
+        // Add in the individual With methods
+        builder.Append(
+            string.Join(
+                NewLine,
+                properties.Select(
+                    x =>
+                    {
+                        templateParser.SetTag("PropertyName", x.Name);
+                        templateParser.SetTag("PropertyType", x.Type);
+
+                        return templateParser.ParseString(WithMethods);
+                    })));
+
+        return builder.ToString();
     }
 
     private static IEnumerable<IPropertySymbol> GetPropertySymbols(INamedTypeSymbol namedTypeSymbol, bool includeInternals)

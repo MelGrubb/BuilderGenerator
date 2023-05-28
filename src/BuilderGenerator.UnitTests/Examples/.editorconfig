@@ -1,0 +1,16 @@
+root=true
+# To learn more about .editorconfig see https://aka.ms/editorconfigdocs
+# When specifying tool-specific properties, such as ReSharper's extended properties (https://www.jetbrains.com/help/resharper/EditorConfig_Index.html)
+# Use the most generically-named version of the property (i.e. choose "brace_style" over "csharp_brace_style" or "resharper_csharp_brace_style")
+# Hopefully, these settings become supported by Visual Studio, or add-ins liks CodeMaid.
+
+
+# This file is the top-most EditorConfig file
+
+# All Files (Unless overridden elsewhere)
+[*]
+charset=utf-8
+end_of_line=crlf
+indent_size=4
+indent_style=space
+insert_final_newline=false

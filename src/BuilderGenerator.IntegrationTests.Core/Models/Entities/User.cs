@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace BuilderGenerator.IntegrationTests.Core.Models.Entities;
+namespace BuilderGenerator.Tests.Core.Models.Entities;
 
 public partial class User : AuditableEntity
 {
