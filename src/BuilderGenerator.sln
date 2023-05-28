@@ -36,11 +36,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{6842FF
 		..\.github\workflows\release.yml = ..\.github\workflows\release.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Unit", "BuilderGenerator.UnitTests\BuilderGenerator.Tests.Unit.csproj", "{9E5D2BCF-B25E-4A2F-9042-E83BADF268C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Unit", "BuilderGenerator.Tests.Unit\BuilderGenerator.Tests.Unit.csproj", "{9E5D2BCF-B25E-4A2F-9042-E83BADF268C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Integration.Net60", "BuilderGenerator.IntegrationTests.Net60\BuilderGenerator.Tests.Integration.Net60.csproj", "{5C41CBD1-A607-42B2-8DDE-50061662B5A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Integration.Net60", "BuilderGenerator.Tests.Integration.Net60\BuilderGenerator.Tests.Integration.Net60.csproj", "{5C41CBD1-A607-42B2-8DDE-50061662B5A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Core", "BuilderGenerator.IntegrationTests.Core\BuilderGenerator.Tests.Core.csproj", "{4F3A684D-C598-45E1-A324-7027818E382A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Core", "BuilderGenerator.Tests.Core\BuilderGenerator.Tests.Core.csproj", "{4F3A684D-C598-45E1-A324-7027818E382A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
