@@ -1,0 +1,1 @@
+            With{{PropertyName}}(value.{{PropertyName}});
