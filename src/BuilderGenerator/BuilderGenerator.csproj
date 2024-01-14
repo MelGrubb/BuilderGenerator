@@ -1,18 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-    <Authors>Mel Grubb</Authors>
-    <Copyright>2021-2023 Mel Grubb</Copyright>
     <Description>Generates builder classes for testing and/or seed data. Please see documentation site (https://melgrubb.github.io/BuilderGenerator/) for complete details.</Description>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <IsRoslynComponent>true</IsRoslynComponent>
+    <LangVersion>latest</LangVersion>
     <NeutralLanguage>en</NeutralLanguage>
-    <Version>2.3.0</Version>
-    <AssemblyVersion>$(Version).0</AssemblyVersion>
-    <AssemblyFileVersion>$(Version).0</AssemblyFileVersion>
-    <FileVersion>$(Version).0</FileVersion>
+    <Nullable>enable</Nullable>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -25,6 +19,11 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
     <PackageReleaseNotes>
+      v2.4.0
+      - Test code reorganization
+      - Moved WithObject from the base class to the generated builder class
+      - Added FromTemplate method to shallow clone an example object.
+
       v2.3.0
       - Major caching and performance improvements
       - Internal code cleanup
