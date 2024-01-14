@@ -1,8 +1,0 @@
-        /// <summary>Populates this instance with values from the provided template.</summary>
-        /// <remarks>This is a shallow clone, and does not traverse the template creating builders for its properties.</remarks>
-        public {{BuilderClassName}} FromTemplate({{TargetClassFullName}} template)
-        {
-{{FromTemplateMethodSetters}}
-
-            return this;
-        }

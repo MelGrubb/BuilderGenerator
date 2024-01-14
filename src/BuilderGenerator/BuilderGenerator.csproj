@@ -22,7 +22,7 @@
       v2.4.0
       - Test code reorganization
       - Moved WithObject from the base class to the generated builder class
-      - Added FromTemplate method to shallow clone an example object.
+      - Added WithValuesFrom method to shallow clone an example object.
 
       v2.3.0
       - Major caching and performance improvements
@@ -103,6 +103,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Templates\CSharp.cs" />
+    <EmbeddedResource Remove="Templates\CSharp11.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Templates\README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -120,7 +129,7 @@
       <Pack>True</Pack>
     </None>
     <None Include="Assets/logo.png" Pack="true" PackagePath="" />
-    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+    <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="" />
     <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
