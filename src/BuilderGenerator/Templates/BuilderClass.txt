@@ -13,7 +13,13 @@ namespace {{BuilderClassNamespace}}
     {{BuilderClassAccessibility}} partial class {{BuilderClassName}} : BuilderGenerator.Builder<{{TargetClassFullName}}>
     {
 {{Properties}}
+
+{{Constructors}}
+
+{{FromTemplateMethod}}
+
 {{BuildMethod}}
+{{WithObjectMethod}}
 {{WithMethods}}
     }
 }

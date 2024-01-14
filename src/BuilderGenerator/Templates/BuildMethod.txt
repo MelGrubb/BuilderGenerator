@@ -1,4 +1,3 @@
-
         public override {{TargetClassFullName}} Build()
         {
             if (Object?.IsValueCreated != true)

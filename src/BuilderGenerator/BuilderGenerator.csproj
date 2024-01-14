@@ -127,7 +127,7 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>BuilderGenerator.UnitTests</_Parameter1>
+      <_Parameter1>BuilderGenerator.Tests.Unit</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 

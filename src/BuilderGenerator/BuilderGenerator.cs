@@ -1,5 +1,3 @@
-#nullable enable
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,11 +21,15 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static readonly string BuilderForAttribute;
     private static readonly string BuildMethod;
     private static readonly string BuildMethodSetter;
+    private static readonly string Constructors;
+    private static readonly string FromTemplateMethod;
+    private static readonly string FromTemplateMethodSetter;
 #pragma warning disable RS1035
     private static readonly string NewLine = Environment.NewLine; // TODO: Derive this value from the project itself
 #pragma warning restore RS1035
     private static readonly string Property;
-    private static readonly string WithMethod;
+    private static readonly string WithMethods;
+    private static readonly string WithObjectMethod;
 
     static BuilderGenerator()
     {
@@ -38,26 +40,21 @@ internal class BuilderGenerator : IIncrementalGenerator
         BuilderForAttribute = GetResourceAsString(assembly, nameof(BuilderForAttribute));
         BuildMethodSetter = GetResourceAsString(assembly, nameof(BuildMethodSetter));
         BuildMethod = GetResourceAsString(assembly, nameof(BuildMethod));
+        Constructors = GetResourceAsString(assembly, nameof(Constructors));
+        FromTemplateMethod = GetResourceAsString(assembly, nameof(FromTemplateMethod));
+        FromTemplateMethodSetter = GetResourceAsString(assembly, nameof(FromTemplateMethodSetter));
         Property = GetResourceAsString(assembly, nameof(Property));
-        WithMethod = GetResourceAsString(assembly, nameof(WithMethod));
+        WithMethods = GetResourceAsString(assembly, nameof(WithMethods));
+        WithObjectMethod = GetResourceAsString(assembly, nameof(WithObjectMethod));
     }
 
     public static string GetResourceAsString(Assembly assembly, string resourceName)
     {
         resourceName = assembly.GetManifestResourceNames().Single(x => x.Equals($"BuilderGenerator.Templates.{resourceName}.txt", StringComparison.OrdinalIgnoreCase));
+        using var stream = assembly.GetManifestResourceStream(resourceName) ?? throw new InvalidOperationException($"Resource '{resourceName}' not found.");
+        using var reader = new StreamReader(stream);
 
-        using (var stream = assembly.GetManifestResourceStream(resourceName))
-        {
-            if (stream == null)
-            {
-                throw new InvalidOperationException($"Resource '{resourceName}' not found.");
-            }
-
-            using (var reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
+        return reader.ReadToEnd();
     }
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
@@ -92,10 +89,12 @@ internal class BuilderGenerator : IIncrementalGenerator
             templateParser.SetTag("BuilderClassName", builder.Value.BuilderClassName);
             templateParser.SetTag("TargetClassName", builder.Value.TargetClassName);
             templateParser.SetTag("TargetClassFullName", builder.Value.TargetClassFullName);
+            templateParser.SetTag("Constructors", GenerateConstructors(templateParser));
             templateParser.SetTag("Properties", GenerateProperties(templateParser, builder.Value.Properties));
+            templateParser.SetTag("FromTemplateMethod", GenerateFromTemplateMethod(templateParser, builder.Value.Properties));
             templateParser.SetTag("BuildMethod", GenerateBuildMethod(templateParser, builder.Value.Properties));
             templateParser.SetTag("WithMethods", GenerateWithMethods(templateParser, builder.Value.Properties));
-
+            templateParser.SetTag("WithObjectMethod", GenerateWithObjectMethod(templateParser));
             var source = templateParser.ParseString(BuilderClass);
             context.AddSource($"{builder.Value.BuilderClassName}.g.cs", SourceText.From(source, Encoding.UTF8));
         }
@@ -110,9 +109,9 @@ internal class BuilderGenerator : IIncrementalGenerator
         var setters = string.Join(
             NewLine,
             properties.Select(
-                x =>
+                p =>
                 {
-                    templateParser.SetTag("PropertyName", x.Name);
+                    templateParser.SetTag("PropertyName", p.Name);
 
                     return templateParser.ParseString(BuildMethodSetter);
                 }));
@@ -123,15 +122,38 @@ internal class BuilderGenerator : IIncrementalGenerator
         return result;
     }
 
+    private static string GenerateConstructors(TemplateParser templateParser)
+    {
+        return templateParser.ParseString(Constructors);
+    }
+
+    private static string GenerateFromTemplateMethod(TemplateParser templateParser, IEnumerable<PropertyInfo> properties)
+    {
+        var setters = string.Join(
+            NewLine,
+            properties.Select(
+                p =>
+                {
+                    templateParser.SetTag("PropertyName", p.Name);
+
+                    return templateParser.ParseString(FromTemplateMethodSetter);
+                }));
+
+        templateParser.SetTag("FromTemplateMethodSetters", setters);
+        var result = templateParser.ParseString(FromTemplateMethod);
+
+        return result;
+    }
+
     private static string GenerateProperties(TemplateParser templateParser, IEnumerable<PropertyInfo> properties)
     {
         var result = string.Join(
             NewLine,
             properties.Select(
-                x =>
+                p =>
                 {
-                    templateParser.SetTag("PropertyName", x.Name);
-                    templateParser.SetTag("PropertyType", x.Type);
+                    templateParser.SetTag("PropertyName", p.Name);
+                    templateParser.SetTag("PropertyType", p.Type);
 
                     return templateParser.ParseString(Property);
                 }));
@@ -144,15 +166,20 @@ internal class BuilderGenerator : IIncrementalGenerator
         var result = string.Join(
             NewLine,
             properties.Select(
-                x =>
+                p =>
                 {
-                    templateParser.SetTag("PropertyName", x.Name);
-                    templateParser.SetTag("PropertyType", x.Type);
+                    templateParser.SetTag("PropertyName", p.Name);
+                    templateParser.SetTag("PropertyType", p.Type);
 
-                    return templateParser.ParseString(WithMethod);
+                    return templateParser.ParseString(WithMethods);
                 }));
 
         return result;
+    }
+
+    private static string GenerateWithObjectMethod(TemplateParser templateParser)
+    {
+        return templateParser.ParseString(WithObjectMethod);
     }
 
     private static IEnumerable<IPropertySymbol> GetPropertySymbols(INamedTypeSymbol namedTypeSymbol, bool includeInternals)

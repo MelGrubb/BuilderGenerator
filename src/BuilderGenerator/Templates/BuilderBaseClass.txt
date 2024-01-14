@@ -19,15 +19,5 @@ namespace BuilderGenerator
         protected virtual void PostProcess(T value)
         {
         }
-
-        /// <summary>Sets the object to be returned by this instance.</summary>
-        /// <param name="value">The object to be returned.</param>
-        /// <returns>A reference to this builder instance.</returns>
-        public Builder<T> WithObject(T value)
-        {
-            Object = new System.Lazy<T>(() => value);
-
-            return this;
-        }
     }
 }
