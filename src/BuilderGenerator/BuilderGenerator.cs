@@ -146,18 +146,21 @@ internal class BuilderGenerator : IIncrementalGenerator
         return result;
     }
 
-    private static IEnumerable<IPropertySymbol> GetPropertySymbols(INamedTypeSymbol namedTypeSymbol, bool includeInternals)
+    private static IEnumerable<IPropertySymbol> GetPropertySymbols(INamedTypeSymbol namedTypeSymbol, bool includeInternals, bool includeObsolete)
     {
         var symbols = namedTypeSymbol.GetMembers()
             .OfType<IPropertySymbol>()
-            .Where(x => x.SetMethod is not null && (x.SetMethod.DeclaredAccessibility == Accessibility.Public || (includeInternals && x.SetMethod.DeclaredAccessibility == Accessibility.Internal)))
+            .Where(
+                x => x.SetMethod is not null
+                    && (includeObsolete || x.GetAttributes().Any(a => a.AttributeClass?.Name == "Obsolete") == false)
+                    && (x.SetMethod.DeclaredAccessibility == Accessibility.Public || (includeInternals && x.SetMethod.DeclaredAccessibility == Accessibility.Internal)))
             .ToList();
 
         var baseTypeSymbol = namedTypeSymbol.BaseType;
 
         while (baseTypeSymbol != null)
         {
-            symbols.AddRange(GetPropertySymbols(baseTypeSymbol, includeInternals));
+            symbols.AddRange(GetPropertySymbols(baseTypeSymbol, includeInternals, includeObsolete));
             baseTypeSymbol = baseTypeSymbol.BaseType;
         }
 
@@ -198,8 +201,9 @@ internal class BuilderGenerator : IIncrementalGenerator
         // We gather all the relevant information up-front so that it can be used effectively for caching.
         var targetClassType = attributeSymbol.ConstructorArguments[0];
         var includeInternals = (bool)attributeSymbol.ConstructorArguments[1].Value!;
+        var includeObsolete = (bool)attributeSymbol.ConstructorArguments[2].Value!;
 
-        var targetClassProperties = GetPropertySymbols((INamedTypeSymbol)targetClassType.Value!, includeInternals)
+        var targetClassProperties = GetPropertySymbols((INamedTypeSymbol)targetClassType.Value!, includeInternals, includeObsolete)
             .Select<IPropertySymbol, (string Name, string TypeName, Accessibility Accessibility)>(x => new ValueTuple<string, string, Accessibility>(x.Name, x.Type.ToString(), x.DeclaredAccessibility))
             .Distinct()
             .OrderBy(x => x.Name)
