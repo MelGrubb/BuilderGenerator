@@ -19,7 +19,7 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static readonly string NewLine = Environment.NewLine; // TODO: Derive this value from the project itself
 #pragma warning restore RS1035
 
-    private static readonly CSharp Templates = new CSharp11();
+    private static readonly CSharp Templates = new CSharp();
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -148,15 +148,15 @@ internal class BuilderGenerator : IIncrementalGenerator
 
     private static IEnumerable<IPropertySymbol> GetPropertySymbols(INamedTypeSymbol namedTypeSymbol, bool includeInternals, bool includeObsolete)
     {
+        var baseTypeSymbol = namedTypeSymbol.BaseType;
+
         var symbols = namedTypeSymbol.GetMembers()
             .OfType<IPropertySymbol>()
             .Where(
                 x => x.SetMethod is not null
-                    && (includeObsolete || x.GetAttributes().Any(a => a.AttributeClass?.Name == "Obsolete") == false)
+                    && (includeObsolete || !x.GetAttributes().Any(a => a.AttributeClass?.Name == nameof(ObsoleteAttribute)))
                     && (x.SetMethod.DeclaredAccessibility == Accessibility.Public || (includeInternals && x.SetMethod.DeclaredAccessibility == Accessibility.Internal)))
             .ToList();
-
-        var baseTypeSymbol = namedTypeSymbol.BaseType;
 
         while (baseTypeSymbol != null)
         {
@@ -170,7 +170,7 @@ internal class BuilderGenerator : IIncrementalGenerator
     /// <summary>Performs a first-pass filtering of syntax nodes that could possibly represent a builder class.</summary>
     /// <param name="node">The syntax node being examined.</param>
     /// <param name="_">A cancellation token (currently unused).</param>
-    /// <returns>A <see cref="bool" /> indicating whether <paramref name="node" /> might possibly represent a builder class.</returns>
+    /// <returns>A <see cref="bool" /> indicating whether <paramref name="node" /> may represent a builder class.</returns>
     private static bool Predicate(SyntaxNode node, CancellationToken _)
     {
         return node is TypeDeclarationSyntax { AttributeLists.Count: > 0 };
@@ -199,9 +199,10 @@ internal class BuilderGenerator : IIncrementalGenerator
 
         // The node represents a Builder class, so we can go ahead and do the transformation now.
         // We gather all the relevant information up-front so that it can be used effectively for caching.
-        var targetClassType = attributeSymbol.ConstructorArguments[0];
-        var includeInternals = (bool)attributeSymbol.ConstructorArguments[1].Value!;
-        var includeObsolete = (bool)attributeSymbol.ConstructorArguments[2].Value!;
+        var arguments = attributeSymbol.ConstructorArguments;
+        var targetClassType = arguments[0];
+        var includeInternals = arguments.Length > 1 && (bool)arguments[1].Value!;
+        var includeObsolete = arguments.Length > 2 && (bool)arguments[2].Value!;
 
         var targetClassProperties = GetPropertySymbols((INamedTypeSymbol)targetClassType.Value!, includeInternals, includeObsolete)
             .Select<IPropertySymbol, (string Name, string TypeName, Accessibility Accessibility)>(x => new ValueTuple<string, string, Accessibility>(x.Name, x.Type.ToString(), x.DeclaredAccessibility))

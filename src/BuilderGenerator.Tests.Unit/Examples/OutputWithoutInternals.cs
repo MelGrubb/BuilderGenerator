@@ -8,6 +8,8 @@
 using System.CodeDom.Compiler;
 using BuilderGenerator;
 
+#pragma warning disable 618 - Suppress complaints about obsolete properties.
+
 namespace BuilderGenerator.UnitTests
 {
     public partial class PersonBuilderWithoutInternals : BuilderGenerator.Builder<BuilderGenerator.UnitTests.Person>

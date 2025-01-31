@@ -7,6 +7,9 @@
 //-------------------------------------------------------------------------------------
 using System.CodeDom.Compiler;
 using BuilderGenerator;
+using System;
+
+#pragma warning disable 618 - Suppress complaints about obsolete properties.
 
 namespace BuilderGenerator.UnitTests
 {
