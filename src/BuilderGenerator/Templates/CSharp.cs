@@ -50,6 +50,8 @@ public class CSharp
                    using System.CodeDom.Compiler;
                    {{BuilderClassUsingBlock}}
 
+                   #pragma warning disable 618 - Suppress complaints about obsolete properties.
+
                    namespace {{BuilderClassNamespace}}
                    {
                        {{BuilderClassAccessibility}} partial class {{BuilderClassName}} : BuilderGenerator.Builder<{{TargetClassFullName}}>

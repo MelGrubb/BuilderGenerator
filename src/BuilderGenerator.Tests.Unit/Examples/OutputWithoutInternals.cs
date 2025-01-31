@@ -7,6 +7,7 @@
 //-------------------------------------------------------------------------------------
 using System.CodeDom.Compiler;
 using BuilderGenerator;
+using System;
 
 namespace BuilderGenerator.UnitTests
 {
