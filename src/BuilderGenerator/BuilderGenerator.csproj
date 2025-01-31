@@ -23,6 +23,7 @@
       - Test code reorganization
       - Moved WithObject from the base class to the generated builder class
       - Added WithValuesFrom method to shallow clone an example object.
+      - Added the option to exclude obsolete properties.
 
       v2.3.0
       - Major caching and performance improvements
@@ -118,7 +119,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
   </ItemGroup>

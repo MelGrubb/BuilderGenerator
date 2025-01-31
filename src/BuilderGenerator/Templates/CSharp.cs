@@ -50,6 +50,8 @@ public class CSharp
                    using System.CodeDom.Compiler;
                    {{BuilderClassUsingBlock}}
 
+                   #pragma warning disable 618 - Suppress complaints about obsolete properties.
+
                    namespace {{BuilderClassNamespace}}
                    {
                        {{BuilderClassAccessibility}} partial class {{BuilderClassName}} : BuilderGenerator.Builder<{{TargetClassFullName}}>
@@ -82,11 +84,13 @@ public class CSharp
                        public class BuilderForAttribute : System.Attribute
                        {
                            public bool IncludeInternals { get; }
+                           public bool IncludeObsolete { get; }
                            public System.Type Type { get; }
                    
-                           public BuilderForAttribute(System.Type type, bool includeInternals = false)
+                           public BuilderForAttribute(System.Type type, bool includeInternals = false, bool includeObsolete = false)
                            {
                                IncludeInternals = includeInternals;
+                               IncludeObsolete = includeObsolete;
                                Type = type;
                            }
                        }
