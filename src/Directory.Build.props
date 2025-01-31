@@ -3,9 +3,5 @@
     <Authors>Mel Grubb</Authors>
     <Copyright>2021-2025 Mel Grubb</Copyright>
     <Version>3.0.0-alpha</Version>
-    <PackageVersion>$(Version)</PackageVersion>
-    <AssemblyVersion>$(Version)</AssemblyVersion>
-    <AssemblyFileVersion>$(Version)</AssemblyFileVersion>
-    <FileVersion>$(Version)</FileVersion>
   </PropertyGroup>
 </Project>
