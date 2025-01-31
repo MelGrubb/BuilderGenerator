@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
@@ -10,25 +10,28 @@
   <ItemGroup>
     <Compile Remove="Examples\InputWithInternals.cs" />
     <Compile Remove="Examples\InputWithoutInternals.cs" />
-    <Compile Remove="Examples\OutputWithInternals.cs" />
-    <Compile Remove="Examples\OutputWithoutInternals.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Examples\InputWithInternals.cs" />
     <EmbeddedResource Include="Examples\InputWithoutInternals.cs" />
-    <EmbeddedResource Include="Examples\OutputWithInternals.cs" />
-    <EmbeddedResource Include="Examples\OutputWithoutInternals.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Verify.NUnit" Version="28.9.0" />
     <ProjectReference Include="..\BuilderGenerator\BuilderGenerator.csproj" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-    <PackageReference Include="NUnit" Version="3.13.3" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
-    <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
-    <PackageReference Include="coverlet.collector" Version="3.2.0" />
-    <PackageReference Include="Shouldly" Version="4.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="NUnit.Analyzers" Version="4.6.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Shouldly" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
