@@ -154,7 +154,7 @@ internal class BuilderGenerator : IIncrementalGenerator
             .OfType<IPropertySymbol>()
             .Where(
                 x => x.SetMethod is not null
-                    && (includeObsolete || !x.GetAttributes().Any(a => a.AttributeClass?.Name == nameof(ObsoleteAttribute)))
+                    && (includeObsolete || !x.GetAttributes().Any(a => a.AttributeClass?.Name is "Obsolete" or "ObsoleteAttribute"))
                     && (x.SetMethod.DeclaredAccessibility == Accessibility.Public || (includeInternals && x.SetMethod.DeclaredAccessibility == Accessibility.Internal)))
             .ToList();
 

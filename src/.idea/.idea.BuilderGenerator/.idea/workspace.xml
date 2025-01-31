@@ -8,7 +8,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f69c0404-6640-4517-8cba-f1565a791c51" name="Changes" comment="" />
+    <list default="true" id="f69c0404-6640-4517-8cba-f1565a791c51" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BuilderGenerator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BuilderGenerator/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BuilderGenerator.Tests.Unit/Examples/InputWithoutInternals.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BuilderGenerator.Tests.Unit/Examples/InputWithoutInternals.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BuilderGenerator.Tests.Unit/Verify/When_generating_a_Builder_with_internals.SimpleGeneratorTest.received.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BuilderGenerator.Tests.Unit/Verify/When_generating_a_Builder_without_internals.SimpleGeneratorTest.verified.txt" beforeDir="false" afterPath="$PROJECT_DIR$/BuilderGenerator.Tests.Unit/Verify/When_generating_a_Builder_without_internals.SimpleGeneratorTest.verified.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,13 +43,12 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/Mel/OneDrive/Projects/BuilderGenerator/src/BuilderGenerator.Tests.Unit/Examples/InputWithInternals.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BuilderGenerator.Tests.Unit/Examples/InputWithInternals.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/BuilderGenerator.Tests.Unit/Examples/OutputWithInternals.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/BuilderGenerator.Tests.Unit/Examples/OutputWithoutInternals.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Mel/OneDrive/Projects/BuilderGenerator/src/BuilderGenerator/BuilderGenerator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Mel/OneDrive/Projects/BuilderGenerator/src/BuilderGenerator/BuilderGenerator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/Mel/OneDrive/Projects/BuilderGenerator/src/BuilderGenerator/BuilderGenerator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BuilderGenerator.Tests.Unit/Examples/InputWithoutInternals.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mel/OneDrive/Projects/BuilderGenerator/src/BuilderGenerator.Tests.Unit/Examples/OutputWithInternals.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mel/OneDrive/Projects/BuilderGenerator/src/BuilderGenerator.Tests.Unit/Examples/OutputWithInternals.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mel/OneDrive/Projects/BuilderGenerator/src/BuilderGenerator.Tests.Unit/When_generating_a_Builder_with_internals.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Mel/OneDrive/Projects/BuilderGenerator/src/BuilderGenerator.Tests.Unit/When_generating_a_Builder_with_internals.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -63,22 +67,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;3236b6d6-5290-4023-b16a-21607d120fb2.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "3236b6d6-5290-4023-b16a-21607d120fb2.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "#50 on 45-ignore-obsolete-properties",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.BuilderGenerator: FromProject">
     <configuration name="BuilderGenerator: Local NuGet Folder" type="DotNetMsBuildPublish" factoryName="Publish to IIS">
       <riderPublish publish_profile="Local NuGet Folder.pubxml" pubxml_path="$PROJECT_DIR$/BuilderGenerator/Properties/PublishProfiles/Local NuGet Folder.pubxml" uuid_high="1556589250135936699" uuid_low="-5013816137479576170" />
@@ -167,16 +172,23 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Preparing to merge from main" />
     <MESSAGE value="WIP" />
-    <option name="LAST_COMMIT_MESSAGE" value="WIP" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/BuilderGenerator.Tests.Unit/When_generating_a_Builder_with_internals.cs</url>
-          <line>42</line>
-          <properties documentPath="D:\OneDrive\Projects\BuilderGenerator\src\BuilderGenerator.Tests.Unit\When_generating_a_Builder_with_internals.cs" containingFunctionPresentation="Method 'SimpleGeneratorTest'" />
-          <option name="timeStamp" value="3" />
+          <url>file://$PROJECT_DIR$/BuilderGenerator/BuilderGenerator.cs</url>
+          <line>160</line>
+          <properties documentPath="C:\Users\Mel\OneDrive\Projects\BuilderGenerator\src\BuilderGenerator\BuilderGenerator.cs" containingFunctionPresentation="Method 'GetPropertySymbols'">
+            <startOffsets>
+              <option value="6892" />
+            </startOffsets>
+            <endOffsets>
+              <option value="6922" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

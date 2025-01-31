@@ -54,8 +54,4 @@
     <Folder Include="Verify\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Verify\When_generating_a_Builder_without_internals.SimpleGeneratorTest.verified.txt" />
-  </ItemGroup>
-
 </Project>
