@@ -351,3 +351,6 @@ MigrationBackup/
 /src/Publish.ps1
 /src/Publish-Local.ps1
 /src/Publish-Nuget.ps1
+
+# Verify
+*.received.txt

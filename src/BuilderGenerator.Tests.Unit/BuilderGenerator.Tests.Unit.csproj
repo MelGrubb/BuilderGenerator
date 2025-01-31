@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
@@ -10,15 +10,11 @@
   <ItemGroup>
     <Compile Remove="Examples\InputWithInternals.cs" />
     <Compile Remove="Examples\InputWithoutInternals.cs" />
-    <Compile Remove="Examples\OutputWithInternals.cs" />
-    <Compile Remove="Examples\OutputWithoutInternals.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Examples\InputWithInternals.cs" />
     <EmbeddedResource Include="Examples\InputWithoutInternals.cs" />
-    <EmbeddedResource Include="Examples\OutputWithInternals.cs" />
-    <EmbeddedResource Include="Examples\OutputWithoutInternals.cs" />
   </ItemGroup>
 
   <ItemGroup>
