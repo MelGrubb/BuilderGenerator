@@ -4,9 +4,9 @@ This NuGet package automates the generation of object builders for testing. It g
 
 With the v3.0 release, there are a few important breaking changes.
 
-Support for .NET 6 & 7 has been dropped. The Builders now target .NET 8. If you have an older project that needs to remain on .NET 6 or 7, then it should keep using version 2 of BuilderGenerator.
+Integration tests for .NET 6 & 7 has been dropped. Like all source generators, the Builder generator targets .netstandard 2.0, and should work with any modern .NET version, so this change only affects developers contributing to the project itself.
 
-Builders previously exposes an "Object" property and accompanying "WithObject" method to allow you to directly set the instance to be returned from the builder. This is not a common scenario. It's also uncommon for a class to have a property called "Object", but it _does_ occasionally happen. In version 3, this property and its With method are now named for the Builder's target class. A `FooBuilder` will now have a property called `Foo`, and a `WithFoo` method. Otherwise, this functionality is unchanged.
+Builders previously exposed an "Object" property and accompanying "WithObject" method to allow you to directly set the instance to be returned from the builder. This is not a common scenario. It's also uncommon for a class to have a property called "Object", but it _does_ occasionally happen. In version 3, the object property and its With method are now named for the Builder's target class. A `FooBuilder` will now have a property called `Foo`, and a `WithFoo` method. Otherwise, this functionality is unchanged.
 
 Builders now ignore properties marked with the `Obsolete` attribute by default, although this can be overridden in the `BuilderForAttribute` constructor if needed.
 
@@ -117,7 +117,7 @@ Manually building the whole object using a builder offers very little over simpl
 
 ## Factory Methods
 
-The builders are generated as partial classes. The generated half comprises the repetitive, boring part of the process, including the backing fields and "With" methods that provide the fluent builder syntax. It will not, however, contain any of the factory methods that are one of the cornerstones of the Builder pattern. These must be created by hand in *your* partial class file, the one that you decorated with the BuilderFor attribute. For example, this code creates a factory method called "Simple" in the hand-written partial class that fills in just the required fields.
+The builders are generated as partial classes. The generated half comprises the repetitive, boring part of the process, including the backing fields and "With" methods that provide the fluent builder syntax. It will not, however, contain any of the factory methods that are one of the cornerstones of the Builder pattern. These must be created by hand in *your* partial class file, the one that you decorated with the BuilderFor attribute. For example, this code creates a factory method called "Simple" in the handwritten partial class that fills in just the required fields.
 
 ```csharp
 namespace MyTests.Builders
@@ -138,9 +138,9 @@ namespace MyTests.Builders
 }
 ```
 
-You are free to use whatever naming conventions you want, but I have had good luck with naming one of the factory methods "Simple" or, in some cases, "Minimal". Its job is to create a builder for the simplest or most minimal object that will pass validation and can be saved to the database. This usually means filling in required fields, and any other fields needed to satisfy validation rules. Apart from being "valid", developers should not make any other assumptions about the contents of the object the builder will produce. I usually use some kind of random value generator to fill in those required values. In the example above, I'm using GUIDs.
+You are free to use whatever naming conventions you want, but I have had good luck with naming one of the factory methods "Simple" or, in some cases, "Minimal". Its job is to create a builder for the simplest or most minimal object that will pass validation and can be saved to the database. This usually means filling in required fields and any other fields needed to satisfy validation rules. Apart from being "valid", developers should not make any other assumptions about the contents of the object the builder will produce. I usually use some kind of random value generator to fill in those required values. In the example above, I'm using GUIDs.
 
-You can derive new factory methods from existing ones in order to further refine or specialize the value being created. In the above example, UserBuilder.Simple set the Id, first and last names because they are required fields in our scenario, but the User class may have other properties that you'd expect to be filled in on any real-world user. You could easily build a second factory method on top of the Simple method to fill in these additional details. Let's create a "Typical" factory method that adds an order to the user's history.
+You can derive new factory methods from existing ones in order to further refine or specialize the value being created. In the above example, UserBuilder.Simple set the ID, first and last names because they are required fields in our scenario, but the User class may have other properties that you'd expect to be filled in on any real-world user. You could easily build a second factory method on top of the Simple method to fill in these additional details. Let's create a "Typical" factory method that adds an order to the user's history.
 
 ```csharp
 public static UserBuilder Typical()
@@ -184,7 +184,7 @@ I know that the test cares about the User's first name because it mentioned it. 
 
 ## "With" Method Types
 
-One feature of the generated builders is that the various "With" methods come in multiple flavors. There is the typical version that takes a simple value, such as the Guid Id value used in this example. In addition, there are overloads that take lambda expressions to be evaluated when the builder's Build method is finally invoked at runtime. This can be useful as a way to delay the execution of potentially expensive code until the last moment in case the value is changed later on. Each "With" method can be called multiple times, with subsequent values overwriting previous ones. In other words, "Last in wins". Builders represent a *plan* for creating an object rather than the object itself, and plans are always subject to change.
+One feature of the generated builders is that the various "With" methods come in multiple flavors. There is the typical version that takes a simple value, such as the Guid ID value used in this example. In addition, there are overloads that take lambda expressions to be evaluated when the builder's Build method is finally invoked at runtime. This can be useful as a way to delay the execution of potentially expensive code until the last moment in case the value is changed later on. Each "With" method can be called multiple times, with subsequent values overwriting previous ones. In other words, "Last in wins". Builders represent a *plan* for creating an object rather than the object itself, and plans are always subject to change.
 
 ## Manipulating internal properties
 

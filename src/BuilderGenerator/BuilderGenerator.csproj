@@ -19,77 +19,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
     <PackageReleaseNotes>
-      v3.0.0-alpha
-      - Dropped support for .NET 6 and 7
+      v3.0.1-alpha
+      - Dropped integration tests for .NET 6 and 7
       - Properties marked as Obsolete are ignored by the Builders
-
-      v2.4.0
-      - Test code reorganization
-      - Moved WithObject from the base class to the generated builder class
-      - Added WithValuesFrom method to shallow clone an example object.
-      - Added the option to exclude obsolete properties.
-
-      v2.3.0
-      - Major caching and performance improvements
-      - Internal code cleanup
-      - Conversion of templates to embedded resources
-
-      v2.2.0
-      - Changed generated file extension to .g.cs
-
-      v2.1.0
-      - Fixed #15, Builders can manipulate internals if configured to do so.
-
-      v2.0.7
-      - Fixed #13, NetStandard2.0 compatibility
-
-      v2.0.6
-      - Fixed #12, Generated files now marked with auth-generated header
-
-      v2.0.5
-      - Fixed #14, duplicate properties
-
-      v2.0.3
-      - Fixed NuGet packaging problem
-
-      v2.0.2
-      - Setters for base class properties rendering properly
-
-      v2.0.1
-      - Improved error handling
-
-      v2.0.0
-      - Updated to .Net 6 and IIncrementalGenerator
-      - Changed usage pattern from marking target classes with attributes to marking partial builder classes
-
-      v1.2.0
-      - Solution reorganization
-      - Version number synchronization
-      - Automated build pipeline
-
-      v1.0.0
-      - First major release
-
-      v0.5.0
-      - Replaced separate BuilderGenerator.Common assembly with a generated attribute and base class.
-      - NuGet package complete and working at last
-
-      v0.1.4
-      - Added logo
-      - Builder now ignores properties without setters
-      - NuGet package should auto-install analyzer now
-
-      v0.1.3
-      - Added Documentation site stub
-
-      v0.1.2
-      - Ignore read-only fields
-
-      v0.1.1
-      - Preview/Alpha release
-
-      v0.1.0
-      - Initial Release
+      - The "Object" property is now named for the Builder's target class
     </PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
