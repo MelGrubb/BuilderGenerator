@@ -30,9 +30,9 @@ namespace {{BuilderClassNamespace}}
             }
         }
 
-{{WithValuesFromMethod}}
 {{BuildMethod}}
 {{WithObjectMethod}}
+{{WithValuesFromMethod}}
 {{WithMethods}}
     }
 }

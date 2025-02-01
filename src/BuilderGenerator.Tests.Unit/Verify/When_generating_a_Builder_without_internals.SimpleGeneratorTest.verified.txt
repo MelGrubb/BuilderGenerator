@@ -31,16 +31,6 @@ namespace BuilderGenerator.UnitTests
             }
         }
 
-        /// <summary>Populates this instance with values from the provided example.</summary>
-        /// <remarks>This is a shallow clone, and does not traverse the example object creating builders for its properties.</remarks>
-        public PersonBuilderWithoutInternals WithValuesFrom(BuilderGenerator.UnitTests.Person example)
-        {
-            WithFirstName(example.FirstName);
-            WithLastName(example.LastName);
-
-            return this;
-        }
-
         public override BuilderGenerator.UnitTests.Person Build()
         {
             if (Person?.IsValueCreated != true)
@@ -69,6 +59,16 @@ namespace BuilderGenerator.UnitTests
         {
             Person = new System.Lazy<BuilderGenerator.UnitTests.Person>(() => value);
             WithValuesFrom(value);
+
+            return this;
+        }
+
+        /// <summary>Populates this instance with values from the provided example.</summary>
+        /// <remarks>This is a shallow clone, and does not traverse the example object creating builders for its properties.</remarks>
+        public PersonBuilderWithoutInternals WithValuesFrom(BuilderGenerator.UnitTests.Person example)
+        {
+            WithFirstName(example.FirstName);
+            WithLastName(example.LastName);
 
             return this;
         }
