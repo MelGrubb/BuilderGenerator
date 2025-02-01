@@ -38,6 +38,18 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Templates\**\*" />
+    <Compile Remove="Templates\BuilderBaseClass.cs" />
+    <Compile Remove="Templates\BuilderClass.cs" />
+    <Compile Remove="Templates\BuilderForAttribute.cs" />
+    <Compile Remove="Templates\BuildMethod.cs" />
+    <Compile Remove="Templates\BuildMethodSetter.cs" />
+    <Compile Remove="Templates\BuilderConstructors.cs" />
+    <Compile Remove="Templates\BuilderProperty.cs" />
+    <Compile Remove="Templates\WithMethods.cs" />
+    <Compile Remove="Templates\WithObjectMethod.cs" />
+    <Compile Remove="Templates\WithObjectMethodSetter.cs" />
+    <Compile Remove="Templates\WithValuesFromMethod.cs" />
+    <Compile Remove="Templates\WithValuesFromSetter.cs" />
   </ItemGroup>
 
   <ItemGroup>

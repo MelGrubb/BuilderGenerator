@@ -1,0 +1,5 @@
+# Dotnet code style
+[*.{cs}]
+end_of_line= crlf
+indent_size= 4
+insert_final_newline=false
