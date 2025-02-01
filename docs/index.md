@@ -2,7 +2,13 @@
 
 This NuGet package automates the generation of object builders for testing. It generates the repetitive part of creating builders, leaving only the more interesting, hand-curated parts for you to implement as partial classes.
 
-With the v2.0 release, the mechanism has changed. Rather than decorating entity classes with the "GenerateBuilder" attribute, as was done in v1.x, you now create a partial builder class and decorate it with the "BuilderFor" attribute. This makes it possible to generate builders anywhere you want rather than always creating them in the same assembly as the entities. Builders can be used as part of normal development, but are most commonly used in testing scenarios and many development teams would prefer not to "pollute" their domain assembly with knowledge of classes created for the benefit of their test assemblies. Of course, if you want to use builders as part of normal business logic, you can simply create and decorate the partial builder classes in the domain assembly and achieve the same effect as in the v1.x releases.
+With the v3.0 release, there are a few important breaking changes.
+
+Support for .NET 6 & 7 has been dropped. The Builders now target .NET 8. If you have an older project that needs to remain on .NET 6 or 7, then it should keep using version 2 of BuilderGenerator.
+
+Builders previously exposes an "Object" property and accompanying "WithObject" method to allow you to directly set the instance to be returned from the builder. This is not a common scenario. It's also uncommon for a class to have a property called "Object", but it _does_ occasionally happen. In version 3, this property and its With method are now named for the Builder's target class. A `FooBuilder` will now have a property called `Foo`, and a `WithFoo` method. Otherwise, this functionality is unchanged.
+
+Builders now ignore properties marked with the `Obsolete` attribute by default, although this can be overridden in the `BuilderForAttribute` constructor if needed.
 
 ## Installation
 

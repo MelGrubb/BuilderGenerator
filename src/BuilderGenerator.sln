@@ -44,6 +44,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Inte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Unit", "BuilderGenerator.Tests.Unit\BuilderGenerator.Tests.Unit.csproj", "{D140CF6D-F283-4A38-94A5-D62B36058094}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderGenerator.Tests.Integration.Net90", "BuilderGenerator.Tests.Integration.Net90\BuilderGenerator.Tests.Integration.Net90.csproj", "{33758D74-572A-41D3-AAA4-AA7CB8949C95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{D140CF6D-F283-4A38-94A5-D62B36058094}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D140CF6D-F283-4A38-94A5-D62B36058094}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D140CF6D-F283-4A38-94A5-D62B36058094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33758D74-572A-41D3-AAA4-AA7CB8949C95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33758D74-572A-41D3-AAA4-AA7CB8949C95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33758D74-572A-41D3-AAA4-AA7CB8949C95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33758D74-572A-41D3-AAA4-AA7CB8949C95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
