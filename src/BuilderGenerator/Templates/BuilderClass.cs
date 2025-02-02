@@ -11,6 +11,7 @@ using System.CodeDom.Compiler;
 
 #nullable disable
 #pragma warning disable 618 // Suppress complaints about obsolete properties.
+#pragma warning disable CS8669 // Nullability of type of parameter doesn't match target type.
 
 namespace {{BuilderClassNamespace}}
 {
@@ -18,7 +19,7 @@ namespace {{BuilderClassNamespace}}
     {
         /// <summary>Gets or sets the object returned by this builder.</summary>
         /// <value>The constructed object.</value>
-        protected System.Lazy<{{TargetClassFullName}}> {{TargetClassName}} { get; set; }
+        private System.Lazy<{{TargetClassFullName}}> {{TargetClassName}} { get; set; }
 
 {{Properties}}
 
