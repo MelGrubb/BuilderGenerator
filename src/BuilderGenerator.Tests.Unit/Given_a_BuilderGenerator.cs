@@ -11,7 +11,7 @@ namespace BuilderGenerator.Tests.Unit;
 
 public abstract class Given_a_BuilderGenerator
 {
-    public static string GetResourceAsString(Assembly assembly, string resourceName)
+    protected static string GetResourceAsString(Assembly assembly, string resourceName)
     {
         var manifestResourceNames = assembly.GetManifestResourceNames();
         resourceName = manifestResourceNames.Single(x => x.Equals($"BuilderGenerator.Tests.Unit.Examples.{resourceName}", StringComparison.OrdinalIgnoreCase));
@@ -26,8 +26,8 @@ public abstract class Given_a_BuilderGenerator
     {
         return CSharpCompilation.Create(
             "compilation",
-            new[] { CSharpSyntaxTree.ParseText(source) },
-            new[] { MetadataReference.CreateFromFile(typeof(Binder).GetTypeInfo().Assembly.Location) },
+            [CSharpSyntaxTree.ParseText(source)],
+            [MetadataReference.CreateFromFile(typeof(Binder).GetTypeInfo().Assembly.Location)],
             new CSharpCompilationOptions(OutputKind.ConsoleApplication));
     }
 }

@@ -77,10 +77,10 @@ internal class BuilderGenerator : IIncrementalGenerator
 
         // Register generation for classes based on the project contents
         var provider = context.SyntaxProvider.CreateSyntaxProvider(Predicate, Transform).Where(static builderInfo => builderInfo is not null).Collect().SelectMany((builders, _) => builders.Distinct());
-        context.RegisterSourceOutput(provider, Execute);
+        context.RegisterSourceOutput(provider, Generate);
     }
 
-    private static void Execute(SourceProductionContext context, BuilderInfo? builder)
+    private static void Generate(SourceProductionContext context, BuilderInfo? builder)
     {
         _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
