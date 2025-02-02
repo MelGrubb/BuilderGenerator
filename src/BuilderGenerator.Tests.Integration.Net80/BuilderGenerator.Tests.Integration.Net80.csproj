@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BuilderGenerator.Core\BuilderGenerator.Core.csproj" />
     <ProjectReference Include="..\BuilderGenerator.Tests.Core\BuilderGenerator.Tests.Core.csproj" />
     <ProjectReference Include="..\BuilderGenerator.Tests.Unit\BuilderGenerator.Tests.Unit.csproj" />
     <ProjectReference Include="..\BuilderGenerator\BuilderGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />

@@ -2,7 +2,7 @@
   "profiles": {
     "FromProject": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\BuilderGenerator.IntegrationTests.Net60.FromProject\\BuilderGenerator.IntegrationTests.Net60.FromProject.csproj"
+      "targetProject": "..\\BuilderGenerator.Tests.Integration.Net80\\BuilderGenerator.Tests.Integration.Net80.csproj"
     }
   }
 }

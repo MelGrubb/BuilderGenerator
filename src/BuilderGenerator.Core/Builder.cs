@@ -1,4 +1,5 @@
-namespace BuilderGenerator.Core;
+// ReSharper disable once CheckNamespace
+namespace BuilderGenerator;
 
 /// <summary>Base class for object builder classes.</summary>
 /// <typeparam name="T">The type of the objects built by this builder.</typeparam>
