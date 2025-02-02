@@ -4,10 +4,10 @@
     <TargetFramework>net9.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BuilderGenerator.Tests.Core\BuilderGenerator.Tests.Core.csproj" />
     <PackageReference Include="BuilderGenerator" Version="3.0.5-alpha" />
     <PackageReference Include="NUnit" Version="4.3.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />

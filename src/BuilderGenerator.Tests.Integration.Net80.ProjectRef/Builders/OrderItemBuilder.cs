@@ -1,5 +1,5 @@
 using System;
-using BuilderGenerator.Tests.Core.Models.Entities;
+using BuilderGenerator.Tests.Integration.Net80.ProjectRef.Models.Entities;
 
 namespace BuilderGenerator.Tests.Integration.Net80.ProjectRef.Builders;
 

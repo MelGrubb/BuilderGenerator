@@ -63,8 +63,7 @@ internal class BuilderGenerator : IIncrementalGenerator
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        // Register generation for classes based on the project contents
-        var provider = context.SyntaxProvider.CreateSyntaxProvider(Predicate, Transform).Where(static builderInfo => builderInfo is not null).Collect().SelectMany((builders, _) => builders.Distinct());
+        var provider = context.SyntaxProvider.ForAttributeWithMetadataName("BuilderGenerator.BuilderForAttribute", Predicate, Transform);
         context.RegisterSourceOutput(provider, Generate);
     }
 
@@ -200,20 +199,19 @@ internal class BuilderGenerator : IIncrementalGenerator
     /// <returns>A <see cref="bool" /> indicating whether <paramref name="node" /> may represent a builder class.</returns>
     private static bool Predicate(SyntaxNode node, CancellationToken _)
     {
-        return node is TypeDeclarationSyntax { AttributeLists.Count: > 0 };
+        return true;
     }
 
     /// <summary>Transforms the syntax node into a <see cref="BuilderInfo" /> containing the information needed to generate a Builder.</summary>
-    /// <param name="context">The <see cref="GeneratorSyntaxContext" />, which contains a reference to the node.</param>
+    /// <param name="syntaxContext">The <see cref="GeneratorAttributeSyntaxContext" />, which contains a reference to the node.</param>
     /// <param name="token">A cancellation token, used to short-circuit the transformation if additional changes are detected.</param>
     /// <returns>A <see cref="BuilderInfo" /> describing the Builder if the node represents a builder; otherwise, null.</returns>
-    private static BuilderInfo? Transform(GeneratorSyntaxContext context, CancellationToken token)
+    private static BuilderInfo? Transform(GeneratorAttributeSyntaxContext syntaxContext, CancellationToken token)
     {
         var stopwatch = Stopwatch.StartNew();
 
-        if (context.Node is not TypeDeclarationSyntax typeNode) { return null; }
-
-        if (context.SemanticModel.GetDeclaredSymbol(typeNode, token) is not INamedTypeSymbol namedTypeSymbol) { return null; }
+        if (syntaxContext.TargetNode is not TypeDeclarationSyntax typeNode) { return null; }
+        if (syntaxContext.SemanticModel.GetDeclaredSymbol(syntaxContext.TargetNode, token) is not INamedTypeSymbol namedTypeSymbol) { return null; }
 
         var attributes = namedTypeSymbol.GetAttributes();
         var attribute = attributes.SingleOrDefault(x => x.AttributeClass?.Name == "BuilderForAttribute");
@@ -250,8 +248,6 @@ internal class BuilderGenerator : IIncrementalGenerator
                 }).ToList(),
             Location = typeNode.GetLocation(),
             Identifier = typeNode.Identifier.ToString(),
-
-            // TODO: Retrieve template class instance/type from attribute, and use that to retrieve the strings later on.
             TimeToGenerate = stopwatch.Elapsed,
         };
 

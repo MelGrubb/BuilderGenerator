@@ -1,25 +1,25 @@
 using System;
-using BuilderGenerator.Tests.Core.Models.Entities;
+using BuilderGenerator.Tests.Integration.Net60.PackageRef.Builders;
+using BuilderGenerator.Tests.Integration.Net60.PackageRef.Models.Entities;
 using NUnit.Framework;
 using Shouldly;
-using UserBuilder = BuilderGenerator.Tests.Integration.Net60.PackageRef.Builders.UserBuilder;
 
 namespace BuilderGenerator.Tests.Integration.Net60.PackageRef.Tests;
 
 [TestFixture]
 public class BuilderTests
 {
-    private string _firstName;
+    private string _firstName = null!;
     private Guid _id;
-    private string _lastName;
-    private string _middleName;
-    private User _result;
+    private string _lastName = null!;
+    private string _middleName = null!;
+    private User _result = null!;
 
     [Test]
     public void Simple_does_not_populate_Orders()
     {
         var actual = UserBuilder.Simple().Build();
-        ShouldBeTestExtensions.ShouldBeOfType<User>(actual);
+        actual.ShouldBeOfType<User>();
         actual.Orders.ShouldBeNull();
     }
 
@@ -33,7 +33,7 @@ public class BuilderTests
     public void Typical_populates_Orders()
     {
         var actual = UserBuilder.Typical().Build();
-        ShouldBeTestExtensions.ShouldBeOfType<User>(actual);
+        actual.ShouldBeOfType<User>();
         actual.Orders.ShouldNotBeNull();
     }
 
