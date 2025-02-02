@@ -1,7 +1,7 @@
 using System;
-using BuilderGenerator.Tests.Core.Models.Entities;
-using BuilderGenerator.Tests.Core.Models.Enums;
 using BuilderGenerator.Tests.Integration.Net90.ProjectRef.Builders;
+using BuilderGenerator.Tests.Integration.Net90.ProjectRef.Models.Entities;
+using BuilderGenerator.Tests.Integration.Net90.ProjectRef.Models.Enums;
 using NUnit.Framework;
 using Shouldly;
 
@@ -11,9 +11,9 @@ namespace BuilderGenerator.Tests.Integration.Net90.ProjectRef.Tests;
 public class OrderBuilderTests
 {
     private Guid _id;
-    private string _internalString;
+    private string _internalString = null!;
     private DateTime _orderDate;
-    private Order _result;
+    private Order _result = null!;
     private OrderStatus _status;
 
     [Test]

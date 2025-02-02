@@ -1,8 +1,20 @@
 {
   "profiles": {
-    "FromProject": {
+    "Net60": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\BuilderGenerator.Tests.Integration.Net80\\BuilderGenerator.Tests.Integration.Net80.csproj"
+      "targetProject": "..\\BuilderGenerator.Tests.Integration.Net60.ProjectRef\\BuilderGenerator.Tests.Integration.Net60.ProjectRef.csproj"
+    },
+    "Net70": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\BuilderGenerator.Tests.Integration.Net70.ProjectRef\\BuilderGenerator.Tests.Integration.Net70.ProjectRef.csproj"
+    },
+    "Net80": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\BuilderGenerator.Tests.Integration.Net80.ProjectRef\\BuilderGenerator.Tests.Integration.Net80.ProjectRef.csproj"
+    },
+    "Net90": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\BuilderGenerator.Tests.Integration.Net90.ProjectRef\\BuilderGenerator.Tests.Integration.Net90.ProjectRef.csproj"
     }
   }
 }

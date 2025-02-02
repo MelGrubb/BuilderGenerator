@@ -38,8 +38,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{6842FF
 		..\.github\workflows\release.yml = ..\.github\workflows\release.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Core", "BuilderGenerator.Tests.Core\BuilderGenerator.Tests.Core.csproj", "{BB9EFCCE-10E0-4A34-BCA5-79B6EC155F5C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Integration.Net80.ProjectRef", "BuilderGenerator.Tests.Integration.Net80.ProjectRef\BuilderGenerator.Tests.Integration.Net80.ProjectRef.csproj", "{42D12F84-04D1-4330-BD5D-411E60832EC3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Unit", "BuilderGenerator.Tests.Unit\BuilderGenerator.Tests.Unit.csproj", "{D140CF6D-F283-4A38-94A5-D62B36058094}"
@@ -70,10 +68,6 @@ Global
 		{159A1DAD-038B-4EBB-BA6B-58C98C68A596}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{159A1DAD-038B-4EBB-BA6B-58C98C68A596}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{159A1DAD-038B-4EBB-BA6B-58C98C68A596}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB9EFCCE-10E0-4A34-BCA5-79B6EC155F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB9EFCCE-10E0-4A34-BCA5-79B6EC155F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB9EFCCE-10E0-4A34-BCA5-79B6EC155F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB9EFCCE-10E0-4A34-BCA5-79B6EC155F5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{42D12F84-04D1-4330-BD5D-411E60832EC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42D12F84-04D1-4330-BD5D-411E60832EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42D12F84-04D1-4330-BD5D-411E60832EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,4 +1,4 @@
-using BuilderGenerator.Tests.Core.Models.Entities;
+using BuilderGenerator.Tests.Integration.Net90.PackageRef.Models.Entities;
 
 namespace BuilderGenerator.Tests.Integration.Net90.PackageRef.Builders;
 

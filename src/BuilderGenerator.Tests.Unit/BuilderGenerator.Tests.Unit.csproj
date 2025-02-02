@@ -8,16 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Examples\InputWithInternals.cs" />
-    <Compile Remove="Examples\InputWithoutInternals.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Examples\InputWithInternals.cs" />
-    <EmbeddedResource Include="Examples\InputWithoutInternals.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.10.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" />
     <PackageReference Include="Verify" Version="28.9.0" />
@@ -36,6 +26,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Shouldly" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Examples\ClassWithInternals.cs" />
+    <Compile Remove="Examples\ClassWithoutInternals.cs" />
+    <EmbeddedResource Include="Examples\ClassWithInternals.cs" />
+    <EmbeddedResource Include="Examples\ClassWithoutInternals.cs" />
   </ItemGroup>
 
   <ItemGroup>

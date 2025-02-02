@@ -19,7 +19,7 @@ internal record struct BuilderInfo
 
     /// <summary>Gets or sets the time it took to generate a particular builder.</summary>
     /// <value>The time to generate the builder class.</value>
-    /// <remarks>Note that this property is not included in the hash.</remarks>
+    /// <remarks>Note that this property is not included in the hash or Equals methods.</remarks>
     public TimeSpan TimeToGenerate { get; set; }
 
     public bool Equals(BuilderInfo other)
@@ -30,7 +30,7 @@ internal record struct BuilderInfo
             && BuilderClassNamespace == other.BuilderClassNamespace
             && BuilderClassUsingBlock == other.BuilderClassUsingBlock
             && Identifier == other.Identifier
-            && Location == other.Location
+            //&& Location == other.Location
             && TargetClassFullName == other.TargetClassFullName
             && TargetClassName == other.TargetClassName
             && Properties.SequenceEqual(other.Properties);
@@ -48,7 +48,7 @@ internal record struct BuilderInfo
             hash = (hash * 23) + BuilderClassNamespace.GetHashCode();
             hash = (hash * 23) + BuilderClassUsingBlock.GetHashCode();
             hash = (hash * 23) + Identifier.GetHashCode();
-            hash = (hash * 23) + Location.GetHashCode();
+            //hash = (hash * 23) + Location.GetHashCode();
             hash = (hash * 23) + TargetClassFullName.GetHashCode();
             hash = (hash * 23) + TargetClassName.GetHashCode();
             hash = (hash * 23) + Properties.Aggregate(hash, (current, property) => (current * 23) + property.GetHashCode());
