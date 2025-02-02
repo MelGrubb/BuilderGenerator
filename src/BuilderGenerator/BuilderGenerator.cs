@@ -20,9 +20,7 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static readonly string NewLine = Environment.NewLine; // TODO: Derive this value from the project itself
 #pragma warning restore RS1035
 
-    private static readonly string BuilderBaseClass;
     private static readonly string BuilderClass;
-    private static readonly string BuilderForAttribute;
     private static readonly string BuilderProperty;
     private static readonly string BuildMethod;
     private static readonly string BuildMethodSetter;
@@ -36,9 +34,7 @@ internal class BuilderGenerator : IIncrementalGenerator
     {
         var assembly = typeof(BuilderGenerator).Assembly;
 
-        BuilderBaseClass = GetResourceAsString(assembly, $"{nameof(BuilderBaseClass)}.cs");
         BuilderClass = GetResourceAsString(assembly, $"{nameof(BuilderClass)}.cs");
-        BuilderForAttribute = GetResourceAsString(assembly, $"{nameof(BuilderForAttribute)}.cs");
         BuilderProperty = GetResourceAsString(assembly, $"{nameof(BuilderProperty)}.cs");
         BuildMethodSetter = GetResourceAsString(assembly, $"{nameof(BuildMethodSetter)}.cs");
         BuildMethod = GetResourceAsString(assembly, $"{nameof(BuildMethod)}.cs");
@@ -67,20 +63,12 @@ internal class BuilderGenerator : IIncrementalGenerator
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        // Register injection of classes to be injected as-is.
-        context.RegisterPostInitializationOutput(
-            x =>
-            {
-                x.AddSource(nameof(BuilderBaseClass), SourceText.From(BuilderBaseClass, Encoding.UTF8));
-                x.AddSource(nameof(BuilderForAttribute), SourceText.From(BuilderForAttribute, Encoding.UTF8));
-            });
-
         // Register generation for classes based on the project contents
         var provider = context.SyntaxProvider.CreateSyntaxProvider(Predicate, Transform).Where(static builderInfo => builderInfo is not null).Collect().SelectMany((builders, _) => builders.Distinct());
-        context.RegisterSourceOutput(provider, Execute);
+        context.RegisterSourceOutput(provider, Generate);
     }
 
-    private static void Execute(SourceProductionContext context, BuilderInfo? builder)
+    private static void Generate(SourceProductionContext context, BuilderInfo? builder)
     {
         _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
@@ -222,23 +210,19 @@ internal class BuilderGenerator : IIncrementalGenerator
     private static BuilderInfo? Transform(GeneratorSyntaxContext context, CancellationToken token)
     {
         var stopwatch = Stopwatch.StartNew();
-        var node = context.Node;
 
-        if (node is not TypeDeclarationSyntax typeNode) { return null; }
+        if (context.Node is not TypeDeclarationSyntax typeNode) { return null; }
 
-        var typeSymbol = context.SemanticModel.GetDeclaredSymbol(typeNode, token);
+        if (context.SemanticModel.GetDeclaredSymbol(typeNode, token) is not INamedTypeSymbol namedTypeSymbol) { return null; }
 
-        if (typeSymbol is not INamedTypeSymbol namedTypeSymbol) { return null; }
+        var attributes = namedTypeSymbol.GetAttributes();
+        var attribute = attributes.SingleOrDefault(x => x.AttributeClass?.Name == "BuilderForAttribute");
 
-        if (!namedTypeSymbol.GetAttributes().Any(x => x.AttributeClass?.Name == "BuilderForAttribute")) { return null; }
-
-        var attributeSymbol = namedTypeSymbol.GetAttributes().SingleOrDefault(x => x.AttributeClass!.Name == nameof(BuilderForAttribute));
-
-        if (attributeSymbol is null) { return null; }
+        if (attribute == null) { return null; }
 
         // The node represents a Builder class, so we can go ahead and do the transformation now.
         // We gather all the relevant information up-front so that it can be used effectively for caching.
-        var arguments = attributeSymbol.ConstructorArguments;
+        var arguments = attribute.ConstructorArguments;
         var targetClassType = arguments[0];
         var includeInternals = arguments.Length > 1 && (bool)arguments[1].Value!;
         var includeObsolete = arguments.Length > 2 && (bool)arguments[2].Value!;
@@ -251,9 +235,9 @@ internal class BuilderGenerator : IIncrementalGenerator
 
         var result = new BuilderInfo
         {
-            BuilderClassAccessibility = typeSymbol.DeclaredAccessibility,
-            BuilderClassNamespace = typeSymbol.ContainingNamespace.ToString(),
-            BuilderClassName = typeSymbol.Name,
+            BuilderClassAccessibility = namedTypeSymbol.DeclaredAccessibility,
+            BuilderClassNamespace = namedTypeSymbol.ContainingNamespace.ToString(),
+            BuilderClassName = namedTypeSymbol.Name,
             TargetClassName = ((ISymbol)targetClassType.Value!).Name,
             TargetClassFullName = targetClassType.Value!.ToString(),
             BuilderClassUsingBlock = ((CompilationUnitSyntax)typeNode.SyntaxTree.GetRoot()).Usings.ToString(),
