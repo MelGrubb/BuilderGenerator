@@ -8,10 +8,16 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>BuilderGenerator.Tests.Integration.Net80</_Parameter1>
+      <_Parameter1>BuilderGenerator.Tests.Integration.Net80.PackageRef</_Parameter1>
     </AssemblyAttribute>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>BuilderGenerator.Tests.Integration.Net90</_Parameter1>
+      <_Parameter1>BuilderGenerator.Tests.Integration.Net80.ProjectRef</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>BuilderGenerator.Tests.Integration.Net90.PackageRef</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>BuilderGenerator.Tests.Integration.Net90.ProjectRef</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 </Project>

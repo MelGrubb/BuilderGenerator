@@ -1,13 +1,13 @@
 using System;
 using BuilderGenerator.Tests.Core.Models.Entities;
-using BuilderGenerator.Tests.Integration.Net80.Builders;
 using NUnit.Framework;
 using Shouldly;
+using UserBuilder = BuilderGenerator.Tests.Integration.Net80.PackageRef.Builders.UserBuilder;
 
-namespace BuilderGenerator.Tests.Integration.Net80.Tests;
+namespace BuilderGenerator.Tests.Integration.Net80.PackageRef.Tests;
 
 [TestFixture]
-public class UserBuilderTests
+public class BuilderTests
 {
     private string _firstName;
     private Guid _id;

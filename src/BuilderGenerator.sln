@@ -40,13 +40,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{6842FF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Core", "BuilderGenerator.Tests.Core\BuilderGenerator.Tests.Core.csproj", "{BB9EFCCE-10E0-4A34-BCA5-79B6EC155F5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Integration.Net80", "BuilderGenerator.Tests.Integration.Net80\BuilderGenerator.Tests.Integration.Net80.csproj", "{42D12F84-04D1-4330-BD5D-411E60832EC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Integration.Net80.ProjectRef", "BuilderGenerator.Tests.Integration.Net80.ProjectRef\BuilderGenerator.Tests.Integration.Net80.ProjectRef.csproj", "{42D12F84-04D1-4330-BD5D-411E60832EC3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuilderGenerator.Tests.Unit", "BuilderGenerator.Tests.Unit\BuilderGenerator.Tests.Unit.csproj", "{D140CF6D-F283-4A38-94A5-D62B36058094}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderGenerator.Tests.Integration.Net90", "BuilderGenerator.Tests.Integration.Net90\BuilderGenerator.Tests.Integration.Net90.csproj", "{33758D74-572A-41D3-AAA4-AA7CB8949C95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderGenerator.Tests.Integration.Net90.ProjectRef", "BuilderGenerator.Tests.Integration.Net90.ProjectRef\BuilderGenerator.Tests.Integration.Net90.ProjectRef.csproj", "{33758D74-572A-41D3-AAA4-AA7CB8949C95}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderGenerator.Core", "BuilderGenerator.Core\BuilderGenerator.Core.csproj", "{163269A9-B467-4A93-BA68-0A46C02B0E87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderGenerator.Tests.Integration.Net80.PackageRef", "BuilderGenerator.Tests.Integration.Net80.PackageRef\BuilderGenerator.Tests.Integration.Net80.PackageRef.csproj", "{7DF5AAB0-8FC5-4717-907A-B3BEEB7C3FB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuilderGenerator.Tests.Integration.Net90.PackageRef", "BuilderGenerator.Tests.Integration.Net90.PackageRef\BuilderGenerator.Tests.Integration.Net90.PackageRef.csproj", "{59C9DDE2-7DF4-4EAF-AE9C-3323B9D51490}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +82,14 @@ Global
 		{163269A9-B467-4A93-BA68-0A46C02B0E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{163269A9-B467-4A93-BA68-0A46C02B0E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{163269A9-B467-4A93-BA68-0A46C02B0E87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF5AAB0-8FC5-4717-907A-B3BEEB7C3FB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF5AAB0-8FC5-4717-907A-B3BEEB7C3FB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF5AAB0-8FC5-4717-907A-B3BEEB7C3FB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF5AAB0-8FC5-4717-907A-B3BEEB7C3FB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59C9DDE2-7DF4-4EAF-AE9C-3323B9D51490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59C9DDE2-7DF4-4EAF-AE9C-3323B9D51490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59C9DDE2-7DF4-4EAF-AE9C-3323B9D51490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59C9DDE2-7DF4-4EAF-AE9C-3323B9D51490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

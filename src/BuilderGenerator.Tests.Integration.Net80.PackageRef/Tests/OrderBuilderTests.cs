@@ -1,11 +1,11 @@
 using System;
 using BuilderGenerator.Tests.Core.Models.Entities;
 using BuilderGenerator.Tests.Core.Models.Enums;
-using BuilderGenerator.Tests.Integration.Net80.Builders;
 using NUnit.Framework;
 using Shouldly;
+using OrderBuilder = BuilderGenerator.Tests.Integration.Net80.PackageRef.Builders.OrderBuilder;
 
-namespace BuilderGenerator.Tests.Integration.Net80.Tests;
+namespace BuilderGenerator.Tests.Integration.Net80.PackageRef.Tests;
 
 [TestFixture]
 public class OrderBuilderTests

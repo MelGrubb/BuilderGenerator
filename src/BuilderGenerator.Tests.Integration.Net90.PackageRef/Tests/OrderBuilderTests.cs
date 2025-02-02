@@ -1,11 +1,11 @@
 using System;
 using BuilderGenerator.Tests.Core.Models.Entities;
 using BuilderGenerator.Tests.Core.Models.Enums;
-using BuilderGenerator.Tests.Integration.Net90.Builders;
+using BuilderGenerator.Tests.Integration.Net90.PackageRef.Builders;
 using NUnit.Framework;
 using Shouldly;
 
-namespace BuilderGenerator.Tests.Integration.Net90.Tests;
+namespace BuilderGenerator.Tests.Integration.Net90.PackageRef.Tests;
 
 [TestFixture]
 public class OrderBuilderTests
@@ -29,7 +29,7 @@ public class OrderBuilderTests
     public void Simple_does_not_populate_Items()
     {
         var actual = OrderBuilder.Simple().Build();
-        actual.ShouldBeOfType<Order>();
+        ShouldBeTestExtensions.ShouldBeOfType<Order>(actual);
         actual.Items.ShouldBeNull();
     }
 
@@ -43,7 +43,7 @@ public class OrderBuilderTests
     public void Typical_populates_Items()
     {
         var actual = OrderBuilder.Typical().Build();
-        actual.ShouldBeOfType<Order>();
+        ShouldBeTestExtensions.ShouldBeOfType<Order>(actual);
         actual.Items.ShouldNotBeNull();
     }
 
