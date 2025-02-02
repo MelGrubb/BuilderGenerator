@@ -19,10 +19,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
     <PackageReleaseNotes>
-      v3.0.1-alpha
-      - Dropped integration tests for .NET 6 and 7
+      v3.0.3-alpha
       - Properties marked as Obsolete are ignored by the Builders
       - The "Object" property is now named for the Builder's target class
+      - Solved the "Duplicate Definition" problem (41)
     </PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
@@ -67,7 +67,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" PrivateAssets="all" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\BuilderGenerator.Core\BuilderGenerator.Core.csproj" PrivateAssets="all" />
   </ItemGroup>
@@ -75,7 +75,7 @@
   <ItemGroup>
     <!-- The Generator itself -->
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-    
+
     <!-- The Generator.Core dll, which contains the attribute and base class -->
     <None Include="$(OutputPath)\BuilderGenerator.Core.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 
