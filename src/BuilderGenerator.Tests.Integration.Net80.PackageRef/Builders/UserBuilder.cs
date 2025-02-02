@@ -24,7 +24,7 @@ public partial class UserBuilder
             .WithOrders(
                 () => new List<Order>
                 {
-                    PackageRef.Builders.OrderBuilder.Simple().Build(),
+                    OrderBuilder.Simple().Build(),
                 });
 
         return builder;
