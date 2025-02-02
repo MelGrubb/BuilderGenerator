@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using BuilderGenerator.Tests.Core.Models.Entities;
 
-namespace BuilderGenerator.Tests.Integration.Net80.Builders;
+namespace BuilderGenerator.Tests.Integration.Net80.ProjectRef.Builders;
 
 [BuilderFor(typeof(Order), true)]
 public partial class OrderBuilder
