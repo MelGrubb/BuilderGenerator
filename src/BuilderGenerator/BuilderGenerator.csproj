@@ -80,7 +80,7 @@
     <None Include="$(OutputPath)\BuilderGenerator.Core.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 
     <!-- A second copy of the Generator.Core dll, for use by the consuming project -->
-    <None Include="$(OutputPath)\BuilderGenerator.Core.dll" Pack="true" PackagePath="lib/netstandard2.0" Visible="true" />
+    <None Include="$(OutputPath)\BuilderGenerator.Core.dll" Pack="true" PackagePath="lib/netstandard2.0" Visible="false" />
   </ItemGroup>
 
   <ItemGroup>
