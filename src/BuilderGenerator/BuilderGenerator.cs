@@ -119,7 +119,7 @@ internal class BuilderGenerator : IIncrementalGenerator
                         ? $"<summary>With {p.Name}.</summary>" // Default if no comment is provided
                         : p.Comment;
 
-                    templateParser.SetTag("PropertyComment", FormatCommentWithTripleSlash(p.Comment));
+                    templateParser.SetTag("PropertyComment", FormatCommentWithTripleSlash(propertyComment));
                     templateParser.SetTag("PropertyName", p.Name);
                     templateParser.SetTag("PropertyType", p.Type);
 

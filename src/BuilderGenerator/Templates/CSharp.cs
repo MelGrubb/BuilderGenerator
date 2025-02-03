@@ -163,20 +163,20 @@ public class CSharp
         get
         {
             return """
-                           /// {{PropertyComment}}
+                           {{PropertyComment}}
                            public {{BuilderClassName}} With{{PropertyName}}({{PropertyType}} value)
                            {
                                return With{{PropertyName}}(() => value);
                            }
 
-                           /// {{PropertyComment}}
+                           {{PropertyComment}}
                            public {{BuilderClassName}} With{{PropertyName}}(System.Func<{{PropertyType}}> func)
                            {
                                {{PropertyName}} = new System.Lazy<{{PropertyType}}>(func);
                                return this;
                            }
 
-                           /// {{PropertyComment}}
+                           {{PropertyComment}}
                            public {{BuilderClassName}} Without{{PropertyName}}()
                            {
                                {{PropertyName}} = new System.Lazy<{{PropertyType}}>(() => default({{PropertyType}}));
