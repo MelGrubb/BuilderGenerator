@@ -12,7 +12,10 @@
                     return result;
                 });
 
-                PostProcess({{TargetClassName}}.Value);
+                if (PostBuildAction != null)
+                {
+                    PostBuildAction({{TargetClassName}}.Value);
+                }
             }
 
             return {{TargetClassName}}.Value;

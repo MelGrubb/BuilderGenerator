@@ -20,6 +20,13 @@ namespace BuilderGenerator.Tests.Unit.Examples
         /// <value>The constructed object.</value>
         private System.Lazy<BuilderGenerator.Tests.Unit.Examples.Person> Person { get; set; }
 
+        // <summary>Gets or sets the action to be performed when an object is built.</summary>
+        // <remarks>
+        //     This is only performed when an object is created from scratch for the first time.
+        //     When the object value has been injected from outside, this action will not be called.
+        // </remarks>
+        private System.Action<BuilderGenerator.Tests.Unit.Examples.Person> PostBuildAction { get; set; }
+
         public System.Lazy<string> FirstName = new System.Lazy<string>(() => default(string));
         public System.Lazy<string> InternalString = new System.Lazy<string>(() => default(string));
         public System.Lazy<string> LastName = new System.Lazy<string>(() => default(string));
@@ -51,7 +58,10 @@ namespace BuilderGenerator.Tests.Unit.Examples
                     return result;
                 });
 
-                PostProcess(Person.Value);
+                if (PostBuildAction != null)
+                {
+                    PostBuildAction(Person.Value);
+                }
             }
 
             return Person.Value;
@@ -65,6 +75,12 @@ namespace BuilderGenerator.Tests.Unit.Examples
             Person = new System.Lazy<BuilderGenerator.Tests.Unit.Examples.Person>(() => value);
             WithValuesFrom(value);
 
+            return this;
+        }
+
+        public PersonBuilderWithInternals WithPostBuildAction(System.Action<BuilderGenerator.Tests.Unit.Examples.Person> action)
+        {
+            PostBuildAction = action;
             return this;
         }
 

@@ -76,8 +76,12 @@ internal class BuilderGenerator : IIncrementalGenerator
 
         try
         {
-            templateParser.SetTag("GenerationTime", DateTime.Now.ToString("s"));
-            templateParser.SetTag("GenerationDuration", (builder.Value.TimeToGenerate + stopwatch.Elapsed).TotalMilliseconds);
+#if DEBUG
+            // Only update the header in debug builds so we can tell when generation has been triggered.
+            // Don't include it in release builds though, or it will cause unnecessary churn in the consuming project's repo.
+            templateParser.SetTag("GenerationTime", $" at {DateTime.Now:s}");
+            templateParser.SetTag("GenerationDuration", $" in {(builder.Value.TimeToGenerate + stopwatch.Elapsed).TotalMilliseconds}ms");
+#endif
             templateParser.SetTag("BuilderClassUsingBlock", builder.Value.BuilderClassUsingBlock);
             templateParser.SetTag("BuilderClassNamespace", builder.Value.BuilderClassNamespace);
             templateParser.SetTag("BuilderClassAccessibility", builder.Value.BuilderClassAccessibility.ToString().ToLower());
