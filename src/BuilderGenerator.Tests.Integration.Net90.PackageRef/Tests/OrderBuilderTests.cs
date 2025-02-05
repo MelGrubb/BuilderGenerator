@@ -20,7 +20,7 @@ public class OrderBuilderTests
     public void OrderBuilder_can_set_properties()
     {
         _result.Id.ShouldBe(_id);
-        _result.InternalString.ShouldBe(_internalString);
+        _result.InternalString.ShouldBe(_internalString.ToUpper());
         _result.OrderDate.ShouldBe(_orderDate);
         _result.Status.ShouldBe(_status);
     }
@@ -67,6 +67,7 @@ public class OrderBuilderTests
             .WithInternalString(_internalString)
             .WithOrderDate(_orderDate)
             .WithStatus(_status)
+            .WithPostBuildAction(x=>x.InternalString = x.InternalString.ToUpper())
             .Build();
     }
 }

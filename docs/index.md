@@ -4,11 +4,16 @@ This NuGet package automates the generation of object builders for testing. It g
 
 With the v3.0 release, there are a few important breaking changes.
 
-Integration tests for .NET 6 & 7 has been dropped. Like all source generators, the Builder generator targets .netstandard 2.0, and should work with any modern .NET version, so this change only affects developers contributing to the project itself.
+Builders previously exposed an "Object" property and accompanying "WithObject" method to allow you to directly set the instance to be returned from the builder. This is not a common scenario. It's also uncommon for a class to have a property called "Object", but it _does_ occasionally happen. In version 3, the object property and its With method are now named for the Builder's target class. A `FooBuilder` class will now have a property called `Foo` and associated `WithFoo` methods. Otherwise, this functionality is unchanged.
 
-Builders previously exposed an "Object" property and accompanying "WithObject" method to allow you to directly set the instance to be returned from the builder. This is not a common scenario. It's also uncommon for a class to have a property called "Object", but it _does_ occasionally happen. In version 3, the object property and its With method are now named for the Builder's target class. A `FooBuilder` will now have a property called `Foo`, and a `WithFoo` method. Otherwise, this functionality is unchanged.
+Builders previously had a virtual "PostProcess" method on the base class which could be overridden to perform additional operations the first time the builder's `Build` method is called. Unlike the other properties, there was previously no way to override the `PostProcess` method. Any difference in behavior from one factory method to another had to be written directly into the `PostProcess` method itself. In version 3, this single method has been replaced with a new `WithPostBuildAction` method that takes an Action and returns a reference to the Builder so that it chains just like any other "With" method. This allows a factory method like "Typical" to throw out and replace the post-build action established by a lower level like "Simple". To migrate existing `PostProcess` actions, just add a call to `WithPostBuildAction` that calls your existing `PostProcess` method, and remove its `override` keyword.
 
-Builders now ignore properties marked with the `Obsolete` attribute by default, although this can be overridden in the `BuilderForAttribute` constructor if needed.
+Builders now ignore properties marked with the `Obsolete` attribute by default, although this can be overridden with the `includeObsolete` parameter to the `BuilderForAttribute` constructor if needed. This is similar to the existing `includeInternals` parameter.
+
+## Contributors
+Thank you to the following developers for their contributions to the project.
+- Michiel van Oosterhout for the Object -> ClassName suggestion.
+- lucavoit for his PR to copy XML comment header contents to the builder With methods.
 
 ## Installation
 

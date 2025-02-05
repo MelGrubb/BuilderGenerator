@@ -76,8 +76,12 @@ internal class BuilderGenerator : IIncrementalGenerator
 
         try
         {
-            templateParser.SetTag("GenerationTime", DateTime.Now.ToString("s"));
-            templateParser.SetTag("GenerationDuration", (builder.Value.TimeToGenerate + stopwatch.Elapsed).TotalMilliseconds);
+#if DEBUG
+            // Only update the header in debug builds so we can tell when generation has been triggered.
+            // Don't include it in release builds though, or it will cause unnecessary churn in the consuming project's repo.
+            templateParser.SetTag("GenerationTime", $" at {DateTime.Now:s}");
+            templateParser.SetTag("GenerationDuration", $" in {(builder.Value.TimeToGenerate + stopwatch.Elapsed).TotalMilliseconds}ms");
+#endif
             templateParser.SetTag("BuilderClassUsingBlock", builder.Value.BuilderClassUsingBlock);
             templateParser.SetTag("BuilderClassNamespace", builder.Value.BuilderClassNamespace);
             templateParser.SetTag("BuilderClassAccessibility", builder.Value.BuilderClassAccessibility.ToString().ToLower());
@@ -106,6 +110,12 @@ internal class BuilderGenerator : IIncrementalGenerator
             properties.Select(
                 p =>
                 {
+                    // Extract XML documentation comment for the property
+                    var propertyComment = string.IsNullOrWhiteSpace(p.Comment)
+                        ? $"{NewLine}<summary>With {p.Name}.</summary>" // Default if no comment is provided
+                        : p.Comment;
+
+                    templateParser.SetTag("PropertyComment", FormatXmlComments(propertyComment));
                     templateParser.SetTag("PropertyName", p.Name);
 
                     return templateParser.ParseString(BuildMethodSetter);
@@ -124,6 +134,12 @@ internal class BuilderGenerator : IIncrementalGenerator
             properties.Select(
                 p =>
                 {
+                    // Extract XML documentation comment for the property
+                    var propertyComment = string.IsNullOrWhiteSpace(p.Comment)
+                        ? $"<summary>With {p.Name}.</summary>" // Default if no comment is provided
+                        : p.Comment;
+
+                    templateParser.SetTag("PropertyComment", FormatXmlComments(propertyComment));
                     templateParser.SetTag("PropertyName", p.Name);
                     templateParser.SetTag("PropertyType", p.Type);
 
@@ -140,6 +156,12 @@ internal class BuilderGenerator : IIncrementalGenerator
             properties.Select(
                 p =>
                 {
+                    // Extract XML documentation comment for the property
+                    var propertyComment = string.IsNullOrWhiteSpace(p.Comment)
+                        ? $"<summary>With {p.Name}.</summary>" // Default if no comment is provided
+                        : p.Comment;
+
+                    templateParser.SetTag("PropertyComment", FormatXmlComments(propertyComment));
                     templateParser.SetTag("PropertyName", p.Name);
                     templateParser.SetTag("PropertyType", p.Type);
 
@@ -211,6 +233,7 @@ internal class BuilderGenerator : IIncrementalGenerator
         var stopwatch = Stopwatch.StartNew();
 
         if (syntaxContext.TargetNode is not TypeDeclarationSyntax typeNode) { return null; }
+
         if (syntaxContext.SemanticModel.GetDeclaredSymbol(syntaxContext.TargetNode, token) is not INamedTypeSymbol namedTypeSymbol) { return null; }
 
         var attributes = namedTypeSymbol.GetAttributes();
@@ -226,7 +249,7 @@ internal class BuilderGenerator : IIncrementalGenerator
         var includeObsolete = arguments.Length > 2 && (bool)arguments[2].Value!;
 
         var targetClassProperties = GetPropertySymbols((INamedTypeSymbol)targetClassType.Value!, includeInternals, includeObsolete)
-            .Select<IPropertySymbol, (string Name, string TypeName, Accessibility Accessibility)>(x => new ValueTuple<string, string, Accessibility>(x.Name, x.Type.ToString(), x.DeclaredAccessibility))
+            .Select<IPropertySymbol, (string Name, string TypeName, Accessibility Accessibility, string Comment)>(x => new ValueTuple<string, string, Accessibility, string>(x.Name, x.Type.ToString(), x.DeclaredAccessibility, x.GetDocumentationCommentXml()))
             .Distinct()
             .OrderBy(x => x.Name)
             .ToList();
@@ -243,6 +266,7 @@ internal class BuilderGenerator : IIncrementalGenerator
                 x => new BuilderInfo.PropertyInfo
                 {
                     Accessibility = x.Accessibility,
+                    Comment = x.Comment,
                     Name = x.Name,
                     Type = x.TypeName,
                 }).ToList(),
@@ -250,6 +274,24 @@ internal class BuilderGenerator : IIncrementalGenerator
             Identifier = typeNode.Identifier.ToString(),
             TimeToGenerate = stopwatch.Elapsed,
         };
+
+        return result;
+    }
+
+    private static string FormatXmlComments(string commentXml)
+    {
+        if (string.IsNullOrWhiteSpace(commentXml))
+        {
+            return string.Empty;
+        }
+
+        // Split the XML comment into lines
+        var lines = commentXml.Split(["\r\n", "\r", "\n"], StringSplitOptions.RemoveEmptyEntries)
+            .Select(l => $"        /// {l.Trim()}")
+            .ToArray();
+
+        // Join the lines back together
+        var result = string.Join($"{NewLine}", lines.Skip(1).Take(lines.Length - 2));
 
         return result;
     }
