@@ -27,7 +27,6 @@ namespace {{BuilderClassNamespace}}
         //     When the object value has been injected from outside, this action will not be called.
         // </remarks>
         private System.Action<{{TargetClassFullName}}> PostBuildAction { get; set; }
-
 {{Properties}}
 
         /// <summary>Initializes a new instance of the <see cref="{{BuilderClassName}}"/> class using the provided <see cref="{{TargetClassFullName}}" /> for the value.</summary>

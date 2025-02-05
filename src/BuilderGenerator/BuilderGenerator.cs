@@ -110,6 +110,12 @@ internal class BuilderGenerator : IIncrementalGenerator
             properties.Select(
                 p =>
                 {
+                    // Extract XML documentation comment for the property
+                    var propertyComment = string.IsNullOrWhiteSpace(p.Comment)
+                        ? $"{NewLine}<summary>With {p.Name}.</summary>" // Default if no comment is provided
+                        : p.Comment;
+
+                    templateParser.SetTag("PropertyComment", FormatXmlComments(propertyComment));
                     templateParser.SetTag("PropertyName", p.Name);
 
                     return templateParser.ParseString(BuildMethodSetter);
@@ -128,6 +134,12 @@ internal class BuilderGenerator : IIncrementalGenerator
             properties.Select(
                 p =>
                 {
+                    // Extract XML documentation comment for the property
+                    var propertyComment = string.IsNullOrWhiteSpace(p.Comment)
+                        ? $"<summary>With {p.Name}.</summary>" // Default if no comment is provided
+                        : p.Comment;
+
+                    templateParser.SetTag("PropertyComment", FormatXmlComments(propertyComment));
                     templateParser.SetTag("PropertyName", p.Name);
                     templateParser.SetTag("PropertyType", p.Type);
 
@@ -149,7 +161,7 @@ internal class BuilderGenerator : IIncrementalGenerator
                         ? $"<summary>With {p.Name}.</summary>" // Default if no comment is provided
                         : p.Comment;
 
-                    templateParser.SetTag("PropertyComment", FormatCommentWithTripleSlash(propertyComment));
+                    templateParser.SetTag("PropertyComment", FormatXmlComments(propertyComment));
                     templateParser.SetTag("PropertyName", p.Name);
                     templateParser.SetTag("PropertyType", p.Type);
 
@@ -221,6 +233,7 @@ internal class BuilderGenerator : IIncrementalGenerator
         var stopwatch = Stopwatch.StartNew();
 
         if (syntaxContext.TargetNode is not TypeDeclarationSyntax typeNode) { return null; }
+
         if (syntaxContext.SemanticModel.GetDeclaredSymbol(syntaxContext.TargetNode, token) is not INamedTypeSymbol namedTypeSymbol) { return null; }
 
         var attributes = namedTypeSymbol.GetAttributes();
@@ -265,18 +278,21 @@ internal class BuilderGenerator : IIncrementalGenerator
         return result;
     }
 
-    private static string FormatCommentWithTripleSlash(string commentXml)
+    private static string FormatXmlComments(string commentXml)
     {
         if (string.IsNullOrWhiteSpace(commentXml))
+        {
             return string.Empty;
+        }
 
-        // Split the XML comment into lines using '\n'
-        var lines = commentXml.Split('\n');
+        // Split the XML comment into lines
+        var lines = commentXml.Split(["\r\n", "\r", "\n"], StringSplitOptions.RemoveEmptyEntries)
+            .Select(l => $"        /// {l.Trim()}")
+            .ToArray();
 
-        // Add "/// " to each line
-        var formattedLines = lines.Select(line => $"/// {line.Trim()}");
+        // Join the lines back together
+        var result = string.Join($"{NewLine}", lines.Skip(1).Take(lines.Length - 2));
 
-        // Join the lines back together with '\n'
-        return string.Join("\n", formattedLines);
+        return result;
     }
 }

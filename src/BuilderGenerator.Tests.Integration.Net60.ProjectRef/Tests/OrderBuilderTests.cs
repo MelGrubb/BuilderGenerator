@@ -73,7 +73,7 @@ public class OrderBuilderTests
             .WithInternalString(_internalString)
             .WithOrderDate(_orderDate)
             .WithStatus(_status)
-            .WithPostBuildAction(x=>x.InternalString = x.InternalString.ToUpper())
+            .WithPostBuildAction(x => x.InternalString = x.InternalString.ToUpper())
             .Build();
     }
 }

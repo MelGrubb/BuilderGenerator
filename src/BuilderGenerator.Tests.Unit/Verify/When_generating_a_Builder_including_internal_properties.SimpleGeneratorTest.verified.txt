@@ -27,9 +27,22 @@ namespace BuilderGenerator.Tests.Unit.Examples
         // </remarks>
         private System.Action<BuilderGenerator.Tests.Unit.Examples.Person> PostBuildAction { get; set; }
 
+        /// <summary>
+        /// The Person's first name.
+        /// </summary>
+        /// <remarks>This was a multi-line, indented summary in the original source code.</remarks>
         public System.Lazy<string> FirstName = new System.Lazy<string>(() => default(string));
+
+        /// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public System.Lazy<string> InternalString = new System.Lazy<string>(() => default(string));
+
+        /// <summary>The Person's last name.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public System.Lazy<string> LastName = new System.Lazy<string>(() => default(string));
+
+        /// <summary>A string property marked as obsolete to test the "includeObsolete" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public System.Lazy<string> MiddleName = new System.Lazy<string>(() => default(string));
 
         /// <summary>Initializes a new instance of the <see cref="PersonBuilderWithInternals"/> class using the provided <see cref="BuilderGenerator.Tests.Unit.Examples.Person" /> for the value.</summary>
@@ -98,134 +111,98 @@ namespace BuilderGenerator.Tests.Unit.Examples
             return this;
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.FirstName">
-/// <summary>
-/// The Person's first name.
-/// </summary>
-/// <remarks>This was a multi-line, indented summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>
+        /// The Person's first name.
+        /// </summary>
+        /// <remarks>This was a multi-line, indented summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithFirstName(string value)
         {
             return WithFirstName(() => value);
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.FirstName">
-/// <summary>
-/// The Person's first name.
-/// </summary>
-/// <remarks>This was a multi-line, indented summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>
+        /// The Person's first name.
+        /// </summary>
+        /// <remarks>This was a multi-line, indented summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithFirstName(System.Func<string> func)
         {
             FirstName = new System.Lazy<string>(func);
             return this;
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.FirstName">
-/// <summary>
-/// The Person's first name.
-/// </summary>
-/// <remarks>This was a multi-line, indented summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>
+        /// The Person's first name.
+        /// </summary>
+        /// <remarks>This was a multi-line, indented summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithoutFirstName()
         {
             FirstName = new System.Lazy<string>(() => default(string));
             return this;
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.InternalString">
-/// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
-/// <remarks>This was a single-line summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithInternalString(string value)
         {
             return WithInternalString(() => value);
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.InternalString">
-/// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
-/// <remarks>This was a single-line summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithInternalString(System.Func<string> func)
         {
             InternalString = new System.Lazy<string>(func);
             return this;
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.InternalString">
-/// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
-/// <remarks>This was a single-line summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithoutInternalString()
         {
             InternalString = new System.Lazy<string>(() => default(string));
             return this;
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.LastName">
-/// <summary>The Person's last name.</summary>
-/// <remarks>This was a single-line summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>The Person's last name.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithLastName(string value)
         {
             return WithLastName(() => value);
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.LastName">
-/// <summary>The Person's last name.</summary>
-/// <remarks>This was a single-line summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>The Person's last name.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithLastName(System.Func<string> func)
         {
             LastName = new System.Lazy<string>(func);
             return this;
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.LastName">
-/// <summary>The Person's last name.</summary>
-/// <remarks>This was a single-line summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>The Person's last name.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithoutLastName()
         {
             LastName = new System.Lazy<string>(() => default(string));
             return this;
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.MiddleName">
-/// <summary>A string property marked as obsolete to test the "includeObsolete" attribute parameter.</summary>
-/// <remarks>This was a single-line summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>A string property marked as obsolete to test the "includeObsolete" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithMiddleName(string value)
         {
             return WithMiddleName(() => value);
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.MiddleName">
-/// <summary>A string property marked as obsolete to test the "includeObsolete" attribute parameter.</summary>
-/// <remarks>This was a single-line summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>A string property marked as obsolete to test the "includeObsolete" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithMiddleName(System.Func<string> func)
         {
             MiddleName = new System.Lazy<string>(func);
             return this;
         }
 
-        /// <member name="P:BuilderGenerator.Tests.Unit.Examples.Person.MiddleName">
-/// <summary>A string property marked as obsolete to test the "includeObsolete" attribute parameter.</summary>
-/// <remarks>This was a single-line summary in the original source code.</remarks>
-/// </member>
-/// 
+        /// <summary>A string property marked as obsolete to test the "includeObsolete" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
         public PersonBuilderWithInternals WithoutMiddleName()
         {
             MiddleName = new System.Lazy<string>(() => default(string));
