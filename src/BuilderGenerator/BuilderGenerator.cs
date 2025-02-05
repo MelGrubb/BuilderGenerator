@@ -144,6 +144,12 @@ internal class BuilderGenerator : IIncrementalGenerator
             properties.Select(
                 p =>
                 {
+                    // Extract XML documentation comment for the property
+                    var propertyComment = string.IsNullOrWhiteSpace(p.Comment)
+                        ? $"<summary>With {p.Name}.</summary>" // Default if no comment is provided
+                        : p.Comment;
+
+                    templateParser.SetTag("PropertyComment", FormatCommentWithTripleSlash(propertyComment));
                     templateParser.SetTag("PropertyName", p.Name);
                     templateParser.SetTag("PropertyType", p.Type);
 
@@ -230,7 +236,7 @@ internal class BuilderGenerator : IIncrementalGenerator
         var includeObsolete = arguments.Length > 2 && (bool)arguments[2].Value!;
 
         var targetClassProperties = GetPropertySymbols((INamedTypeSymbol)targetClassType.Value!, includeInternals, includeObsolete)
-            .Select<IPropertySymbol, (string Name, string TypeName, Accessibility Accessibility)>(x => new ValueTuple<string, string, Accessibility>(x.Name, x.Type.ToString(), x.DeclaredAccessibility))
+            .Select<IPropertySymbol, (string Name, string TypeName, Accessibility Accessibility, string Comment)>(x => new ValueTuple<string, string, Accessibility, string>(x.Name, x.Type.ToString(), x.DeclaredAccessibility, x.GetDocumentationCommentXml()))
             .Distinct()
             .OrderBy(x => x.Name)
             .ToList();
@@ -247,6 +253,7 @@ internal class BuilderGenerator : IIncrementalGenerator
                 x => new BuilderInfo.PropertyInfo
                 {
                     Accessibility = x.Accessibility,
+                    Comment = x.Comment,
                     Name = x.Name,
                     Type = x.TypeName,
                 }).ToList(),
@@ -256,5 +263,20 @@ internal class BuilderGenerator : IIncrementalGenerator
         };
 
         return result;
+    }
+
+    private static string FormatCommentWithTripleSlash(string commentXml)
+    {
+        if (string.IsNullOrWhiteSpace(commentXml))
+            return string.Empty;
+
+        // Split the XML comment into lines using '\n'
+        var lines = commentXml.Split('\n');
+
+        // Add "/// " to each line
+        var formattedLines = lines.Select(line => $"/// {line.Trim()}");
+
+        // Join the lines back together with '\n'
+        return string.Join("\n", formattedLines);
     }
 }

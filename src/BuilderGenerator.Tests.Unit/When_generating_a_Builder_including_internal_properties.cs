@@ -13,17 +13,17 @@ using VerifyTests;
 namespace BuilderGenerator.Tests.Unit;
 
 [TestFixture]
-public class When_generating_a_Builder_for_class_with_internals : Given_a_BuilderGenerator
+public class When_generating_a_Builder_including_internal_properties : Given_a_BuilderGenerator
 {
     [Test]
     public Task SimpleGeneratorTest()
     {
         var assembly = GetType().Assembly;
-        var inputCompilation = CreateCompilation(GetResourceAsString(assembly, "ClassWithInternals.cs"));
+        var inputCompilation = CreateCompilation(GetResourceAsString(assembly, "ExampleWithInternalProperties.cs"));
         var generator = new BuilderGenerator();
         var driver = CSharpGeneratorDriver.Create(generator).RunGeneratorsAndUpdateCompilation(inputCompilation, out var outputCompilation, out var diagnostics);
         diagnostics.ShouldBeEmpty();
-        outputCompilation.SyntaxTrees.Count().ShouldBe(2); // The input and the output
+        outputCompilation.SyntaxTrees.Count().ShouldBe(2); // The input and the outputs
 
         var runResult = driver.GetRunResult();
         runResult.Diagnostics.ShouldBeEmpty();

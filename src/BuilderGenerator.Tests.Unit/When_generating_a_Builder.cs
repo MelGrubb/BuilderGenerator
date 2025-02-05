@@ -13,13 +13,13 @@ using VerifyTests;
 namespace BuilderGenerator.Tests.Unit;
 
 [TestFixture]
-public class When_generating_a_Builder_for_class_without_internals : Given_a_BuilderGenerator
+public class When_generating_a_Builder : Given_a_BuilderGenerator
 {
     [Test]
     public Task SimpleGeneratorTest()
     {
         var assembly = GetType().Assembly;
-        var inputCompilation = CreateCompilation(GetResourceAsString(assembly, "ClassWithoutInternals.cs"));
+        var inputCompilation = CreateCompilation(GetResourceAsString(assembly, "Example.cs"));
         GeneratorDriver driver = CSharpGeneratorDriver.Create(new BuilderGenerator());
         driver = driver.RunGeneratorsAndUpdateCompilation(inputCompilation, out var outputCompilation, out var diagnostics);
         diagnostics.ShouldBeEmpty();
@@ -28,9 +28,6 @@ public class When_generating_a_Builder_for_class_without_internals : Given_a_Bui
         var runResult = driver.GetRunResult();
         runResult.Diagnostics.ShouldBeEmpty();
         runResult.GeneratedTrees.Length.ShouldBe(1); // The generated builder
-
-        // TODO: Check for the presence of the Builder base class.
-        // TODO: Check for the presence of the BuilderForAttribute class.
 
         var generatorResult = runResult.Results[0];
         generatorResult.Generator.GetGeneratorType().ShouldBe(new BuilderGenerator().GetType());

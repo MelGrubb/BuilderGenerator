@@ -64,10 +64,16 @@ internal record struct BuilderInfo
         /// <remarks>Although this isn't used directly by the templates themselves, a change in accessibility could result in a re-generation of the builder, so we need this to be part of the hash code.</remarks>
         public Accessibility Accessibility { get; set; }
 
+        /// <summary>Gets or sets the XML comments for the target class property.</summary>
+        /// <value>The XML comments for the target class property.</value>
+        public string Comment { get; set; }
+
         /// <summary>Gets or sets the name of the target class property.</summary>
         /// <value>The name of the target class property.</value>
         public string Name { get; set; }
 
+        /// <summary>Gets or sets the type name of the target class property.</summary>
+        /// <value>The <see cref="string"/> type name of the target class property.</value>
         public string Type { get; set; }
     }
 }
