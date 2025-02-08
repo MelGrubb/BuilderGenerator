@@ -16,7 +16,7 @@ namespace BuilderGenerator.Tests.Unit;
 public class When_generating_a_Builder_including_internals : Given_a_BuilderGenerator
 {
     [Test]
-    public Task SimpleGeneratorTest()
+    public Task Test()
     {
         var assembly = GetType().Assembly;
         var inputCompilation = CreateCompilation(GetResourceAsString(assembly, "ExampleWithObsoleteProperties.cs"));

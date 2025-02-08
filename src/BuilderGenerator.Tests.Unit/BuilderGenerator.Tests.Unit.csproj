@@ -34,6 +34,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Remove="Templates\MyTemplates.cs" />
+    <Compile Remove="Examples\InputWithInternals.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,7 +55,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Templates\" />
     <Folder Include="Verify\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Verify\When_generating_a_Builder_without_internals.SimpleGeneratorTest.verified.txt" />
+    <None Remove="Verify\When_generating_a_Builder_with_internals.SimpleGeneratorTest.verified.txt" />
+    <None Remove="Verify\When_generating_a_Builder_including_internals.Test.verified.txt" />
   </ItemGroup>
 
 </Project>
