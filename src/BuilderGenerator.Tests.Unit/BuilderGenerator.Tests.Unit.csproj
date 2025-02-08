@@ -53,7 +53,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Verify\" />
+    <None Remove="Verify\When_generating_a_Builder_without_internals.SimpleGeneratorTest.verified.txt" />
+    <None Remove="Verify\When_generating_a_Builder_with_internals.SimpleGeneratorTest.verified.txt" />
+    <None Remove="Verify\When_generating_a_Builder_including_internals.Test.verified.txt" />
   </ItemGroup>
 
 </Project>
