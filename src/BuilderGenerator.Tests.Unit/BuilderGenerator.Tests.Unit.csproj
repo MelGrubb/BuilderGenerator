@@ -34,8 +34,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Remove="Templates\MyTemplates.cs" />
-    <Compile Remove="Examples\InputWithInternals.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,11 +50,6 @@
     
     <Compile Remove="Examples\ExampleWithObsoleteProperties.cs" />
     <EmbeddedResource Include="Examples\ExampleWithObsoleteProperties.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Templates\" />
-    <Folder Include="Verify\" />
   </ItemGroup>
 
   <ItemGroup>
