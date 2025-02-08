@@ -13,7 +13,7 @@ using VerifyTests;
 namespace BuilderGenerator.Tests.Unit;
 
 [TestFixture]
-public class When_generating_a_Builder_including_internals : Given_a_BuilderGenerator
+public class When_generating_a_Builder_including_obsolete_properties : Given_a_BuilderGenerator
 {
     [Test]
     public Task Test()
