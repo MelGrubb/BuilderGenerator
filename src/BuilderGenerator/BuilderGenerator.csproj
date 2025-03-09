@@ -23,6 +23,7 @@
       - Object backing property (e.g. PersonBuilder.Person) is now public (#60).
       - PostBuildAction property is now public.
       - Solved duplicate property problem (#61)
+      - Switched tests to xUnit
     </PackageReleaseNotes>
     <PackageVersion>$(Version)</PackageVersion>
     <RepositoryType>git</RepositoryType>

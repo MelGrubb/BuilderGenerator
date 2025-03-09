@@ -1,21 +1,19 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using NUnit.Framework;
 using Shouldly;
-using VerifyNUnit;
 using VerifyTests;
+using VerifyXunit;
+using Xunit;
 
 // ReSharper disable InconsistentNaming
 
 namespace BuilderGenerator.Tests.Unit;
 
-[TestFixture]
 public class When_generating_a_Builder_including_internal_properties : Given_a_BuilderGenerator
 {
-    [Test]
+    [Fact]
     public Task Test()
     {
         var assembly = GetType().Assembly;

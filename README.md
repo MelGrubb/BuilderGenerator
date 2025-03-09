@@ -27,6 +27,7 @@ After installation, create a partial class to define your builder in. Decorate i
   - Object backing property (e.g. PersonBuilder.Person) is now public (#60).
   - PostBuildAction property is now public.
   - Solved duplicate property problem (#61)
+  - Switched tests to xUnit
 
 - v3.0.5
   - Properties marked as Obsolete are ignored by the Builders
