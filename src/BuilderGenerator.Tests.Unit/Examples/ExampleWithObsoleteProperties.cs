@@ -2,8 +2,31 @@ using System;
 
 namespace BuilderGenerator.Tests.Unit.Examples;
 
+/// <summary>Represents a basic business entity.</summary>
+public abstract class Entity
+{
+    /// <summary>Uniquely identifies an Entity instance.</summary>
+    public Guid Id { get; set; }
+}
+
+/// <summary>Represents entities with basic audit fields.</summary>
+public abstract class AuditableEntity : Entity
+{
+    /// <summary>When this instance was created.</summary>
+    public DateTime CreatedAt { get; set; }
+
+    /// <summary>Who created this instance.</summary>
+    public string CreatedBy { get; set; } = null!;
+
+    /// <summary>When this instance was last updated.</summary>
+    public DateTime UpdatedAt { get; set; }
+
+    /// <summary>Who last updated this instance.</summary>
+    public string UpdatedBy { get; set; } = null!;
+}
+
 /// <summary>An example class with various properties.</summary>
-public class Person
+public class Person : AuditableEntity
 {
     /// <summary>
     ///     The Person's first name.

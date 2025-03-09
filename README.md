@@ -23,10 +23,15 @@ Install-Package BuilderGenerator
 After installation, create a partial class to define your builder in. Decorate it with the ```BuilderFor``` attribute, specifying the type of class that the builder is meant to build (e.g. ```[BuilderFor(typeof(Foo))]```. Define any factory and helper methods in this partial class. Meanwhile, another partial class definition will be auto-generated which contains all the "boring" parts such as the backing fields and "with" methods.
 
 ## Version History ##
-- v3.0.7
+- v3.1.0
+  - Object backing property (e.g. PersonBuilder.Person) is now public (#60).
+  - PostBuildAction property is now public.
+  - Solved duplicate property problem (#61)
+
+- v3.0.5
   - Properties marked as Obsolete are ignored by the Builders
   - The "Object" property is now named for the Builder's target class
-  - Solved the "Duplicate Definition" problem (41)
+  - Solved the "Duplicate Definition" problem (#41)
   - PostBuildAction replaces PostProcess method
 
 - v2.4.0

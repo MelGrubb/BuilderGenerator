@@ -8,15 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.10.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" />
-    <PackageReference Include="Verify" Version="28.9.0" />
-    <PackageReference Include="Verify.NUnit" Version="28.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.13.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />
+    <PackageReference Include="Verify" Version="28.13.0" />
+    <PackageReference Include="Verify.NUnit" Version="28.13.0" />
     <ProjectReference Include="..\BuilderGenerator.Core\BuilderGenerator.Core.csproj" />
     <ProjectReference Include="..\BuilderGenerator\BuilderGenerator.csproj" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="NUnit" Version="4.3.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
     <PackageReference Include="NUnit.Analyzers" Version="4.6.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -45,11 +45,20 @@
     <Compile Remove="Examples\Example.cs" />
     <EmbeddedResource Include="Examples\Example.cs" />
 
+    <Compile Remove="Examples\ExampleSealed.cs" />
+    <EmbeddedResource Include="Examples\ExampleSealed.cs" />
+
+    <Compile Remove="Examples\ExampleWithBaseClassIdProperty_abstract.cs" />
+
+    <Compile Remove="Examples\ExampleWithBaseClassIdProperty_virtual.cs" />
+
     <Compile Remove="Examples\ExampleWithInternalProperties.cs" />
     <EmbeddedResource Include="Examples\ExampleWithInternalProperties.cs" />
-    
+
     <Compile Remove="Examples\ExampleWithObsoleteProperties.cs" />
     <EmbeddedResource Include="Examples\ExampleWithObsoleteProperties.cs" />
+
+    <Compile Remove="Examples\Issue61Repro.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,8 +2,7 @@
   <PropertyGroup>
     <Authors>Mel Grubb</Authors>
     <Copyright>2021-2025 Mel Grubb</Copyright>
-    <Version>3.0.5</Version>
-    <PackageVersion>3.0.5</PackageVersion>
+    <Version>3.1.0</Version>
     <AssemblyVersion>$(Version).0</AssemblyVersion>
     <AssemblyFileVersion>$(Version).0</AssemblyFileVersion>
     <FileVersion>$(Version).0</FileVersion>

@@ -18,20 +18,29 @@ namespace BuilderGenerator.Tests.Unit.Examples
     {
         /// <summary>Gets or sets the object returned by this builder.</summary>
         /// <value>The constructed object.</value>
-        private System.Lazy<BuilderGenerator.Tests.Unit.Examples.Person> Person { get; set; }
+        public System.Lazy<BuilderGenerator.Tests.Unit.Examples.Person> Person { get; set; }
 
         // <summary>Gets or sets the action to be performed when an object is built.</summary>
         // <remarks>
         //     This is only performed when an object is created from scratch for the first time.
         //     When the object value has been injected from outside, this action will not be called.
         // </remarks>
-        private System.Action<BuilderGenerator.Tests.Unit.Examples.Person> PostBuildAction { get; set; }
+        public System.Action<BuilderGenerator.Tests.Unit.Examples.Person> PostBuildAction { get; set; }
+
+        /// <summary>When this instance was created.</summary>
+        public System.Lazy<System.DateTime> CreatedAt = new System.Lazy<System.DateTime>(() => default(System.DateTime));
+
+        /// <summary>Who created this instance.</summary>
+        public System.Lazy<string> CreatedBy = new System.Lazy<string>(() => default(string));
 
         /// <summary>
         /// The Person's first name.
         /// </summary>
         /// <remarks>This was a multi-line, indented summary in the original source code.</remarks>
         public System.Lazy<string> FirstName = new System.Lazy<string>(() => default(string));
+
+        /// <summary>Uniquely identifies a <see cref="T:BuilderGenerator.Tests.Unit.Examples.Person"/> instance.</summary>
+        public System.Lazy<System.Guid> Id = new System.Lazy<System.Guid>(() => default(System.Guid));
 
         /// <summary>The Person's last name.</summary>
         /// <remarks>This was a single-line summary in the original source code.</remarks>
@@ -40,6 +49,12 @@ namespace BuilderGenerator.Tests.Unit.Examples
         /// <summary>A string property marked as obsolete to test the "includeObsolete" attribute parameter.</summary>
         /// <remarks>This was a single-line summary in the original source code.</remarks>
         public System.Lazy<string> MiddleName = new System.Lazy<string>(() => default(string));
+
+        /// <summary>When this instance was last updated.</summary>
+        public System.Lazy<System.DateTime> UpdatedAt = new System.Lazy<System.DateTime>(() => default(System.DateTime));
+
+        /// <summary>Who last updated this instance.</summary>
+        public System.Lazy<string> UpdatedBy = new System.Lazy<string>(() => default(string));
 
         /// <summary>Initializes a new instance of the <see cref="PersonBuilder"/> class using the provided <see cref="BuilderGenerator.Tests.Unit.Examples.Person" /> for the value.</summary>
         /// <param name="value">The <see cref="BuilderGenerator.Tests.Unit.Examples.Person" /> instance to build on.</param>
@@ -60,9 +75,14 @@ namespace BuilderGenerator.Tests.Unit.Examples
                 {
                     var result = new BuilderGenerator.Tests.Unit.Examples.Person
                     {
+                        CreatedAt = CreatedAt.Value,
+                        CreatedBy = CreatedBy.Value,
                         FirstName = FirstName.Value,
+                        Id = Id.Value,
                         LastName = LastName.Value,
                         MiddleName = MiddleName.Value,
+                        UpdatedAt = UpdatedAt.Value,
+                        UpdatedBy = UpdatedBy.Value,
                     };
 
                     return result;
@@ -98,10 +118,55 @@ namespace BuilderGenerator.Tests.Unit.Examples
         /// <remarks>This is a shallow clone, and does not traverse the example object creating builders for its properties.</remarks>
         public PersonBuilder WithValuesFrom(BuilderGenerator.Tests.Unit.Examples.Person example)
         {
+            WithCreatedAt(example.CreatedAt);
+            WithCreatedBy(example.CreatedBy);
             WithFirstName(example.FirstName);
+            WithId(example.Id);
             WithLastName(example.LastName);
             WithMiddleName(example.MiddleName);
+            WithUpdatedAt(example.UpdatedAt);
+            WithUpdatedBy(example.UpdatedBy);
 
+            return this;
+        }
+
+        /// <summary>When this instance was created.</summary>
+        public PersonBuilder WithCreatedAt(System.DateTime value)
+        {
+            return WithCreatedAt(() => value);
+        }
+
+        /// <summary>When this instance was created.</summary>
+        public PersonBuilder WithCreatedAt(System.Func<System.DateTime> func)
+        {
+            CreatedAt = new System.Lazy<System.DateTime>(func);
+            return this;
+        }
+
+        /// <summary>When this instance was created.</summary>
+        public PersonBuilder WithoutCreatedAt()
+        {
+            CreatedAt = new System.Lazy<System.DateTime>(() => default(System.DateTime));
+            return this;
+        }
+
+        /// <summary>Who created this instance.</summary>
+        public PersonBuilder WithCreatedBy(string value)
+        {
+            return WithCreatedBy(() => value);
+        }
+
+        /// <summary>Who created this instance.</summary>
+        public PersonBuilder WithCreatedBy(System.Func<string> func)
+        {
+            CreatedBy = new System.Lazy<string>(func);
+            return this;
+        }
+
+        /// <summary>Who created this instance.</summary>
+        public PersonBuilder WithoutCreatedBy()
+        {
+            CreatedBy = new System.Lazy<string>(() => default(string));
             return this;
         }
 
@@ -131,6 +196,26 @@ namespace BuilderGenerator.Tests.Unit.Examples
         public PersonBuilder WithoutFirstName()
         {
             FirstName = new System.Lazy<string>(() => default(string));
+            return this;
+        }
+
+        /// <summary>Uniquely identifies a <see cref="T:BuilderGenerator.Tests.Unit.Examples.Person"/> instance.</summary>
+        public PersonBuilder WithId(System.Guid value)
+        {
+            return WithId(() => value);
+        }
+
+        /// <summary>Uniquely identifies a <see cref="T:BuilderGenerator.Tests.Unit.Examples.Person"/> instance.</summary>
+        public PersonBuilder WithId(System.Func<System.Guid> func)
+        {
+            Id = new System.Lazy<System.Guid>(func);
+            return this;
+        }
+
+        /// <summary>Uniquely identifies a <see cref="T:BuilderGenerator.Tests.Unit.Examples.Person"/> instance.</summary>
+        public PersonBuilder WithoutId()
+        {
+            Id = new System.Lazy<System.Guid>(() => default(System.Guid));
             return this;
         }
 
@@ -177,6 +262,46 @@ namespace BuilderGenerator.Tests.Unit.Examples
         public PersonBuilder WithoutMiddleName()
         {
             MiddleName = new System.Lazy<string>(() => default(string));
+            return this;
+        }
+
+        /// <summary>When this instance was last updated.</summary>
+        public PersonBuilder WithUpdatedAt(System.DateTime value)
+        {
+            return WithUpdatedAt(() => value);
+        }
+
+        /// <summary>When this instance was last updated.</summary>
+        public PersonBuilder WithUpdatedAt(System.Func<System.DateTime> func)
+        {
+            UpdatedAt = new System.Lazy<System.DateTime>(func);
+            return this;
+        }
+
+        /// <summary>When this instance was last updated.</summary>
+        public PersonBuilder WithoutUpdatedAt()
+        {
+            UpdatedAt = new System.Lazy<System.DateTime>(() => default(System.DateTime));
+            return this;
+        }
+
+        /// <summary>Who last updated this instance.</summary>
+        public PersonBuilder WithUpdatedBy(string value)
+        {
+            return WithUpdatedBy(() => value);
+        }
+
+        /// <summary>Who last updated this instance.</summary>
+        public PersonBuilder WithUpdatedBy(System.Func<string> func)
+        {
+            UpdatedBy = new System.Lazy<string>(func);
+            return this;
+        }
+
+        /// <summary>Who last updated this instance.</summary>
+        public PersonBuilder WithoutUpdatedBy()
+        {
+            UpdatedBy = new System.Lazy<string>(() => default(string));
             return this;
         }
     }

@@ -52,8 +52,8 @@ public class Person : AuditableEntity
     public string ObsoleteString { get; set; }
 }
 
-/// <summary>An example builder that includes internal properties.</summary>
-[BuilderFor(typeof(Person), includeInternals: true)]
-public partial class PersonBuilderWithInternals
+/// <summary>An example builder that includes neither internal nor obsolete properties.</summary>
+[BuilderFor(typeof(Person))]
+public sealed partial class PersonBuilder
 {
 }

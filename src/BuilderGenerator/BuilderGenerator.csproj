@@ -19,11 +19,12 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>BDD;TDD;Testing;Builders;Code Generation;Source Generators</PackageTags>
     <PackageReleaseNotes>
-      v3.0.3-alpha
-      - Properties marked as Obsolete are ignored by the Builders
-      - The "Object" property is now named for the Builder's target class
-      - Solved the "Duplicate Definition" problem (41)
+      v3.1.0
+      - Object backing property (e.g. PersonBuilder.Person) is now public (#60).
+      - PostBuildAction property is now public.
+      - Solved duplicate property problem (#61)
     </PackageReleaseNotes>
+    <PackageVersion>$(Version)</PackageVersion>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MelGrubb/BuilderGenerator</RepositoryUrl>
   </PropertyGroup>
@@ -65,7 +66,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

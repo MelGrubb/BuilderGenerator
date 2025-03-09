@@ -16,14 +16,13 @@ namespace BuilderGenerator;
 [Generator]
 internal class BuilderGenerator : IIncrementalGenerator
 {
-#pragma warning disable RS1035
-    private static readonly string NewLine = Environment.NewLine; // TODO: Derive this value from the project itself
-#pragma warning restore RS1035
-
     private static readonly string BuilderClass;
     private static readonly string BuilderProperty;
     private static readonly string BuildMethod;
     private static readonly string BuildMethodSetter;
+#pragma warning disable RS1035
+    private static readonly string NewLine = Environment.NewLine;
+#pragma warning restore RS1035
     private static readonly string WithMethods;
     private static readonly string WithObjectMethod;
     private static readonly string WithObjectMethodSetter;
@@ -45,26 +44,28 @@ internal class BuilderGenerator : IIncrementalGenerator
         WithValuesFromSetter = GetResourceAsString(assembly, $"{nameof(WithValuesFromSetter)}.cs");
     }
 
-    private static string GetResourceAsString(Assembly assembly, string resourceName)
-    {
-        resourceName = assembly.GetManifestResourceNames().Single(x => x.Equals($"BuilderGenerator.Templates.{resourceName}", StringComparison.OrdinalIgnoreCase));
-        using var stream = assembly.GetManifestResourceStream(resourceName);
-
-        if (stream == null)
-        {
-            throw new InvalidOperationException($"Resource '{resourceName}' not found.");
-        }
-
-        using (var reader = new StreamReader(stream))
-        {
-            return reader.ReadToEnd();
-        }
-    }
-
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var provider = context.SyntaxProvider.ForAttributeWithMetadataName("BuilderGenerator.BuilderForAttribute", Predicate, Transform);
         context.RegisterSourceOutput(provider, Generate);
+    }
+
+    private static string FormatXmlComments(string? commentXml)
+    {
+        if (string.IsNullOrWhiteSpace(commentXml))
+        {
+            return string.Empty;
+        }
+
+        // Split the XML comment into lines
+        var lines = commentXml!.Split(["\r\n", "\r", "\n"], StringSplitOptions.RemoveEmptyEntries)
+            .Select(l => $"        /// {l.Trim()}")
+            .ToArray();
+
+        // Join the lines back together
+        var result = string.Join($"{NewLine}", lines.Skip(1).Take(lines.Length - 2));
+
+        return result;
     }
 
     private static void Generate(SourceProductionContext context, BuilderInfo? builder)
@@ -77,6 +78,7 @@ internal class BuilderGenerator : IIncrementalGenerator
         try
         {
 #if DEBUG
+
             // Only update the header in debug builds so we can tell when generation has been triggered.
             // Don't include it in release builds though, or it will cause unnecessary churn in the consuming project's repo.
             templateParser.SetTag("GenerationTime", $" at {DateTime.Now:s}");
@@ -208,11 +210,31 @@ internal class BuilderGenerator : IIncrementalGenerator
 
         while (baseTypeSymbol != null)
         {
-            symbols.AddRange(GetPropertySymbols(baseTypeSymbol, includeInternals, includeObsolete));
+            var baseTypeProperties = GetPropertySymbols(baseTypeSymbol, includeInternals, includeObsolete)
+                .Where(s => symbols.All(s2 => s2.Name != s.Name));
+
+            symbols.AddRange(baseTypeProperties);
             baseTypeSymbol = baseTypeSymbol.BaseType;
         }
 
         return symbols;
+    }
+
+    private static string GetResourceAsString(Assembly assembly, string resourceName)
+    {
+        resourceName = assembly.GetManifestResourceNames().Single(x => x.Equals($"BuilderGenerator.Templates.{resourceName}", StringComparison.OrdinalIgnoreCase));
+        using var stream = assembly.GetManifestResourceStream(resourceName);
+
+        if (stream == null)
+        {
+            throw new InvalidOperationException($"Resource '{resourceName}' not found.");
+        }
+
+        // ReSharper disable once ConvertToUsingDeclaration
+        using (var reader = new StreamReader(stream))
+        {
+            return reader.ReadToEnd();
+        }
     }
 
     /// <summary>Performs a first-pass filtering of syntax nodes that could possibly represent a builder class.</summary>
@@ -249,7 +271,7 @@ internal class BuilderGenerator : IIncrementalGenerator
         var includeObsolete = arguments.Length > 2 && (bool)arguments[2].Value!;
 
         var targetClassProperties = GetPropertySymbols((INamedTypeSymbol)targetClassType.Value!, includeInternals, includeObsolete)
-            .Select<IPropertySymbol, (string Name, string TypeName, Accessibility Accessibility, string Comment)>(x => new ValueTuple<string, string, Accessibility, string>(x.Name, x.Type.ToString(), x.DeclaredAccessibility, x.GetDocumentationCommentXml()))
+            .Select<IPropertySymbol, (string Name, string TypeName, Accessibility Accessibility, string? Comment)>(x => new ValueTuple<string, string, Accessibility, string?>(x.Name, x.Type.ToString(), x.DeclaredAccessibility, x.GetDocumentationCommentXml()))
             .Distinct()
             .OrderBy(x => x.Name)
             .ToList();
@@ -274,24 +296,6 @@ internal class BuilderGenerator : IIncrementalGenerator
             Identifier = typeNode.Identifier.ToString(),
             TimeToGenerate = stopwatch.Elapsed,
         };
-
-        return result;
-    }
-
-    private static string FormatXmlComments(string commentXml)
-    {
-        if (string.IsNullOrWhiteSpace(commentXml))
-        {
-            return string.Empty;
-        }
-
-        // Split the XML comment into lines
-        var lines = commentXml.Split(["\r\n", "\r", "\n"], StringSplitOptions.RemoveEmptyEntries)
-            .Select(l => $"        /// {l.Trim()}")
-            .ToArray();
-
-        // Join the lines back together
-        var result = string.Join($"{NewLine}", lines.Skip(1).Take(lines.Length - 2));
 
         return result;
     }

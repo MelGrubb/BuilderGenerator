@@ -19,14 +19,14 @@ namespace {{BuilderClassNamespace}}
     {
         /// <summary>Gets or sets the object returned by this builder.</summary>
         /// <value>The constructed object.</value>
-        private System.Lazy<{{TargetClassFullName}}> {{TargetClassName}} { get; set; }
+        public System.Lazy<{{TargetClassFullName}}> {{TargetClassName}} { get; set; }
 
         // <summary>Gets or sets the action to be performed when an object is built.</summary>
         // <remarks>
         //     This is only performed when an object is created from scratch for the first time.
         //     When the object value has been injected from outside, this action will not be called.
         // </remarks>
-        private System.Action<{{TargetClassFullName}}> PostBuildAction { get; set; }
+        public System.Action<{{TargetClassFullName}}> PostBuildAction { get; set; }
 {{Properties}}
 
         /// <summary>Initializes a new instance of the <see cref="{{BuilderClassName}}"/> class using the provided <see cref="{{TargetClassFullName}}" /> for the value.</summary>

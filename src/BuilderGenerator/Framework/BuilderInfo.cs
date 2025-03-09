@@ -66,7 +66,7 @@ internal record struct BuilderInfo
 
         /// <summary>Gets or sets the XML comments for the target class property.</summary>
         /// <value>The XML comments for the target class property.</value>
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
 
         /// <summary>Gets or sets the name of the target class property.</summary>
         /// <value>The name of the target class property.</value>
