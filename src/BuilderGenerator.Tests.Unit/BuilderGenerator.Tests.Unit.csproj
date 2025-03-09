@@ -41,19 +41,32 @@
     <EmbeddedResource Include="Examples\Example.cs" />
 
     <Compile Remove="Examples\ExampleSealed.cs" />
-    <EmbeddedResource Include="Examples\ExampleSealed.cs" />
 
     <Compile Remove="Examples\ExampleWithBaseClassIdProperty_abstract.cs" />
 
     <Compile Remove="Examples\ExampleWithBaseClassIdProperty_virtual.cs" />
 
     <Compile Remove="Examples\ExampleWithInternalProperties.cs" />
-    <EmbeddedResource Include="Examples\ExampleWithInternalProperties.cs" />
 
     <Compile Remove="Examples\ExampleWithObsoleteProperties.cs" />
-    <EmbeddedResource Include="Examples\ExampleWithObsoleteProperties.cs" />
 
     <Compile Remove="Examples\Issue61Repro.cs" />
+
+    <Compile Remove="Examples\ExampleBuilder.cs" />
+
+    <EmbeddedResource Include="Examples\ExampleBuilder.cs" />
+
+    <Compile Remove="Examples\ExampleBuilderSealed.cs" />
+
+    <EmbeddedResource Include="Examples\ExampleBuilderSealed.cs" />
+
+    <Compile Remove="Examples\ExampleBuilderWithInternalProperties.cs" />
+
+    <EmbeddedResource Include="Examples\ExampleBuilderWithInternalProperties.cs" />
+
+    <Compile Remove="Examples\ExampleBuilderWithObsoleteProperties.cs" />
+
+    <EmbeddedResource Include="Examples\ExampleBuilderWithObsoleteProperties.cs" />
   </ItemGroup>
 
   <ItemGroup>

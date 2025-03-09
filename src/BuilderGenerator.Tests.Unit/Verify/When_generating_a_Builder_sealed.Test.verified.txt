@@ -6,7 +6,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System.CodeDom.Compiler;
-using System;
+
 
 #nullable disable
 #pragma warning disable 618 // Suppress complaints about obsolete properties.
@@ -39,7 +39,7 @@ namespace BuilderGenerator.Tests.Unit.Examples
         /// <remarks>This was a multi-line, indented summary in the original source code.</remarks>
         public System.Lazy<string> FirstName = new System.Lazy<string>(() => default(string));
 
-        /// <summary>Uniquely identifies an Entity instance.</summary>
+        /// <summary>Uniquely identifies a <see cref="T:BuilderGenerator.Tests.Unit.Examples.Person"/> instance.</summary>
         public System.Lazy<System.Guid> Id = new System.Lazy<System.Guid>(() => default(System.Guid));
 
         /// <summary>The Person's last name.</summary>
@@ -199,20 +199,20 @@ namespace BuilderGenerator.Tests.Unit.Examples
             return this;
         }
 
-        /// <summary>Uniquely identifies an Entity instance.</summary>
+        /// <summary>Uniquely identifies a <see cref="T:BuilderGenerator.Tests.Unit.Examples.Person"/> instance.</summary>
         public PersonBuilder WithId(System.Guid value)
         {
             return WithId(() => value);
         }
 
-        /// <summary>Uniquely identifies an Entity instance.</summary>
+        /// <summary>Uniquely identifies a <see cref="T:BuilderGenerator.Tests.Unit.Examples.Person"/> instance.</summary>
         public PersonBuilder WithId(System.Func<System.Guid> func)
         {
             Id = new System.Lazy<System.Guid>(func);
             return this;
         }
 
-        /// <summary>Uniquely identifies an Entity instance.</summary>
+        /// <summary>Uniquely identifies a <see cref="T:BuilderGenerator.Tests.Unit.Examples.Person"/> instance.</summary>
         public PersonBuilder WithoutId()
         {
             Id = new System.Lazy<System.Guid>(() => default(System.Guid));

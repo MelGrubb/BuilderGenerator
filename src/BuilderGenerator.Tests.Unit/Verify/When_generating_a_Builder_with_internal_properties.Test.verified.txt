@@ -42,6 +42,10 @@ namespace BuilderGenerator.Tests.Unit.Examples
         /// <summary>Uniquely identifies a <see cref="T:BuilderGenerator.Tests.Unit.Examples.Person"/> instance.</summary>
         public System.Lazy<System.Guid> Id = new System.Lazy<System.Guid>(() => default(System.Guid));
 
+        /// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
+        public System.Lazy<string> InternalString = new System.Lazy<string>(() => default(string));
+
         /// <summary>The Person's last name.</summary>
         /// <remarks>This was a single-line summary in the original source code.</remarks>
         public System.Lazy<string> LastName = new System.Lazy<string>(() => default(string));
@@ -79,6 +83,7 @@ namespace BuilderGenerator.Tests.Unit.Examples
                         CreatedBy = CreatedBy.Value,
                         FirstName = FirstName.Value,
                         Id = Id.Value,
+                        InternalString = InternalString.Value,
                         LastName = LastName.Value,
                         MiddleName = MiddleName.Value,
                         UpdatedAt = UpdatedAt.Value,
@@ -122,6 +127,7 @@ namespace BuilderGenerator.Tests.Unit.Examples
             WithCreatedBy(example.CreatedBy);
             WithFirstName(example.FirstName);
             WithId(example.Id);
+            WithInternalString(example.InternalString);
             WithLastName(example.LastName);
             WithMiddleName(example.MiddleName);
             WithUpdatedAt(example.UpdatedAt);
@@ -216,6 +222,29 @@ namespace BuilderGenerator.Tests.Unit.Examples
         public PersonBuilder WithoutId()
         {
             Id = new System.Lazy<System.Guid>(() => default(System.Guid));
+            return this;
+        }
+
+        /// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
+        public PersonBuilder WithInternalString(string value)
+        {
+            return WithInternalString(() => value);
+        }
+
+        /// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
+        public PersonBuilder WithInternalString(System.Func<string> func)
+        {
+            InternalString = new System.Lazy<string>(func);
+            return this;
+        }
+
+        /// <summary>A string with internal accessibility to test the "includeInternals" attribute parameter.</summary>
+        /// <remarks>This was a single-line summary in the original source code.</remarks>
+        public PersonBuilder WithoutInternalString()
+        {
+            InternalString = new System.Lazy<string>(() => default(string));
             return this;
         }
 

@@ -11,24 +11,28 @@ using Xunit;
 
 namespace BuilderGenerator.Tests.Unit;
 
-public class When_generating_a_Builder_including_obsolete_properties : Given_a_BuilderGenerator
+public class When_generating_a_Builder_with_obsolete_properties : Given_a_BuilderGenerator
 {
     [Fact]
     public Task Test()
     {
         var assembly = GetType().Assembly;
-        var inputCompilation = CreateCompilation(GetResourceAsString(assembly, "ExampleWithObsoleteProperties.cs"));
-        var generator = new BuilderGenerator();
-        var driver = CSharpGeneratorDriver.Create(generator).RunGeneratorsAndUpdateCompilation(inputCompilation, out var outputCompilation, out var diagnostics);
+
+        var inputCompilation = CreateCompilation(GetResourceAsString(assembly, "Example.cs"))
+            .AddSyntaxTrees(CSharpSyntaxTree.ParseText(GetResourceAsString(assembly, "ExampleBuilderWithObsoleteProperties.cs")));
+
+        var driver = CSharpGeneratorDriver.Create(new BuilderGenerator())
+            .RunGeneratorsAndUpdateCompilation(inputCompilation, out var outputCompilation, out var diagnostics);
+
         diagnostics.ShouldBeEmpty();
-        outputCompilation.SyntaxTrees.Count().ShouldBe(2); // The input and three outputs
+        outputCompilation.SyntaxTrees.Count().ShouldBe(3); // The entities, the builder stub, and the output
 
         var runResult = driver.GetRunResult();
         runResult.Diagnostics.ShouldBeEmpty();
         runResult.GeneratedTrees.Length.ShouldBe(1); // The generated builders
 
         var generatorResult = runResult.Results[0];
-        generatorResult.Generator.GetGeneratorType().ShouldBe(generator.GetType());
+        generatorResult.Generator.GetGeneratorType().ShouldBe(typeof(BuilderGenerator));
         generatorResult.Exception.ShouldBeNull();
         generatorResult.GeneratedSources.Length.ShouldBe(1);
 

@@ -17,18 +17,22 @@ public class When_generating_a_Builder : Given_a_BuilderGenerator
     public Task Test()
     {
         var assembly = GetType().Assembly;
-        var inputCompilation = CreateCompilation(GetResourceAsString(assembly, "Example.cs"));
-        GeneratorDriver driver = CSharpGeneratorDriver.Create(new BuilderGenerator());
-        driver = driver.RunGeneratorsAndUpdateCompilation(inputCompilation, out var outputCompilation, out var diagnostics);
+
+        var inputCompilation = CreateCompilation(GetResourceAsString(assembly, "Example.cs"))
+            .AddSyntaxTrees(CSharpSyntaxTree.ParseText(GetResourceAsString(assembly, "ExampleBuilder.cs")));
+
+        var driver = CSharpGeneratorDriver.Create(new BuilderGenerator())
+            .RunGeneratorsAndUpdateCompilation(inputCompilation, out var outputCompilation, out var diagnostics);
+
         diagnostics.ShouldBeEmpty();
-        outputCompilation.SyntaxTrees.Count().ShouldBe(2); // The input and the output
+        outputCompilation.SyntaxTrees.Count().ShouldBe(3); // The entities, the builder stub, and the output
 
         var runResult = driver.GetRunResult();
         runResult.Diagnostics.ShouldBeEmpty();
         runResult.GeneratedTrees.Length.ShouldBe(1); // The generated builder
 
         var generatorResult = runResult.Results[0];
-        generatorResult.Generator.GetGeneratorType().ShouldBe(new BuilderGenerator().GetType());
+        generatorResult.Generator.GetGeneratorType().ShouldBe(typeof(BuilderGenerator));
         generatorResult.Exception.ShouldBeNull();
         generatorResult.GeneratedSources.Length.ShouldBe(1);
 

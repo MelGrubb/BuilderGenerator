@@ -54,10 +54,3 @@ public class Person : AuditableEntity
     [Obsolete]
     public string ObsoleteString { get; set; }
 }
-
-/// <summary>An example builder that includes neither internal nor obsolete properties.</summary>
-[BuilderFor(typeof(Person))]
-public partial class PersonBuilder
-{
-}
-
