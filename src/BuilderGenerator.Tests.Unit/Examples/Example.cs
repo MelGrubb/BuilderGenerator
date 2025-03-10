@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace BuilderGenerator.Tests.Unit.Examples;
 
